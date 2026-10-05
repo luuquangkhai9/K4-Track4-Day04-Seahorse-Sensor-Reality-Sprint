@@ -3,7 +3,7 @@
 ## Thông tin
 
 - Họ tên: **Đặng ĐỈnh Đoàn**
-- Mã sinh viên: [Chờ bổ sung]
+- Mã sinh viên: **2A202602927**
 - Đội trưởng: Lưu Quang Khải — 2A202602599
 - Chủ đề: T1 — Camera degradation health score
 - Thiết kế chung: [BENCHMARK_DESIGN.md](docs/BENCHMARK_DESIGN.md); [File đội trưởng](01_LuuQuangKhai_2A202602599.md).
@@ -95,7 +95,7 @@ Giai đoạn 4 đã soạn [bản báo cáo riêng của Đoàn](reports/DangDin
 - **Trước phút 115:** Hoàn thiện hướng dẫn chạy và bản riêng.
 - File/commit bàn giao: [outputs/stage3_repeat/](outputs/stage3_repeat/run_manifest.json), [compare_runs.py](scripts/compare_runs.py), sửa [verify_submission.py](scripts/verify_submission.py); commit của Đặng ĐỈnh Đoàn trên `main` (`git log --author=Doan0904`).
 - Lỗi còn tồn tại và ảnh hưởng tới kết quả: Không có lỗi kỹ thuật. `verify_submission.py` trước đây báo lỗi link trên clone mới vì submodule `drive-c-dataset/` rỗng — đã sửa để đối chiếu link trong clone đúng commit ở `.lab_cache`; không ảnh hưởng số liệu. Python <3.12 không cài được numpy 2.5.3. Giới hạn phạm vi (1 cảnh, 3 mức) giữ như báo cáo nhóm.
-- Chuẩn bị bản nộp riêng trên VLearn: Đã ghi đóng góp vào [bản riêng](reports/DangDinhDoan.md); còn thiếu MSSV và lượt nộp VLearn.
+- Chuẩn bị bản nộp riêng trên VLearn: Đã ghi MSSV và đóng góp vào [bản riêng](reports/DangDinhDoan.md); còn lượt nộp VLearn.
 
 ## Nhật ký đóng góp cá nhân
 

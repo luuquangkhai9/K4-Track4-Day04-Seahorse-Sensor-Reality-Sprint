@@ -1,6 +1,6 @@
 # Báo cáo LAB cá nhân — Đặng ĐỈnh Đoàn
 
-- **MSSV:** Chờ bổ sung trước khi nộp
+- **MSSV:** 2A202602927
 - **Nhóm:** Seahorse, 4 người
 - **Chủ đề:** T1 — Camera degradation health score; xe ADAS.
 - **Vai trò được phân công:** Code; môi trường, inference và bằng chứng tái hiện.

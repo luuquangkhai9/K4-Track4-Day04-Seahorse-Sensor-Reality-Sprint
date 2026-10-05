@@ -6,7 +6,7 @@
 
 | Giai đoạn | Trạng thái hiện tại | Bằng chứng |
 | --- | --- | --- |
-| 1 — Chốt bài toán và phân công | Đã có claim, baseline, metric, tên và vai trò 4 người; thiếu hai MSSV | [Thiết kế](../docs/BENCHMARK_DESIGN.md), [TEAMMATES](../TEAMMATES.md) |
+| 1 — Chốt bài toán và phân công | Đã có claim, baseline, metric, tên và vai trò 4 người; thiếu MSSV của Lê Hưng | [Thiết kế](../docs/BENCHMARK_DESIGN.md), [TEAMMATES](../TEAMMATES.md) |
 | 2 — Nguồn và baseline | Đã đọc hai paper, đối chiếu code, chạy S01 clean trên CPU | [Mapping](PAPER_CODE_MAPPING.md), [báo cáo](../docs/STAGE2_REPORT.md) |
 | 3 — Demo nhỏ | PASS 4 clip/32 health-frame, có CSV/log/ảnh/plot/provenance | [Báo cáo](../docs/STAGE3_REPORT.md), [manifest](../outputs/stage3_small/run_manifest.json) |
 | 4 — Failure và quyết định | Đã soạn failure/decision, bốn báo cáo riêng và pitch | [Báo cáo](../docs/STAGE4_REPORT.md), [quyết định](ENGINEERING_DECISION.md), [pitch](PITCH.md) |
@@ -27,7 +27,7 @@ Giai đoạn 5 của nhóm hoàn thiện Bước 6–7 trong hướng dẫn. Kh�
 - [x] Pitch phân vai dự kiến 4 phút 15 giây, Q&A và file minh chứng để mở.
 - [x] README ưu tiên demo nhỏ; setup riêng; cấu hình submodule và quy tắc LF giữ hash.
 - [x] Tái tính metric từ ảnh và kiểm tra toàn bộ liên kết Markdown ở gốc/reports.
-- [ ] Bổ sung MSSV của Lê Hưng và Đặng ĐỈnh Đoàn.
+- [ ] Bổ sung MSSV của Lê Hưng (đã có MSSV của Đặng ĐỈnh Đoàn).
 - [ ] Mỗi thành viên xác nhận đóng góp thực tế/rà báo cáo.
 - [ ] Nhóm tập pitch, bấm giờ 3–5 phút.
 - [ ] Người dùng chia sẻ các file mới lên repo, kiểm tra truy cập.

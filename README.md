@@ -76,12 +76,12 @@ Giới hạn: một cảnh, một loại corruption tổng hợp; frame cùng cl
 | --- | --- | --- |
 | Lưu Quang Khải — 2A202602599 | Đội trưởng, thiết kế và quyết định | [Khải](reports/2A202602599_LuuQuangKhai.md) |
 | Lê Hưng — MSSV chờ bổ sung | Tài liệu và đối chiếu paper–code | [Hưng](reports/LeHung.md) |
-| Đặng ĐỈnh Đoàn — MSSV chờ bổ sung | Code/benchmark | [Đoàn](reports/DangDinhDoan.md) |
+| Đặng ĐỈnh Đoàn — 2A202602927 | Code/benchmark | [Đoàn](reports/DangDinhDoan.md) |
 | Nguyễn Hồ Nam — 2A202602788 | Kết quả, plot và pitch | [Nam](reports/2A202602788_NguyenHoNam.md) |
 
 [TEAMMATES.md](TEAMMATES.md) · [PITCH.md](reports/PITCH.md) (kịch bản 4 phút 15 giây, chưa bấm giờ thực tế) · [Checklist nộp](reports/SUBMISSION_CHECKLIST.md) · [Kế hoạch/trạng thái](reports/LAB_COMPLETION_PLAN.md).
 
-Mỗi người rà bản riêng, ghi đóng góp thực tế và tự nộp trên VLearn cùng URL repository. Hai MSSV còn thiếu cần bổ sung trước khi nộp. File cục bộ chưa tự xuất hiện trên GitHub.
+Mỗi người rà bản riêng, ghi đóng góp thực tế và tự nộp trên VLearn cùng URL repository. MSSV của Lê Hưng còn thiếu, cần bổ sung trước khi nộp. File cục bộ chưa tự xuất hiện trên GitHub.
 
 ## Kết quả lịch sử
 

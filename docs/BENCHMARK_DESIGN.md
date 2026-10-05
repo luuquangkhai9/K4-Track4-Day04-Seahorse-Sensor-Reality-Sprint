@@ -71,7 +71,7 @@ Các giá trị có cấu trúc nằm trong [configs/benchmark.json](../configs/
 | --- | --- | --- |
 | Khải — 2A202602599 | Bổ sung hai MSSV còn thiếu, rà scope và paper–code mapping | TEAMMATES đầy đủ, scope ổn định |
 | Lê Hưng — MSSV chờ bổ sung | Đối chiếu hai nguồn với đúng phiên bản code: health head, công thức beta/clipping, loss, taxonomy | `PAPER_CODE_MAPPING.md` có trang/bảng/file hỗ trợ |
-| Đặng ĐỈnh Đoàn — MSSV chờ bổ sung | Chọn môi trường, cài dependency thiếu, lấy 24 clip, xác minh source/checkpoint, chạy smoke test clean | Baseline chạy được, log và manifest thực tế |
+| Đặng ĐỈnh Đoàn — 2A202602927 | Chọn môi trường, cài dependency thiếu, lấy 24 clip, xác minh source/checkpoint, chạy smoke test clean | Baseline chạy được, log và manifest thực tế |
 | Nguyễn Hồ Nam — 2A202602788 | Chuẩn bị bảng tách theo cảnh, layout plot và ảnh failure; giữ bảng gộp ngày/đêm hiện có làm bổ sung | Khung bảng/plot, ID ảnh cần xuất, kịch bản báo cáo |
 
 Mốc tiếp theo: **phút 15–45** hoàn thiện nguồn và đường chạy; **45–75** chạy, **75–95** kiểm tra/plot; **95–115** báo cáo; **115–120** tập pitch. Tham khảo lịch đầy đủ trong [kế hoạch](../reports/LAB_COMPLETION_PLAN.md).

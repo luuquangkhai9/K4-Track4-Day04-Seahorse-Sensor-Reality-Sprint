@@ -1,7 +1,8 @@
 """Generate the four stage-4 Markdown drafts from verified small-demo artifacts.
 
-Run only to regenerate drafts: this overwrites the four report files, including
-any later personal edits. Confirm/update names and IDs in this generator first.
+Run only to regenerate drafts: this overwrites the four report files. A filled
+"Đóng góp thực tế của tôi" section is carried over from the existing file; other
+personal edits are lost. Confirm/update names and IDs in this generator first.
 """
 from pathlib import Path
 import csv
@@ -19,7 +20,7 @@ people = [
      "Phần phụ trách rà soát là giới hạn claim và quan hệ giữa số đo với quyết định. Demo chỉ đủ xác nhận pipeline và ngoại lệ trên S01; không dùng correlation của paper để thay kết quả nhóm, không suy ra mAP hoặc hiệu quả fusion. Quyết định là log/kiểm tra mẫu bất đồng trước khi hiệu chỉnh ngưỡng down-weight, rồi thiết kế phép thử so với health-only trên tập cảnh khác."),
     ("LeHung.md", "Lê Hưng", "Chờ bổ sung trước khi nộp", "Tài liệu; đối chiếu paper–code và trích dẫn",
      "Phần phụ trách rà soát là vai trò hai nguồn và khác biệt triển khai. Eq. 2/10 của paper phương pháp mô tả GSHI có cấu trúc; Eq. 12 có nhánh health trực tiếp. Source inference dùng pred_health của nhánh trực tiếp, công thức nhãn có beta/clipping, và training loss phát hành khác mô tả PDF. Vì vậy bản này mô tả checkpoint baseline DRIVE-C, chưa tuyên bố tái hiện mọi bảng thí nghiệm phương pháp."),
-    ("DangDinhDoan.md", "Đặng ĐỈnh Đoàn", "Chờ bổ sung trước khi nộp", "Code; môi trường, inference và bằng chứng tái hiện",
+    ("DangDinhDoan.md", "Đặng ĐỈnh Đoàn", "2A202602927", "Code; môi trường, inference và bằng chứng tái hiện",
      "Phần phụ trách rà soát là khả năng chạy lại: source riêng đúng commit, checkpoint/video đúng hash, eval/inference mode và tám frame cố định. Manifest lưu hash script, config, source, video và phiên bản thư viện; CSV lưu health chưa làm tròn. Khớp mean8 với nguồn là kiểm tra nhất quán pipeline, không xác nhận model health đúng. Giữ kết quả mới trong outputs/stage3_small, tách CSV 24 clip lịch sử."),
     ("2A202602788_NguyenHoNam.md", "Nguyễn Hồ Nam", "2A202602788", "Kết quả; kiểm tra CSV, plot, failure case và pitch",
      "Phần phụ trách rà soát là gắn số với ảnh và cách tổng hợp. Frame54 và mean8 được vẽ riêng; cả hai tăng từ s1 lên s2, còn B giảm. Các mức s3/s4 không chạy nên chỉ báo tính đơn điệu trên s1/s2/s5. Bảng gộp ngày/đêm của lần chạy lịch sử không được dùng như kết quả demo mới. Khi trình bày, ảnh cùng frame và bảng bốn dòng làm bằng chứng chính."),
@@ -30,13 +31,30 @@ for label, row in zip(["Clean", "Motion blur s1", "Motion blur s2", "Motion blur
     kernel = "Không thêm blur" if row["corruption"] == "clean" else row["blur_kernel_px"]
     table += f"| {label} | {kernel} | {float(row['B']):.4f} | {float(row['S_pct']):.4f} | {float(row['H_bit']):.4f} | {float(row['health_f54']):.6f} | {float(row['health_mean8']):.6f} |\n"
 
+CONTRIBUTION = "**Đóng góp thực tế của tôi:**"
+SOURCES = "\n\n## Nguồn và bằng chứng"
+PLACEHOLDER = " [Thành viên bổ sung việc đã thực hiện/kiểm tra và file hoặc commit tương ứng; không điền việc chưa làm.]"
+
+
+def existing_contribution(path):
+    """Return the member-written contribution text, or the placeholder if none yet."""
+    if path.exists():
+        old = path.read_text(encoding="utf-8")
+        if CONTRIBUTION in old and SOURCES in old:
+            text = old.split(CONTRIBUTION, 1)[1].split(SOURCES, 1)[0]
+            if text.strip() and "[Thành viên bổ sung" not in text:
+                return text
+    return PLACEHOLDER
+
+
 out = ROOT / "reports"
 out.mkdir(exist_ok=True)
 for filename, name, student_id, role, focus in people:
+    contribution = existing_contribution(out / filename)
     content = f"""# Báo cáo LAB cá nhân — {name}
 
 - **MSSV:** {student_id}
-- **Nhóm:** Seahorse, 4 người.
+- **Nhóm:** Seahorse, 4 người
 - **Chủ đề:** T1 — Camera degradation health score; xe ADAS.
 - **Vai trò được phân công:** {role}.
 - **Repository chung:** <https://github.com/luuquangkhai9/K4-Track4-Day04-Seahorse-Sensor-Reality-Sprint>.
@@ -101,7 +119,7 @@ Trade-off: metric ảnh dễ tính nhưng phụ thuộc texture/exposure; health
 
 **Góc rà soát theo vai trò cá nhân:** {focus}
 
-**Đóng góp thực tế của tôi:** [Thành viên bổ sung việc đã thực hiện/kiểm tra và file hoặc commit tương ứng; không điền việc chưa làm.]
+{CONTRIBUTION}{contribution}
 
 ## Nguồn và bằng chứng
 

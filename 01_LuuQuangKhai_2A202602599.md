@@ -39,7 +39,7 @@ Thiết kế đã được ghi cụ thể ở giai đoạn 1, dựa trên notebo
 | --- | --- | --- |
 | Lưu Quang Khải — 2A202602599 | Điều phối, thiết kế thử nghiệm, quyết định kỹ thuật | Bảng chốt thiết kế, báo cáo tổng hợp và đề xuất |
 | Lê Hưng — MSSV chờ bổ sung | Paper/repository và giới hạn nguồn | Bảng nguồn, claim được hỗ trợ, giới hạn áp dụng |
-| Đặng ĐỈnh Đoàn — MSSV chờ bổ sung | Code, corruption và chạy benchmark | Code/notebook, cấu hình, lệnh chạy và log |
+| Đặng ĐỈnh Đoàn — 2A202602927 | Code, corruption và chạy benchmark | Code/notebook, cấu hình, lệnh chạy và log |
 | Nguyễn Hồ Nam — 2A202602788 | Kiểm tra benchmark, plot và trình bày | Bảng kết quả, hình minh chứng, slide/kịch bản |
 
 ## Mốc phối hợp trong 120 phút
