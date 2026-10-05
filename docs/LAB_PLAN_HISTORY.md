@@ -4,13 +4,13 @@
 
 Nhóm yêu cầu thu nhỏ giai đoạn 3 để xác nhận tính khả thi. **Đường chạy chính hiện tại là 4 clip S01: clean + motion blur s1/s2/s5 (kernel 11/13/33 px), 32 health/frame và 4 ảnh frame 54.** Ba mức lỗi đủ phần tạo/đánh giá mức suy giảm tối thiểu của T1. Chỉ kiểm tra một cảnh, một loại lỗi; chưa suy rộng sang ngày/đêm hoặc underexposure.
 
-Dùng [configs/benchmark_small.json](configs/benchmark_small.json) và [scripts/stage3_small_demo.py](scripts/stage3_small_demo.py); kết quả mới lưu trong `outputs/stage3_small/`. Phần kế hoạch 24 clip phía dưới là thiết kế ban đầu và nguồn kết quả lịch sử, không phải yêu cầu phải chạy tiếp. Lần chạy mới của nhóm cần ưu tiên bộ nhỏ này khi viết báo cáo/pitch.
+Dùng [configs/benchmark_small.json](../configs/benchmark_small.json) và [scripts/stage3_small_demo.py](../scripts/stage3_small_demo.py); kết quả mới lưu trong `outputs/stage3_small/`. Phần kế hoạch 24 clip phía dưới là thiết kế ban đầu và nguồn kết quả lịch sử, không phải yêu cầu phải chạy tiếp. Lần chạy mới của nhóm cần ưu tiên bộ nhỏ này khi viết báo cáo/pitch.
 
 Sau demo: Nam kiểm tra bảng/plot/ảnh bốn clip; Hưng rà trích dẫn và giới hạn; Đoàn bàn giao script/log; Khải tổng hợp failure/decision; bốn người viết bản riêng. Không cần chạy đủ 24 clip để hoàn thiện LAB trong phạm vi mới.
 
 **Giai đoạn 3 đã thực hiện:** PASS bốn clip/32 health-frame trên CPU, sai lệch nguồn tối đa 0,000323. B/health/entropy/ratio, ảnh và kiểm tra đơn điệu đã lưu. Xem [STAGE3_REPORT.md](STAGE3_REPORT.md). Tiếp theo hoàn thiện báo cáo/failure/decision/pitch từ bộ nhỏ.
 
-**Giai đoạn 4 đã chuẩn bị:** [ENGINEERING_DECISION.md](ENGINEERING_DECISION.md), bốn báo cáo trong `reports/`, [PITCH.md](PITCH.md) và [SUBMISSION_CHECKLIST.md](SUBMISSION_CHECKLIST.md). Xem [STAGE4_REPORT.md](STAGE4_REPORT.md). Còn hai MSSV, xác nhận đóng góp, tập pitch, chia sẻ và nộp bài; không coi chúng là đã hoàn thành.
+**Giai đoạn 4 đã chuẩn bị:** [ENGINEERING_DECISION.md](../reports/ENGINEERING_DECISION.md), bốn báo cáo trong `reports/`, [PITCH.md](../reports/PITCH.md) và [SUBMISSION_CHECKLIST.md](../reports/SUBMISSION_CHECKLIST.md). Xem [STAGE4_REPORT.md](STAGE4_REPORT.md). Còn hai MSSV, xác nhận đóng góp, tập pitch, chia sẻ và nộp bài; không coi chúng là đã hoàn thành.
 
 ## 1. Mục tiêu và phạm vi
 
@@ -18,9 +18,9 @@ Nhóm Seahorse gồm **4 người**, đội trưởng **Lưu Quang Khải — 2A
 
 Repository chung: <https://github.com/luuquangkhai9/K4-Track4-Day04-Seahorse-Sensor-Reality-Sprint>.
 
-**Cập nhật giai đoạn 1:** Đã chuẩn bị [thiết kế benchmark](BENCHMARK_DESIGN.md), [cấu hình đối chiếu](configs/benchmark.json) và [TEAMMATES](TEAMMATES.md); đã đồng bộ phân công. Lê Hưng phụ trách tài liệu, Đặng ĐỈnh Đoàn phụ trách code/benchmark, Nguyễn Hồ Nam — 2A202602788 phụ trách kết quả/pitch. Giảng viên đã chấp thuận nhóm 4 người theo thông tin đội trưởng cung cấp. Chỉ còn thiếu MSSV của Hưng và Đoàn. Chi tiết kiểm kê dữ liệu/môi trường nằm trong thiết kế; chưa chạy inference mới.
+**Cập nhật giai đoạn 1:** Đã chuẩn bị [thiết kế benchmark](BENCHMARK_DESIGN.md), [cấu hình đối chiếu](../configs/benchmark.json) và [TEAMMATES](../TEAMMATES.md); đã đồng bộ phân công. Lê Hưng phụ trách tài liệu, Đặng ĐỈnh Đoàn phụ trách code/benchmark, Nguyễn Hồ Nam — 2A202602788 phụ trách kết quả/pitch. Giảng viên đã chấp thuận nhóm 4 người theo thông tin đội trưởng cung cấp. Chỉ còn thiếu MSSV của Hưng và Đoàn. Chi tiết kiểm kê dữ liệu/môi trường nằm trong thiết kế; chưa chạy inference mới.
 
-**Cập nhật giai đoạn 2:** Đã hoàn thiện [paper–code mapping](PAPER_CODE_MAPPING.md), xác minh source/checkpoint và chạy mới S01 clean trên CPU. Mean8 = 0,221979, sai lệch nguồn = 0,000074; forward 8 frame khoảng 3,62 giây. Đủ đường chạy tối thiểu, chưa cần Colab/Kaggle. Xem [STAGE2_REPORT.md](STAGE2_REPORT.md). Giai đoạn 3 còn tải 23 clip và chạy/kiểm tra benchmark đầy đủ.
+**Cập nhật giai đoạn 2:** Đã hoàn thiện [paper–code mapping](../reports/PAPER_CODE_MAPPING.md), xác minh source/checkpoint và chạy mới S01 clean trên CPU. Mean8 = 0,221979, sai lệch nguồn = 0,000074; forward 8 frame khoảng 3,62 giây. Đủ đường chạy tối thiểu, chưa cần Colab/Kaggle. Xem [STAGE2_REPORT.md](STAGE2_REPORT.md). Giai đoạn 3 còn tải 23 clip và chạy/kiểm tra benchmark đầy đủ.
 
 **Đích hoàn thành hiện tại:** script demo chạy được; baseline + **3 mức motion blur**; health score và ba metric thủ công; CSV/log/plot/ảnh minh chứng; một failure case và một engineering decision; README, TEAMMATES, bốn báo cáo cá nhân và pitch 3–5 phút. Các checkbox chưa đánh dấu là công việc còn phải thực hiện.
 

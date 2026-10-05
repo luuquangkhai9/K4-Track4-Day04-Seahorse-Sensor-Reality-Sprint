@@ -19,7 +19,7 @@ Giả thuyết gốc dự kiến B và health giảm; nhóm đã thấy ngoại 
 
 **[NGUỒN]** Bài camera reliability của Shiva Aher giới thiệu GSHI và EfficientNet-B2 nhiều nhánh. Bài DRIVE-C cung cấp video clean/corrupted có đối chứng và checkpoint baseline. Phương pháp chỉ cần RGB khi inference; depth thuộc bước tạo một số dữ liệu suy giảm.
 
-**Triển khai nhóm dùng:** source tag v1.0.1, commit `caf16657b87cec8518008b74c72dd0dcb6088eb6`; checkpoint `epoch_021_best.pth`, SHA-256 `c210d9a4f207584687583d1ab5b96a99e12b2f3dbb2727464c6c039e44fb8c0b`. Model xuất `pred_health` từ nhánh trực tiếp; nhóm không thay nó bằng `gshi_gt`. Nhãn gshi_gt được tính từ severity, không phải health thật hoặc chất lượng detector. Xem [đối chiếu paper–code](../PAPER_CODE_MAPPING.md).
+**Triển khai nhóm dùng:** source tag v1.0.1, commit `caf16657b87cec8518008b74c72dd0dcb6088eb6`; checkpoint `epoch_021_best.pth`, SHA-256 `c210d9a4f207584687583d1ab5b96a99e12b2f3dbb2727464c6c039e44fb8c0b`. Model xuất `pred_health` từ nhánh trực tiếp; nhóm không thay nó bằng `gshi_gt`. Nhãn gshi_gt được tính từ severity, không phải health thật hoặc chất lượng detector. Xem [đối chiếu paper–code](PAPER_CODE_MAPPING.md).
 
 Chạy lại từ gốc repository:
 
@@ -27,7 +27,7 @@ Chạy lại từ gốc repository:
 python scripts/stage3_small_demo.py --threads 4
 ```
 
-[Hướng dẫn setup](../STAGE2_REPORT.md), [script](../scripts/stage3_small_demo.py), [cấu hình nhỏ](../configs/benchmark_small.json) và [manifest](../outputs/stage3_small/run_manifest.json) cho phép truy vết source/data/environment. Source và clip nằm trong cache; script chỉ tải các clip cần nếu thiếu.
+[Hướng dẫn setup](../docs/STAGE2_REPORT.md), [script](../scripts/stage3_small_demo.py), [cấu hình nhỏ](../configs/benchmark_small.json) và [manifest](../outputs/stage3_small/run_manifest.json) cho phép truy vết source/data/environment. Source và clip nằm trong cache; script chỉ tải các clip cần nếu thiếu.
 
 ## 3. Benchmark
 
@@ -68,7 +68,7 @@ Giới hạn: một cảnh; bốn ảnh metric; nhiều frame cùng clip không 
 
 Đề xuất dùng health như tín hiệu bổ sung, log cùng B/S/H và đánh dấu bất đồng trước khi hiệu chỉnh ngưỡng giảm trọng số camera. Chưa dùng một ngưỡng health phổ quát hoặc tuyên bố quy tắc đa metric đã tốt hơn.
 
-Trade-off: metric ảnh dễ tính nhưng phụ thuộc texture/exposure; health có thêm tín hiệu học được nhưng phản ứng bất nhất trên mẫu này. Vòng kiểm chứng sau: thêm nhiều cảnh, chọn ngưỡng trên tập hiệu chỉnh rồi đo cảnh báo nhầm/bỏ sót trên tập khác; bổ sung detector/nhãn nếu đánh giá tác động lên ADAS. Xem [quyết định kỹ thuật chung](../ENGINEERING_DECISION.md).
+Trade-off: metric ảnh dễ tính nhưng phụ thuộc texture/exposure; health có thêm tín hiệu học được nhưng phản ứng bất nhất trên mẫu này. Vòng kiểm chứng sau: thêm nhiều cảnh, chọn ngưỡng trên tập hiệu chỉnh rồi đo cảnh báo nhầm/bỏ sót trên tập khác; bổ sung detector/nhãn nếu đánh giá tác động lên ADAS. Xem [quyết định kỹ thuật chung](ENGINEERING_DECISION.md).
 
 **Góc rà soát theo vai trò cá nhân:** Phần phụ trách rà soát là gắn số với ảnh và cách tổng hợp. Frame54 và mean8 được vẽ riêng; cả hai tăng từ s1 lên s2, còn B giảm. Các mức s3/s4 không chạy nên chỉ báo tính đơn điệu trên s1/s2/s5. Bảng gộp ngày/đêm của lần chạy lịch sử không được dùng như kết quả demo mới. Khi trình bày, ảnh cùng frame và bảng bốn dòng làm bằng chứng chính.
 
@@ -76,8 +76,8 @@ Trade-off: metric ảnh dễ tính nhưng phụ thuộc texture/exposure; health
 
 ## Nguồn và bằng chứng
 
-1. Shiva Aher, *Safety-Critical Camera Reliability Monitoring for ADAS via Degradation-Aware Uncertainty Pattern Analysis*, arXiv:2605.05439v1, 06/05/2026. Sections III–V trang 3–6: GSHI/architecture; Section VII trang 9: limitations. [PDF](<../Safety-Critical Camera Reliability Monitoring for ADAS via Degradation-Aware Uncertainty Pattern Analysis.pdf>).
-2. Shiva Aher, *DRIVE-C: A Controlled Corruption Dataset for Autonomous Driving*, arXiv:2605.09774v1, 10/05/2026. Table 3 trang 7: baseline; trang 7–8: caveats. [PDF](<../DRIVE-C A Controlled Corruption Dataset for Autonomous Driving.pdf>).
+1. Shiva Aher, *Safety-Critical Camera Reliability Monitoring for ADAS via Degradation-Aware Uncertainty Pattern Analysis*, arXiv:2605.05439v1, 06/05/2026. Sections III–V trang 3–6: GSHI/architecture; Section VII trang 9: limitations. [PDF](<../paper/Safety-Critical Camera Reliability Monitoring for ADAS via Degradation-Aware Uncertainty Pattern Analysis.pdf>).
+2. Shiva Aher, *DRIVE-C: A Controlled Corruption Dataset for Autonomous Driving*, arXiv:2605.09774v1, 10/05/2026. Table 3 trang 7: baseline; trang 7–8: caveats. [PDF](<../paper/DRIVE-C A Controlled Corruption Dataset for Autonomous Driving.pdf>).
 3. [Source tag v1.0.1](https://github.com/shiv-aher/drive-c-dataset/tree/v1.0.1); [dataset DOI](https://doi.org/10.5281/zenodo.19656444).
 4. [Health từng frame](../outputs/stage3_small/per_frame.csv), [monotonicity](../outputs/stage3_small/monotonicity.csv), [log](../outputs/stage3_small/run.log), [tham số PSF](../outputs/stage3_small/corruption_parameters.json).
 

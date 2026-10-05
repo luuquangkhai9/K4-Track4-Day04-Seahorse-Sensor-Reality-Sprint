@@ -5,7 +5,7 @@
 
 ## 1. Công việc hoàn thành
 
-- Hoàn thiện [PAPER_CODE_MAPPING.md](PAPER_CODE_MAPPING.md): vai trò hai bài, input/output, công thức nhãn, nhánh health trực tiếp, khác biệt training loss/taxonomy, số liệu và limitation.
+- Hoàn thiện [PAPER_CODE_MAPPING.md](../reports/PAPER_CODE_MAPPING.md): vai trò hai bài, input/output, công thức nhãn, nhánh health trực tiếp, khác biệt training loss/taxonomy, số liệu và limitation.
 - Xác minh clone riêng ở đúng commit `caf16657b87cec8518008b74c72dd0dcb6088eb6`, không có thay đổi tracked. Các file quan trọng khớp bản source sao chép ở gốc.
 - Import thành công PyTorch/torchvision/OpenCV/remotezip trên CPU; không cần GPU để chạy smoke test.
 - Tải **riêng S01 clean**, kiểm tra SHA-256 khớp manifest dữ liệu đã lưu, kiểm tra video 128 frame, 1280 × 720, 30 FPS.
@@ -39,13 +39,13 @@ Python **3.13.15**, PyTorch **2.14.1+cpu**, torchvision **0.29.1**, NumPy **2.5.
 
 ## 4. Bằng chứng có thể mở
 
-- [run_manifest.json](outputs/stage2/run_manifest.json): trạng thái, môi trường, source/checkpoint/video hash, cấu hình, timing và số đo.
-- [run.log](outputs/stage2/run.log): các bước và kết quả kiểm tra.
-- [baseline_per_frame.csv](outputs/stage2/baseline_per_frame.csv): tám output health không làm tròn.
-- [S01_clean_f54.png](outputs/stage2/S01_clean_f54.png): ảnh baseline đúng frame.
-- [Script smoke test](scripts/stage2_smoke_test.py): đường chạy lại.
+- [run_manifest.json](../outputs/stage2/run_manifest.json): trạng thái, môi trường, source/checkpoint/video hash, cấu hình, timing và số đo.
+- [run.log](../outputs/stage2/run.log): các bước và kết quả kiểm tra.
+- [baseline_per_frame.csv](../outputs/stage2/baseline_per_frame.csv): tám output health không làm tròn.
+- [S01_clean_f54.png](../outputs/stage2/S01_clean_f54.png): ảnh baseline đúng frame.
+- [Script smoke test](../scripts/stage2_smoke_test.py): đường chạy lại.
 
-![S01 clean frame 54 của lần chạy CPU](outputs/stage2/S01_clean_f54.png)
+![S01 clean frame 54 của lần chạy CPU](../outputs/stage2/S01_clean_f54.png)
 
 ## 5. Chạy lại và setup ở một bản checkout mới
 
@@ -73,13 +73,13 @@ Trên môi trường mới, cần PyTorch/torchvision tương thích cùng numpy
 
 **Cập nhật theo yêu cầu nhóm:** Giai đoạn 3 đã thu nhỏ và chạy thành công **4 clip S01 clean + blur s1/s2/s5**. Không còn yêu cầu chạy mới đủ 24 clip. Kế hoạch 23 clip còn lại bên dưới là bàn giao ban đầu; dùng [STAGE3_REPORT.md](STAGE3_REPORT.md) và script bộ nhỏ cho phạm vi hiện tại.
 
-1. Giữ nguyên [thiết kế](BENCHMARK_DESIGN.md) và [cấu hình](configs/benchmark.json).
+1. Giữ nguyên [thiết kế](BENCHMARK_DESIGN.md) và [cấu hình](../configs/benchmark.json).
 2. Tải/cache **23 clip còn lại**; chỉ dùng HTTP Range cho các clip đã chọn, kiểm tra hash. Clip S01 clean đã có ở `.lab_cache/data/`.
 3. Chạy đầy đủ 24 clip, ghi số từng frame/metadata đối chiếu và log mới; đặt kết quả mới vào thư mục riêng để so sánh với lần cũ.
 4. Xuất ảnh clean/degraded cùng frame, plot B/S/H và health; kiểm tra đơn điệu frame54/clip mean riêng s1–s5 và clean → s1.
 5. Sau khi số và ảnh khớp, dùng failure S01 blur s2 để viết quyết định kỹ thuật.
 
-Nếu cần cloud vì thời gian CPU/mạng hoặc lỗi môi trường phát sinh, đường dự phòng là upload [test-drivec.ipynb](test-drivec.ipynb) lên Kaggle, bật Internet, chọn accelerator thích hợp và Run All; notebook hiện có đường Kaggle sẵn. Thời điểm này không cần chuyển cloud. Mỗi phiên mới phải kiểm tra commit/hash/sai lệch và lưu provenance riêng.
+Nếu cần cloud vì thời gian CPU/mạng hoặc lỗi môi trường phát sinh, đường dự phòng là upload [test-drivec.ipynb](../test-drivec.ipynb) lên Kaggle, bật Internet, chọn accelerator thích hợp và Run All; notebook hiện có đường Kaggle sẵn. Thời điểm này không cần chuyển cloud. Mỗi phiên mới phải kiểm tra commit/hash/sai lệch và lưu provenance riêng.
 
 ## 7. Checklist nghiệm thu giai đoạn 2
 

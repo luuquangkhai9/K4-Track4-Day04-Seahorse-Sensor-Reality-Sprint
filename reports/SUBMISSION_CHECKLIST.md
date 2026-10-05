@@ -4,25 +4,25 @@
 
 | Người nộp | MSSV | Báo cáo Markdown | Cần bổ sung |
 | --- | --- | --- | --- |
-| Lưu Quang Khải | 2A202602599 | [Bản của Khải](reports/2A202602599_LuuQuangKhai.md) | Đóng góp thực tế, rà nội dung |
-| Lê Hưng | Chờ bổ sung | [Bản của Hưng](reports/LeHung.md) | MSSV, đóng góp thực tế, rà nội dung |
-| Đặng ĐỈnh Đoàn | Chờ bổ sung | [Bản của Đoàn](reports/DangDinhDoan.md) | MSSV, đóng góp thực tế, rà nội dung |
-| Nguyễn Hồ Nam | 2A202602788 | [Bản của Nam](reports/2A202602788_NguyenHoNam.md) | Đóng góp thực tế, rà nội dung |
+| Lưu Quang Khải | 2A202602599 | [Bản của Khải](2A202602599_LuuQuangKhai.md) | Đóng góp thực tế, rà nội dung |
+| Lê Hưng | Chờ bổ sung | [Bản của Hưng](LeHung.md) | MSSV, đóng góp thực tế, rà nội dung |
+| Đặng ĐỈnh Đoàn | Chờ bổ sung | [Bản của Đoàn](DangDinhDoan.md) | MSSV, đóng góp thực tế, rà nội dung |
+| Nguyễn Hồ Nam | 2A202602788 | [Bản của Nam](2A202602788_NguyenHoNam.md) | Đóng góp thực tế, rà nội dung |
 
 Các bản đã có đủ năm mục và bằng chứng benchmark. Nội dung chung được soạn từ kết quả nhóm; mỗi người cần ghi phần thực sự đã làm, không tự nhận toàn bộ công việc hỗ trợ. MSSV còn thiếu không được tự tạo.
 
 ## URL và bằng chứng chung
 
 - URL repository dùng cho cả bốn người: <https://github.com/luuquangkhai9/K4-Track4-Day04-Seahorse-Sensor-Reality-Sprint>.
-- [TEAMMATES.md](TEAMMATES.md): đủ bốn tên, chấp thuận nhóm 4 người; thiếu hai MSSV.
-- [STAGE3_REPORT.md](STAGE3_REPORT.md): kết quả chính của demo mới bốn clip.
+- [TEAMMATES.md](../TEAMMATES.md): đủ bốn tên, chấp thuận nhóm 4 người; thiếu hai MSSV.
+- [STAGE3_REPORT.md](../docs/STAGE3_REPORT.md): kết quả chính của demo mới bốn clip.
 - [ENGINEERING_DECISION.md](ENGINEERING_DECISION.md): failure, tác động, giới hạn và đề xuất.
 - [PITCH.md](PITCH.md): kịch bản phân vai 3–5 phút và Q&A.
-- [CSV](outputs/stage3_small/benchmark_summary.csv), [log](outputs/stage3_small/run.log), [manifest](outputs/stage3_small/run_manifest.json), [plot](outputs/stage3_small/metric_curves.png), [ảnh](outputs/stage3_small/image_grid.png).
+- [CSV](../outputs/stage3_small/benchmark_summary.csv), [log](../outputs/stage3_small/run.log), [manifest](../outputs/stage3_small/run_manifest.json), [plot](../outputs/stage3_small/metric_curves.png), [ảnh](../outputs/stage3_small/image_grid.png).
 
 ## Trước khi nộp
 
-- [x] Đã kiểm tra số liệu/ảnh/bảng báo cáo và liên kết cục bộ; xem [nghiệm thu](STAGE5_REPORT.md) và [kết quả kiểm tra](outputs/submission_check/verification.json).
+- [x] Đã kiểm tra số liệu/ảnh/bảng báo cáo và liên kết cục bộ; xem [nghiệm thu](../docs/STAGE5_REPORT.md) và [kết quả kiểm tra](../outputs/submission_check/verification.json).
 - [x] Đã bổ sung hướng dẫn CPU cho checkout mới, setup và cấu hình submodule đúng nguồn.
 - [ ] Bổ sung MSSV của Hưng/Đoàn vào TEAMMATES, file công việc và bản riêng tương ứng.
 - [ ] Mỗi người rà bản riêng và ghi đóng góp thực tế có file/commit hỗ trợ.

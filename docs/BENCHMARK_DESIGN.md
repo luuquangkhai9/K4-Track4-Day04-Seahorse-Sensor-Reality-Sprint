@@ -2,7 +2,7 @@
 
 **Cập nhật phạm vi khi thực hiện giai đoạn 3:** Theo yêu cầu nhóm, dùng bộ nhỏ **S01 clean + motion blur s1/s2/s5**, tương ứng kernel **11/13/33 px**. Tổng **4 clip / 32 health/frame / 4 ảnh frame 54**. Ba mức lỗi, một cảnh, một loại corruption; giữ nguyên model, preprocessing và metric bên dưới. Bộ 24 clip mô tả phía dưới là thiết kế ban đầu/lịch sử, không bắt buộc chạy mới.
 
-Cấu hình đang thực thi: [configs/benchmark_small.json](configs/benchmark_small.json), kế thừa model/metric từ cấu hình gốc. Chạy [scripts/stage3_small_demo.py](scripts/stage3_small_demo.py); lưu bằng chứng riêng ở `outputs/stage3_small/`. Không kiểm tra các mức s3/s4, underexposure hoặc ảnh đêm trong demo mới. Monotonicity chỉ xét **các mức đã chọn s1/s2/s5**, báo riêng clean → s1.
+Cấu hình đang thực thi: [configs/benchmark_small.json](../configs/benchmark_small.json), kế thừa model/metric từ cấu hình gốc. Chạy [scripts/stage3_small_demo.py](../scripts/stage3_small_demo.py); lưu bằng chứng riêng ở `outputs/stage3_small/`. Không kiểm tra các mức s3/s4, underexposure hoặc ảnh đêm trong demo mới. Monotonicity chỉ xét **các mức đã chọn s1/s2/s5**, báo riêng clean → s1.
 
 **Đã chạy bộ nhỏ thành công:** [STAGE3_REPORT.md](STAGE3_REPORT.md). Metadata blur thay nhiều tham số PSF cùng severity, không chỉ kernel; xem report khi diễn giải đối chứng.
 
@@ -45,7 +45,7 @@ Giả thuyết trên là giả thuyết gốc. Nhóm đã có kết quả lưu t
 - Source dự kiến: tag `v1.0.1`, commit theo notebook `caf16657b87cec8518008b74c72dd0dcb6088eb6`; phải xác minh bản thực sự import ở lần chạy tiếp theo.
 - Checkpoint: `epoch_021_best.pth`, SHA-256 `c210d9a4f207584687583d1ab5b96a99e12b2f3dbb2727464c6c039e44fb8c0b`.
 
-Các giá trị có cấu trúc nằm trong [configs/benchmark.json](configs/benchmark.json). File này là đặc tả để đối chiếu; notebook hiện chưa tự đọc nó. Người chạy phải kiểm tra cấu hình notebook khớp trước khi Run All.
+Các giá trị có cấu trúc nằm trong [configs/benchmark.json](../configs/benchmark.json). File này là đặc tả để đối chiếu; notebook hiện chưa tự đọc nó. Người chạy phải kiểm tra cấu hình notebook khớp trước khi Run All.
 
 ## Metric và cách phân tích
 
@@ -74,7 +74,7 @@ Các giá trị có cấu trúc nằm trong [configs/benchmark.json](configs/ben
 | Đặng ĐỈnh Đoàn — MSSV chờ bổ sung | Chọn môi trường, cài dependency thiếu, lấy 24 clip, xác minh source/checkpoint, chạy smoke test clean | Baseline chạy được, log và manifest thực tế |
 | Nguyễn Hồ Nam — 2A202602788 | Chuẩn bị bảng tách theo cảnh, layout plot và ảnh failure; giữ bảng gộp ngày/đêm hiện có làm bổ sung | Khung bảng/plot, ID ảnh cần xuất, kịch bản báo cáo |
 
-Mốc tiếp theo: **phút 15–45** hoàn thiện nguồn và đường chạy; **45–75** chạy, **75–95** kiểm tra/plot; **95–115** báo cáo; **115–120** tập pitch. Tham khảo lịch đầy đủ trong [kế hoạch](LAB_COMPLETION_PLAN.md).
+Mốc tiếp theo: **phút 15–45** hoàn thiện nguồn và đường chạy; **45–75** chạy, **75–95** kiểm tra/plot; **95–115** báo cáo; **115–120** tập pitch. Tham khảo lịch đầy đủ trong [kế hoạch](../reports/LAB_COMPLETION_PLAN.md).
 
 ## Kiểm tra sẵn sàng ở máy hiện tại
 

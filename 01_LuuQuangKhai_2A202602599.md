@@ -9,7 +9,7 @@
 - Quy mô thực tế: **4 thành viên**, đã được giảng viên chấp thuận theo thông tin đội trưởng cung cấp.
 - Repository chung: <https://github.com/luuquangkhai9/K4-Track4-Day04-Seahorse-Sensor-Reality-Sprint>
 - Danh sách nhóm: [TEAMMATES.md](TEAMMATES.md).
-- Thiết kế chi tiết: [BENCHMARK_DESIGN.md](BENCHMARK_DESIGN.md); cấu hình đối chiếu: [benchmark.json](configs/benchmark.json).
+- Thiết kế chi tiết: [BENCHMARK_DESIGN.md](docs/BENCHMARK_DESIGN.md); cấu hình đối chiếu: [benchmark.json](configs/benchmark.json).
 
 ## Thiết kế thử nghiệm chung — chốt trong phút 0–15
 
@@ -53,7 +53,7 @@ Thiết kế đã được ghi cụ thể ở giai đoạn 1, dựa trên notebo
 
 ## Quyết định kỹ thuật sau khi có kết quả
 
-Đã soạn [ENGINEERING_DECISION.md](ENGINEERING_DECISION.md), [bản báo cáo riêng](reports/2A202602599_LuuQuangKhai.md) và [pitch](PITCH.md). Khải rà kết luận, ghi đóng góp thực tế và kiểm tra hồ sơ trước nộp; không điền nội dung chưa làm vào nhật ký.
+Đã soạn [ENGINEERING_DECISION.md](reports/ENGINEERING_DECISION.md), [bản báo cáo riêng](reports/2A202602599_LuuQuangKhai.md) và [pitch](reports/PITCH.md). Khải rà kết luận, ghi đóng góp thực tế và kiểm tra hồ sơ trước nộp; không điền nội dung chưa làm vào nhật ký.
 
 - Claim được hỗ trợ / không được hỗ trợ / chưa đủ bằng chứng: [Điền]
 - Bằng chứng định lượng và đường dẫn: [Điền]

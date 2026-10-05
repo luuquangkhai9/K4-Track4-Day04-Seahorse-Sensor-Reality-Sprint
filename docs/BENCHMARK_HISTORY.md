@@ -1,6 +1,6 @@
 # Seahorse · Sensor Reality Sprint
 
-**Phạm vi chạy mới đã thu nhỏ theo yêu cầu nhóm:** dùng **4 clip S01** — clean + motion blur kernel **11/13/33 px** — để xác nhận tính khả thi và phân tích failure case trên một cảnh. Script: [stage3_small_demo.py](scripts/stage3_small_demo.py); cấu hình: [benchmark_small.json](configs/benchmark_small.json). Các bảng 24 clip và underexposure trong README là kết quả lịch sử/phạm vi ban đầu, không bắt buộc phải chạy lại.
+**Phạm vi chạy mới đã thu nhỏ theo yêu cầu nhóm:** dùng **4 clip S01** — clean + motion blur kernel **11/13/33 px** — để xác nhận tính khả thi và phân tích failure case trên một cảnh. Script: [stage3_small_demo.py](../scripts/stage3_small_demo.py); cấu hình: [benchmark_small.json](../configs/benchmark_small.json). Các bảng 24 clip và underexposure trong README là kết quả lịch sử/phạm vi ban đầu, không bắt buộc phải chạy lại.
 
 ```powershell
 python scripts/stage3_small_demo.py --threads 4
@@ -8,9 +8,9 @@ python scripts/stage3_small_demo.py --threads 4
 
 Script dùng source/checkpoint đã xác minh ở giai đoạn 2, tái sử dụng clean clip đã cache và chỉ tải ba clip blur còn thiếu. Kết quả mới nằm trong `outputs/stage3_small/`; giữ riêng với CSV notebook cũ. Không cần GPU cho demo này.
 
-**Hồ sơ giai đoạn 4:** đã chuẩn bị [bốn báo cáo riêng và checklist nộp](SUBMISSION_CHECKLIST.md), [failure/engineering decision](ENGINEERING_DECISION.md) và [kịch bản pitch](PITCH.md). Xem [STAGE4_REPORT.md](STAGE4_REPORT.md) để biết phần đã có và việc còn lại. Hai MSSV, đóng góp thực tế, tập pitch và lượt nộp cần nhóm hoàn thiện.
+**Hồ sơ giai đoạn 4:** đã chuẩn bị [bốn báo cáo riêng và checklist nộp](../reports/SUBMISSION_CHECKLIST.md), [failure/engineering decision](../reports/ENGINEERING_DECISION.md) và [kịch bản pitch](../reports/PITCH.md). Xem [STAGE4_REPORT.md](STAGE4_REPORT.md) để biết phần đã có và việc còn lại. Hai MSSV, đóng góp thực tế, tập pitch và lượt nộp cần nhóm hoàn thiện.
 
-**Demo đã chạy thành công:** bốn clip/32 health-frame, sai lệch tối đa với mean8 nguồn **0,000323**, tổng forward khoảng **7,20 giây trên CPU**. Xem [STAGE3_REPORT.md](STAGE3_REPORT.md), [bảng kết quả mới](outputs/stage3_small/benchmark_summary.csv) và [ảnh trước/sau](outputs/stage3_small/image_grid.png). Script chạy lại với cache mất khoảng 13,33 giây; lần đầu còn thời gian tải dữ liệu.
+**Demo đã chạy thành công:** bốn clip/32 health-frame, sai lệch tối đa với mean8 nguồn **0,000323**, tổng forward khoảng **7,20 giây trên CPU**. Xem [STAGE3_REPORT.md](STAGE3_REPORT.md), [bảng kết quả mới](../outputs/stage3_small/benchmark_summary.csv) và [ảnh trước/sau](../outputs/stage3_small/image_grid.png). Script chạy lại với cache mất khoảng 13,33 giây; lần đầu còn thời gian tải dữ liệu.
 
 | S01, frame54 | B | Health frame54 |
 | --- | ---: | ---: |
@@ -37,7 +37,7 @@ Baseline là clip **clean của cùng cảnh**, nghĩa là không chủ động 
 
 ## 2. Method — Nguồn và phương pháp
 
-Hai nguồn được sử dụng: bài *Safety-Critical Camera Reliability Monitoring for ADAS via Degradation-Aware Uncertainty Pattern Analysis* giải thích phương pháp GSHI/model; bài DRIVE-C giải thích dữ liệu và baseline đánh giá. Xem [bảng đối chiếu paper–code](PAPER_CODE_MAPPING.md) để phân biệt phương trình, nhánh health trực tiếp và bản source phát hành thực tế.
+Hai nguồn được sử dụng: bài *Safety-Critical Camera Reliability Monitoring for ADAS via Degradation-Aware Uncertainty Pattern Analysis* giải thích phương pháp GSHI/model; bài DRIVE-C giải thích dữ liệu và baseline đánh giá. Xem [bảng đối chiếu paper–code](../reports/PAPER_CODE_MAPPING.md) để phân biệt phương trình, nhánh health trực tiếp và bản source phát hành thực tế.
 
 Nhóm dùng checkpoint có sẵn của PerceptionHealthNet, **không huấn luyện lại**. Theo [tài liệu mô hình của nguồn](https://github.com/shiv-aher/drive-c-dataset/blob/v1.0.1/docs/baseline_model.md), model dùng EfficientNet-B2 cùng các head dự đoán loại lỗi, severity, health và pixel map; checkpoint được huấn luyện trên ảnh KITTI với degradation tổng hợp. DRIVE-C là dữ liệu đánh giá ngoài tập huấn luyện đó.
 
@@ -94,7 +94,7 @@ Theo [định nghĩa GSHI của nguồn](https://github.com/shiv-aher/drive-c-da
 
 ### Chạy trên Kaggle
 
-Đường chạy chính là [test-drivec.ipynb](test-drivec.ipynb). Notebook có output của lần chạy đã lưu; các kết quả dưới đây lấy từ artifact đó, không phải một lần inference mới khi viết README.
+Đường chạy chính là [test-drivec.ipynb](../test-drivec.ipynb). Notebook có output của lần chạy đã lưu; các kết quả dưới đây lấy từ artifact đó, không phải một lần inference mới khi viết README.
 
 1. Upload notebook lên Kaggle, bật **Internet** trong Session options.
 2. Chọn CPU hoặc GPU tương thích với PyTorch của session. Lần chạy lưu trong notebook dùng **CPU, PyTorch 2.11.0+cpu**.
@@ -117,15 +117,15 @@ Mở notebook bằng Jupyter hoặc VS Code, chọn kernel đã cài các depend
 
 Notebook dùng bản nguồn tại `<WORK>/drive-c-dataset`; thư mục `drive-c-dataset/` ở gốc dự án là bản nguồn để tham khảo, không tự động là bản mà notebook chạy. Nếu thư mục clone trong WORK đã tồn tại, kiểm tra commit thực tế được in trong log vì notebook không tự checkout lại tag ở mỗi lần chạy.
 
-Nếu Zenodo hoặc HTTP Range gặp lỗi, kiểm tra kết nối và chạy lại cell tải. Không thay ảnh hoặc tham số mà vẫn giữ nhãn kết quả cũ. Đường benchmark mô phỏng dự phòng được mô tả trong [kế hoạch LAB](LAB_COMPLETION_PLAN.md).
+Nếu Zenodo hoặc HTTP Range gặp lỗi, kiểm tra kết nối và chạy lại cell tải. Không thay ảnh hoặc tham số mà vẫn giữ nhãn kết quả cũ. Đường benchmark mô phỏng dự phòng được mô tả trong [kế hoạch LAB](../reports/LAB_COMPLETION_PLAN.md).
 
 ### Kết quả đã lưu
 
 Phần dưới đây mô tả **kết quả 24 clip lịch sử**. Bộ bốn clip mới ở đầu README và STAGE3_REPORT là bằng chứng chính theo phạm vi đã thu nhỏ.
 
-**Cập nhật giai đoạn 2:** Baseline S01 clean đã được chạy lại thành công trên CPU, mean8 **0,221979**, số nguồn **0,221905**, sai lệch **0,000074**. Một forward batch 8 frame mất khoảng **3,62 giây**. Xem [báo cáo giai đoạn 2](STAGE2_REPORT.md), [log/manifest](outputs/stage2/run_manifest.json) và [script chạy lại](scripts/stage2_smoke_test.py). Đây là phép thử mới một clip; bảng 24 clip dưới đây vẫn thuộc lần chạy notebook đã lưu.
+**Cập nhật giai đoạn 2:** Baseline S01 clean đã được chạy lại thành công trên CPU, mean8 **0,221979**, số nguồn **0,221905**, sai lệch **0,000074**. Một forward batch 8 frame mất khoảng **3,62 giây**. Xem [báo cáo giai đoạn 2](STAGE2_REPORT.md), [log/manifest](../outputs/stage2/run_manifest.json) và [script chạy lại](../scripts/stage2_smoke_test.py). Đây là phép thử mới một clip; bảng 24 clip dưới đây vẫn thuộc lần chạy notebook đã lưu.
 
-Các số sau lấy từ [phn_24_results.csv](phn_24_results.csv), cùng frame 54 của S01:
+Các số sau lấy từ [phn_24_results.csv](../outputs/phn_24_results.csv), cùng frame 54 của S01:
 
 | Điều kiện | B | S_pct (%) | H_bit (bit) | Health frame 54 |
 | --- | ---: | ---: | ---: | ---: |
@@ -136,7 +136,7 @@ Các số sau lấy từ [phn_24_results.csv](phn_24_results.csv), cùng frame 5
 | Motion blur — kernel 27 px | 25,8 | 0,5 | 7,40 | 0,2270 |
 | Motion blur — kernel 33 px | 14,3 | 0,5 | 7,38 | 0,0766 |
 
-![Health score theo mức lỗi, với điểm clean làm baseline của từng cảnh](phn_curve.png)
+![Health score theo mức lỗi, với điểm clean làm baseline của từng cảnh](../outputs/phn_curve.png)
 
 Trong plot, đường `gshi_gt` là **nhãn từ công thức nguồn**; không phải kết quả nhóm đo về độ tin cậy của detector.
 
@@ -171,24 +171,24 @@ Trade-off: metric thủ công dễ tính nhưng phụ thuộc cảnh và ánh s�
 | File | Nội dung |
 | --- | --- |
 | [T1_camera_degradation_health_score.md](T1_camera_degradation_health_score.md) | Chủ đề và yêu cầu T1 |
-| [LAB_COMPLETION_PLAN.md](LAB_COMPLETION_PLAN.md) | Kế hoạch 120 phút, đầu ra và checklist rubric |
-| [PAPER_CODE_MAPPING.md](PAPER_CODE_MAPPING.md) | Hai nguồn và phạm vi triển khai thực sự |
+| [LAB_COMPLETION_PLAN.md](../reports/LAB_COMPLETION_PLAN.md) | Kế hoạch 120 phút, đầu ra và checklist rubric |
+| [PAPER_CODE_MAPPING.md](../reports/PAPER_CODE_MAPPING.md) | Hai nguồn và phạm vi triển khai thực sự |
 | [STAGE2_REPORT.md](STAGE2_REPORT.md) | Baseline CPU mới, provenance và bàn giao chạy đầy đủ |
-| [test-drivec.ipynb](test-drivec.ipynb) | Setup, inference, kiểm tra tái hiện và trực quan hóa |
-| [phn_24_results.csv](phn_24_results.csv) | Bảng 24 ảnh với health và ba metric thủ công |
-| [phn_per_frame.csv](phn_per_frame.csv) | 192 output health từng frame |
-| [phn_curve.png](phn_curve.png) | Plot health theo mức lỗi |
-| [fetch_sha256.txt](fetch_sha256.txt) | Hash của 24 clip; không thay thế dữ liệu hoặc ảnh minh chứng |
+| [test-drivec.ipynb](../test-drivec.ipynb) | Setup, inference, kiểm tra tái hiện và trực quan hóa |
+| [phn_24_results.csv](../outputs/phn_24_results.csv) | Bảng 24 ảnh với health và ba metric thủ công |
+| [phn_per_frame.csv](../outputs/phn_per_frame.csv) | 192 output health từng frame |
+| [phn_curve.png](../outputs/phn_curve.png) | Plot health theo mức lỗi |
+| [fetch_sha256.txt](../fetch_sha256.txt) | Hash của 24 clip; không thay thế dữ liệu hoặc ảnh minh chứng |
 | `drive-c-dataset/` | Bản code/tài liệu nguồn địa phương |
 
 | Thành viên | Vai trò | Tài liệu công việc |
 | --- | --- | --- |
-| Lưu Quang Khải — 2A202602599 | Đội trưởng, tổng hợp và quyết định kỹ thuật | [File cá nhân](01_LuuQuangKhai_2A202602599.md) |
-| Lê Hưng — MSSV chờ bổ sung | Đọc nguồn và kiểm tra cơ sở phương pháp | [File công việc](02_Thanh_vien_Tai_lieu.md) |
-| Đặng ĐỈnh Đoàn — MSSV chờ bổ sung | Code và chạy benchmark | [File công việc](03_Thanh_vien_Code_Benchmark.md) |
-| Nguyễn Hồ Nam — 2A202602788 | Kiểm tra kết quả, plot và trình bày | [File cá nhân](04_NguyenHoNam_2A202602788.md) |
+| Lưu Quang Khải — 2A202602599 | Đội trưởng, tổng hợp và quyết định kỹ thuật | [File cá nhân](../01_LuuQuangKhai_2A202602599.md) |
+| Lê Hưng — MSSV chờ bổ sung | Đọc nguồn và kiểm tra cơ sở phương pháp | [File công việc](../02_Thanh_vien_Tai_lieu.md) |
+| Đặng ĐỈnh Đoàn — MSSV chờ bổ sung | Code và chạy benchmark | [File công việc](../03_Thanh_vien_Code_Benchmark.md) |
+| Nguyễn Hồ Nam — 2A202602788 | Kiểm tra kết quả, plot và trình bày | [File cá nhân](../04_NguyenHoNam_2A202602788.md) |
 
-Giai đoạn 1 đã chốt **motion blur/underexposure của DRIVE-C** trong [thiết kế benchmark](BENCHMARK_DESIGN.md) và [cấu hình đối chiếu](configs/benchmark.json). Xem [TEAMMATES.md](TEAMMATES.md) để biết phân công và thông tin còn thiếu. Notebook hiện chưa tự đọc file cấu hình này.
+Giai đoạn 1 đã chốt **motion blur/underexposure của DRIVE-C** trong [thiết kế benchmark](BENCHMARK_DESIGN.md) và [cấu hình đối chiếu](../configs/benchmark.json). Xem [TEAMMATES.md](../TEAMMATES.md) để biết phân công và thông tin còn thiếu. Notebook hiện chưa tự đọc file cấu hình này.
 
 ## Hoàn thiện và nộp bài
 

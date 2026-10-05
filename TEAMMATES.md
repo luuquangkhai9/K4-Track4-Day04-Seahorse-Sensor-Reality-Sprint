@@ -14,7 +14,7 @@
 
 Mỗi thành viên chuẩn bị bản báo cáo riêng đủ Problem → Method → Benchmark → Failure case → Engineering decision, dẫn cùng repository và tự hoàn tất lượt nộp trên VLearn.
 
-Thiết kế thực hiện: [BENCHMARK_DESIGN.md](BENCHMARK_DESIGN.md). Lịch và tiêu chí nghiệm thu: [LAB_COMPLETION_PLAN.md](LAB_COMPLETION_PLAN.md).
+Thiết kế thực hiện: [BENCHMARK_DESIGN.md](docs/BENCHMARK_DESIGN.md). Lịch và tiêu chí nghiệm thu: [LAB_COMPLETION_PLAN.md](reports/LAB_COMPLETION_PLAN.md).
 
 ## Báo cáo riêng đã chuẩn bị
 
@@ -25,4 +25,4 @@ Thiết kế thực hiện: [BENCHMARK_DESIGN.md](BENCHMARK_DESIGN.md). Lịch v
 | Đặng ĐỈnh Đoàn | [reports/DangDinhDoan.md](reports/DangDinhDoan.md) | Cần MSSV, rà và ghi đóng góp thực tế |
 | Nguyễn Hồ Nam | [reports/2A202602788_NguyenHoNam.md](reports/2A202602788_NguyenHoNam.md) | Cần rà và ghi đóng góp thực tế |
 
-Xem [checklist nộp](SUBMISSION_CHECKLIST.md). Việc chuẩn bị file chưa thay thế lượt nộp cá nhân.
+Xem [checklist nộp](reports/SUBMISSION_CHECKLIST.md). Việc chuẩn bị file chưa thay thế lượt nộp cá nhân.

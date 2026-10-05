@@ -4,13 +4,13 @@
 
 ## Đầu ra đã tạo
 
-- [ENGINEERING_DECISION.md](ENGINEERING_DECISION.md): failure S01 s2, quan sát/nguồn/giả thuyết, tác động đo được/suy luận, trade-off và phép thử cải tiến.
-- [Báo cáo Khải](reports/2A202602599_LuuQuangKhai.md).
-- [Báo cáo Hưng](reports/LeHung.md), MSSV chờ bổ sung.
-- [Báo cáo Đoàn](reports/DangDinhDoan.md), MSSV chờ bổ sung.
-- [Báo cáo Nam](reports/2A202602788_NguyenHoNam.md).
-- [PITCH.md](PITCH.md): năm lượt nói cho bốn người, phân bổ 4 phút 15 giây, Q&A và hình cần mở.
-- [SUBMISSION_CHECKLIST.md](SUBMISSION_CHECKLIST.md): bản đúng người, nguồn/bằng chứng chung và quy trình kiểm tra lượt nộp.
+- [ENGINEERING_DECISION.md](../reports/ENGINEERING_DECISION.md): failure S01 s2, quan sát/nguồn/giả thuyết, tác động đo được/suy luận, trade-off và phép thử cải tiến.
+- [Báo cáo Khải](../reports/2A202602599_LuuQuangKhai.md).
+- [Báo cáo Hưng](../reports/LeHung.md), MSSV chờ bổ sung.
+- [Báo cáo Đoàn](../reports/DangDinhDoan.md), MSSV chờ bổ sung.
+- [Báo cáo Nam](../reports/2A202602788_NguyenHoNam.md).
+- [PITCH.md](../reports/PITCH.md): năm lượt nói cho bốn người, phân bổ 4 phút 15 giây, Q&A và hình cần mở.
+- [SUBMISSION_CHECKLIST.md](../reports/SUBMISSION_CHECKLIST.md): bản đúng người, nguồn/bằng chứng chung và quy trình kiểm tra lượt nộp.
 
 Các báo cáo đều đủ **Problem → Method → Benchmark → Failure case → Engineering decision**, có bảng số/ảnh/plot, hai nguồn, source commit/checkpoint, cách chạy và giới hạn. Mỗi bản có góc rà soát theo vai trò riêng; chỗ đóng góp thực tế cần thành viên xác nhận.
 

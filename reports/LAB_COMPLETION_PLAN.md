@@ -1,16 +1,16 @@
 # Kế hoạch hoàn thành LAB — trạng thái cuối
 
-**Phạm vi thống nhất:** T1, xe ADAS, camera/motion blur; **4 clip S01 clean + s1/s2/s5**, không chạy lại 24 clip. Nhóm 4 người đã được giảng viên chấp thuận theo thông tin đội trưởng. Kế hoạch ban đầu được giữ trong [LAB_PLAN_HISTORY.md](LAB_PLAN_HISTORY.md).
+**Phạm vi thống nhất:** T1, xe ADAS, camera/motion blur; **4 clip S01 clean + s1/s2/s5**, không chạy lại 24 clip. Nhóm 4 người đã được giảng viên chấp thuận theo thông tin đội trưởng. Kế hoạch ban đầu được giữ trong [LAB_PLAN_HISTORY.md](../docs/LAB_PLAN_HISTORY.md).
 
 ## Các giai đoạn
 
 | Giai đoạn | Trạng thái hiện tại | Bằng chứng |
 | --- | --- | --- |
-| 1 — Chốt bài toán và phân công | Đã có claim, baseline, metric, tên và vai trò 4 người; thiếu hai MSSV | [Thiết kế](BENCHMARK_DESIGN.md), [TEAMMATES](TEAMMATES.md) |
-| 2 — Nguồn và baseline | Đã đọc hai paper, đối chiếu code, chạy S01 clean trên CPU | [Mapping](PAPER_CODE_MAPPING.md), [báo cáo](STAGE2_REPORT.md) |
-| 3 — Demo nhỏ | PASS 4 clip/32 health-frame, có CSV/log/ảnh/plot/provenance | [Báo cáo](STAGE3_REPORT.md), [manifest](outputs/stage3_small/run_manifest.json) |
-| 4 — Failure và quyết định | Đã soạn failure/decision, bốn báo cáo riêng và pitch | [Báo cáo](STAGE4_REPORT.md), [quyết định](ENGINEERING_DECISION.md), [pitch](PITCH.md) |
-| 5 — Rà hồ sơ/repository | Đã kiểm tra số/ảnh/liên kết, bổ sung setup CPU/submodule và hướng dẫn chạy nhỏ; còn thông tin cá nhân | [Nghiệm thu](STAGE5_REPORT.md), [kiểm tra](outputs/submission_check/verification.json) |
+| 1 — Chốt bài toán và phân công | Đã có claim, baseline, metric, tên và vai trò 4 người; thiếu hai MSSV | [Thiết kế](../docs/BENCHMARK_DESIGN.md), [TEAMMATES](../TEAMMATES.md) |
+| 2 — Nguồn và baseline | Đã đọc hai paper, đối chiếu code, chạy S01 clean trên CPU | [Mapping](PAPER_CODE_MAPPING.md), [báo cáo](../docs/STAGE2_REPORT.md) |
+| 3 — Demo nhỏ | PASS 4 clip/32 health-frame, có CSV/log/ảnh/plot/provenance | [Báo cáo](../docs/STAGE3_REPORT.md), [manifest](../outputs/stage3_small/run_manifest.json) |
+| 4 — Failure và quyết định | Đã soạn failure/decision, bốn báo cáo riêng và pitch | [Báo cáo](../docs/STAGE4_REPORT.md), [quyết định](ENGINEERING_DECISION.md), [pitch](PITCH.md) |
+| 5 — Rà hồ sơ/repository | Đã kiểm tra số/ảnh/liên kết, bổ sung setup CPU/submodule và hướng dẫn chạy nhỏ; còn thông tin cá nhân | [Nghiệm thu](../docs/STAGE5_REPORT.md), [kiểm tra](../outputs/submission_check/verification.json) |
 | Nộp và trình bày | Người dùng thực hiện chia sẻ repo, tập nói và các lượt nộp riêng | [Checklist](SUBMISSION_CHECKLIST.md) |
 
 Giai đoạn 5 của nhóm hoàn thiện Bước 6–7 trong hướng dẫn. Không tự ghi nhận đã diễn tập, đẩy GitHub hoặc nộp VLearn.

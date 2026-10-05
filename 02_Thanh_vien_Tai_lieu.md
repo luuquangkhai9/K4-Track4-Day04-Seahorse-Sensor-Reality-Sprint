@@ -6,7 +6,7 @@
 - Mã sinh viên: [Chờ bổ sung]
 - Đội trưởng: Lưu Quang Khải — 2A202602599
 - Chủ đề: T1 — Camera degradation health score
-- Thiết kế chung: [BENCHMARK_DESIGN.md](BENCHMARK_DESIGN.md); [File đội trưởng](01_LuuQuangKhai_2A202602599.md).
+- Thiết kế chung: [BENCHMARK_DESIGN.md](docs/BENCHMARK_DESIGN.md); [File đội trưởng](01_LuuQuangKhai_2A202602599.md).
 
 ## Nhiệm vụ
 
@@ -39,9 +39,9 @@ Từ khóa tham khảo: `camera image quality assessment autonomous driving`, `b
 
 ## Đầu ra và bàn giao
 
-Giai đoạn 4 đã soạn [bản báo cáo riêng của Hưng](reports/LeHung.md). Cần bổ sung MSSV, rà trích dẫn/đối chiếu triển khai và ghi đóng góp thực tế trước khi nộp. Phần nói của Hưng nằm trong [PITCH.md](PITCH.md).
+Giai đoạn 4 đã soạn [bản báo cáo riêng của Hưng](reports/LeHung.md). Cần bổ sung MSSV, rà trích dẫn/đối chiếu triển khai và ghi đóng góp thực tế trước khi nộp. Phần nói của Hưng nằm trong [PITCH.md](reports/PITCH.md).
 
-**Giai đoạn 2 đã có đầu ra chung:** [PAPER_CODE_MAPPING.md](PAPER_CODE_MAPPING.md). Lê Hưng phụ trách rà và sử dụng nội dung/trích dẫn khi viết bản riêng. File ghi nguồn là công việc hỗ trợ đã thực hiện trong repository, không tự gán toàn bộ đóng góp này cho cá nhân trước khi người đó xác nhận.
+**Giai đoạn 2 đã có đầu ra chung:** [PAPER_CODE_MAPPING.md](reports/PAPER_CODE_MAPPING.md). Lê Hưng phụ trách rà và sử dụng nội dung/trích dẫn khi viết bản riêng. File ghi nguồn là công việc hỗ trợ đã thực hiện trong repository, không tự gán toàn bộ đóng góp này cho cá nhân trước khi người đó xác nhận.
 
 - **Trước phút 45:** Bảng paper–code và cách tính metric đủ để người chạy dùng đúng nguồn.
 - **Trước phút 95:** Kiểm tra cách nhóm diễn giải bảng kết quả và limitation.

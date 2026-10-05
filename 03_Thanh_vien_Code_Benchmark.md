@@ -6,7 +6,7 @@
 - Mã sinh viên: [Chờ bổ sung]
 - Đội trưởng: Lưu Quang Khải — 2A202602599
 - Chủ đề: T1 — Camera degradation health score
-- Thiết kế chung: [BENCHMARK_DESIGN.md](BENCHMARK_DESIGN.md); [File đội trưởng](01_LuuQuangKhai_2A202602599.md).
+- Thiết kế chung: [BENCHMARK_DESIGN.md](docs/BENCHMARK_DESIGN.md); [File đội trưởng](01_LuuQuangKhai_2A202602599.md).
 - Cấu hình đối chiếu: [configs/benchmark.json](configs/benchmark.json), chưa tự tích hợp vào notebook.
 
 ## Nhiệm vụ
@@ -54,9 +54,9 @@ Nếu có health score hoặc metric bổ sung, thêm cột và ghi rõ công th
 
 ## Mốc và đầu ra
 
-Giai đoạn 4 đã soạn [bản báo cáo riêng của Đoàn](reports/DangDinhDoan.md). Cần bổ sung MSSV, rà khả năng chạy lại/provenance và ghi đóng góp thực tế trước nộp. Phần nói của Đoàn nằm trong [PITCH.md](PITCH.md).
+Giai đoạn 4 đã soạn [bản báo cáo riêng của Đoàn](reports/DangDinhDoan.md). Cần bổ sung MSSV, rà khả năng chạy lại/provenance và ghi đóng góp thực tế trước nộp. Phần nói của Đoàn nằm trong [PITCH.md](reports/PITCH.md).
 
-**Giai đoạn 2 đã có bằng chứng chạy CPU:** [báo cáo](STAGE2_REPORT.md), [script](scripts/stage2_smoke_test.py), [manifest](outputs/stage2/run_manifest.json). Baseline thật S01 clean đạt ngưỡng tái hiện. Đặng ĐỈnh Đoàn dùng đường chạy này cho bước tiếp theo; chưa chạy mới đủ 24 clip ở giai đoạn 2. Không tự gán lần chạy hỗ trợ này vào nhật ký đóng góp cá nhân nếu chưa thực hiện/kiểm tra.
+**Giai đoạn 2 đã có bằng chứng chạy CPU:** [báo cáo](docs/STAGE2_REPORT.md), [script](scripts/stage2_smoke_test.py), [manifest](outputs/stage2/run_manifest.json). Baseline thật S01 clean đạt ngưỡng tái hiện. Đặng ĐỈnh Đoàn dùng đường chạy này cho bước tiếp theo; chưa chạy mới đủ 24 clip ở giai đoạn 2. Không tự gán lần chạy hỗ trợ này vào nhật ký đóng góp cá nhân nếu chưa thực hiện/kiểm tra.
 
 - **Trước phút 45:** Môi trường/dữ liệu sẵn sàng, baseline smoke test chạy được.
 - **Trước phút 75:** Hoàn thành benchmark, lưu code/cấu hình/log/CSV/ảnh.

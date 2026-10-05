@@ -12,7 +12,7 @@
 - Sampling: 0/18/36/54/73/91/109/127; RGB resize H=384/W=1280, chia 255, CHW.
 - B/S/H đo trên frame 54 gốc 1280 × 720, cùng công thức cho mọi điều kiện.
 - Clip lấy từ DRIVE-C phát hành, CRC khi đọc ZIP và SHA-256 khớp manifest dữ liệu cũ; không tạo thêm corruption.
-- Dùng [configs/benchmark_small.json](configs/benchmark_small.json); model/metric kế thừa [cấu hình gốc](configs/benchmark.json).
+- Dùng [configs/benchmark_small.json](../configs/benchmark_small.json); model/metric kế thừa [cấu hình gốc](../configs/benchmark.json).
 
 Chạy lại từ gốc:
 
@@ -33,9 +33,9 @@ Nếu muốn lưu riêng một lần mới: thêm `--output outputs/stage3_small
 
 CSV lưu số đầy đủ; bảng trên làm tròn để trình bày. B là phương sai đáp ứng Laplacian trên thang pixel, không phải đơn vị vật lý; S_pct gồm pixel rất tối/rất sáng. Health là nhánh dự đoán trực tiếp, không phải nhãn `gshi_gt`.
 
-![Metric trên bốn điều kiện](outputs/stage3_small/metric_curves.png)
+![Metric trên bốn điều kiện](../outputs/stage3_small/metric_curves.png)
 
-![Ảnh cùng cảnh/frame với các mức blur](outputs/stage3_small/image_grid.png)
+![Ảnh cùng cảnh/frame với các mức blur](../outputs/stage3_small/image_grid.png)
 
 ## 3. Kiểm tra tái hiện và thời gian
 
@@ -47,7 +47,7 @@ Lần chạy có đầy đủ cache, dùng để xuất artifact cuối cùng:
 - Toàn script, gồm import, load/check/hash/decode/inference và xuất CSV/ảnh/plot: **13,33 giây**.
 - Không tải clip mới trong lần cache này. Lần đầu cần tải ba clip blur; thời gian mạng không nằm trong 13,33 giây và có thể lớn hơn inference.
 
-Đây là timing của demo, không phải FPS chuẩn hóa hay latency end-to-end ADAS. Không cần GPU/Colab/Kaggle cho bộ mẫu hiện tại. Chi tiết môi trường và hash script/source/data nằm trong [run_manifest.json](outputs/stage3_small/run_manifest.json).
+Đây là timing của demo, không phải FPS chuẩn hóa hay latency end-to-end ADAS. Không cần GPU/Colab/Kaggle cho bộ mẫu hiện tại. Chi tiết môi trường và hash script/source/data nằm trong [run_manifest.json](../outputs/stage3_small/run_manifest.json).
 
 ## 4. Failure case và phạm vi kết luận
 
@@ -59,7 +59,7 @@ Trên các mức đã chạy **s1 → s2 → s5**:
 - Health frame54 và health mean8 đều tăng ở s1 → s2 rồi giảm ở s5; không đơn điệu.
 - Không tuyên bố kiểm tra đủ s1–s5 vì không chạy s3/s4.
 
-**Giới hạn đối chứng cần ghi:** Kernel là nhãn mô tả dễ đọc, nhưng generator thay đồng thời các tham số trong cùng chế độ motion blur: n_points, accel, linear và psf_smooth_sigma cũng khác theo metadata. Ví dụ s1/s2/s5 có n_points 11/14/32 và linear false/true/false. Vì vậy, kết luận là phản ứng theo **các biến thể severity của DRIVE-C**, không phải tác động riêng biệt của kernel khi mọi đặc điểm PSF khác được giữ cố định. Xem [corruption_parameters.json](outputs/stage3_small/corruption_parameters.json).
+**Giới hạn đối chứng cần ghi:** Kernel là nhãn mô tả dễ đọc, nhưng generator thay đồng thời các tham số trong cùng chế độ motion blur: n_points, accel, linear và psf_smooth_sigma cũng khác theo metadata. Ví dụ s1/s2/s5 có n_points 11/14/32 và linear false/true/false. Vì vậy, kết luận là phản ứng theo **các biến thể severity của DRIVE-C**, không phải tác động riêng biệt của kernel khi mọi đặc điểm PSF khác được giữ cố định. Xem [corruption_parameters.json](../outputs/stage3_small/corruption_parameters.json).
 
 **Điều đã xác nhận:** Pipeline inference + metric + CSV/plot/ảnh chạy được trên CPU và tái hiện gần số nguồn ở bốn clip; phát hiện health chưa xếp đúng thứ tự mức suy giảm trên mẫu này.
 
@@ -75,14 +75,14 @@ Nếu có vòng kiểm chứng sau LAB, giữ nhiều cảnh sạch/lỗi, chọ
 
 | Artifact | Nội dung |
 | --- | --- |
-| [benchmark_summary.csv](outputs/stage3_small/benchmark_summary.csv) | Bốn hàng, metric đầy đủ và delta so với clean |
-| [per_frame.csv](outputs/stage3_small/per_frame.csv) | 32 health/frame mới |
-| [monotonicity.csv](outputs/stage3_small/monotonicity.csv) | Kiểm tra riêng B/health54/mean8 ở các mức đã chọn và clean |
-| [run.log](outputs/stage3_small/run.log) | Trình tự chạy và kiểm tra tái hiện |
-| [run_manifest.json](outputs/stage3_small/run_manifest.json) | Môi trường, cấu hình, source/checkpoint/video/script hashes, timing |
-| [corruption_parameters.json](outputs/stage3_small/corruption_parameters.json) | Toàn bộ extra_json của bốn clip |
-| [metric_curves.png](outputs/stage3_small/metric_curves.png) | Plot đa metric |
-| [image_grid.png](outputs/stage3_small/image_grid.png) | Cặp ảnh cùng frame và số metric |
-| [Script](scripts/stage3_small_demo.py) | Đường chạy lại bộ nhỏ |
+| [benchmark_summary.csv](../outputs/stage3_small/benchmark_summary.csv) | Bốn hàng, metric đầy đủ và delta so với clean |
+| [per_frame.csv](../outputs/stage3_small/per_frame.csv) | 32 health/frame mới |
+| [monotonicity.csv](../outputs/stage3_small/monotonicity.csv) | Kiểm tra riêng B/health54/mean8 ở các mức đã chọn và clean |
+| [run.log](../outputs/stage3_small/run.log) | Trình tự chạy và kiểm tra tái hiện |
+| [run_manifest.json](../outputs/stage3_small/run_manifest.json) | Môi trường, cấu hình, source/checkpoint/video/script hashes, timing |
+| [corruption_parameters.json](../outputs/stage3_small/corruption_parameters.json) | Toàn bộ extra_json của bốn clip |
+| [metric_curves.png](../outputs/stage3_small/metric_curves.png) | Plot đa metric |
+| [image_grid.png](../outputs/stage3_small/image_grid.png) | Cặp ảnh cùng frame và số metric |
+| [Script](../scripts/stage3_small_demo.py) | Đường chạy lại bộ nhỏ |
 
-Nam dùng bảng/plot mới này làm chính; Hưng rà Method/limitations với [PAPER_CODE_MAPPING.md](PAPER_CODE_MAPPING.md); Đoàn bàn giao script và cấu hình; Khải tổng hợp quyết định và báo cáo. Giai đoạn tiếp theo tập trung bốn báo cáo riêng và pitch, không cần mở rộng bộ chạy lên 24 clip.
+Nam dùng bảng/plot mới này làm chính; Hưng rà Method/limitations với [PAPER_CODE_MAPPING.md](../reports/PAPER_CODE_MAPPING.md); Đoàn bàn giao script và cấu hình; Khải tổng hợp quyết định và báo cáo. Giai đoạn tiếp theo tập trung bốn báo cáo riêng và pitch, không cần mở rộng bộ chạy lên 24 clip.

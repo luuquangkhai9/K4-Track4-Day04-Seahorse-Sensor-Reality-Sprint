@@ -7,8 +7,8 @@
 
 | Nguồn | Phiên bản | Vai trò |
 | --- | --- | --- |
-| [Safety-Critical Camera Reliability Monitoring for ADAS via Degradation-Aware Uncertainty Pattern Analysis](<Safety-Critical Camera Reliability Monitoring for ADAS via Degradation-Aware Uncertainty Pattern Analysis.pdf>) | Shiva Aher; arXiv:2605.05439v1, 06/05/2026; PDF 10 trang | Phương pháp GSHI và model giám sát; thí nghiệm KITTI/DAWN |
-| [DRIVE-C: A Controlled Corruption Dataset for Autonomous Driving](<DRIVE-C A Controlled Corruption Dataset for Autonomous Driving.pdf>) | Shiva Aher; arXiv:2605.09774v1, 10/05/2026; PDF 9 trang | Dataset có đối chứng và baseline trên 610 clip; trích dẫn bài phương pháp ở [12] |
+| [Safety-Critical Camera Reliability Monitoring for ADAS via Degradation-Aware Uncertainty Pattern Analysis](<../paper/Safety-Critical Camera Reliability Monitoring for ADAS via Degradation-Aware Uncertainty Pattern Analysis.pdf>) | Shiva Aher; arXiv:2605.05439v1, 06/05/2026; PDF 10 trang | Phương pháp GSHI và model giám sát; thí nghiệm KITTI/DAWN |
+| [DRIVE-C: A Controlled Corruption Dataset for Autonomous Driving](<../paper/DRIVE-C A Controlled Corruption Dataset for Autonomous Driving.pdf>) | Shiva Aher; arXiv:2605.09774v1, 10/05/2026; PDF 9 trang | Dataset có đối chứng và baseline trên 610 clip; trích dẫn bài phương pháp ở [12] |
 | [Source DRIVE-C](https://github.com/shiv-aher/drive-c-dataset/tree/v1.0.1) | Commit cố định ở trên | Mô tả chính xác triển khai/checkpoint dùng cho LAB |
 | [Dataset Zenodo](https://doi.org/10.5281/zenodo.19656444) | Phiên bản theo DOI | Video clean/corrupted và metadata |
 
@@ -26,15 +26,15 @@ Hai PDF ghi trạng thái preprint/đang phản biện ở thời điểm của 
 
 | Nội dung | PDF phương pháp | Source phát hành và tác động tới LAB |
 | --- | --- | --- |
-| Kiến trúc | Section V, trang 5–6: EfficientNet-B2, presence/severity/health/spatial head | [Model](drive-c-dataset/src/models/perception_health_net.py) có các head tương ứng; pixel head tạo lười khi forward lần đầu |
+| Kiến trúc | Section V, trang 5–6: EfficientNet-B2, presence/severity/health/spatial head | [Model](../drive-c-dataset/src/models/perception_health_net.py) có các head tương ứng; pixel head tạo lười khi forward lần đầu |
 | Health trực tiếp | Eq. 12: H_net = sigmoid(health head) | `pred_health` được tính trực tiếp; đây là điểm notebook và CSV dùng |
-| Health có cấu trúc | Eq. 2, 10: tích `(1-s_i)^(w_i * alpha_group)` | [GSHI code](drive-c-dataset/simulation/gshi_utils.py) tạo nhãn bằng công thức có beta và clipping; inference hiện tại không thay `pred_health` bằng tích severity |
-| Công thức nhãn | Eq. 10, trang 5: tích cơ bản | `exp(beta * sum(w_i*q_i*log(clip(1-s_i))))`, beta=0,85, floor=0,001, ceil=0,99; [taxonomy](drive-c-dataset/configs/taxonomy/camera_issues.yaml). Clean được script gán 1,0 riêng |
-| Training objective | Eq. 19, trang 6: năm loss, trọng số presence/severity/health/GSHI/pixel = 1/2/1/1/0,5 | [Training script](drive-c-dataset/scripts/train_perception_health_net.py): bốn term presence/severity/health/pixel; default 1/1/0,5/0,25, có pixel ramp và severity regularization. Không có term L_gshi riêng trong tổng loss đã đọc |
+| Health có cấu trúc | Eq. 2, 10: tích `(1-s_i)^(w_i * alpha_group)` | [GSHI code](../drive-c-dataset/simulation/gshi_utils.py) tạo nhãn bằng công thức có beta và clipping; inference hiện tại không thay `pred_health` bằng tích severity |
+| Công thức nhãn | Eq. 10, trang 5: tích cơ bản | `exp(beta * sum(w_i*q_i*log(clip(1-s_i))))`, beta=0,85, floor=0,001, ceil=0,99; [taxonomy](../drive-c-dataset/configs/taxonomy/camera_issues.yaml). Clean được script gán 1,0 riêng |
+| Training objective | Eq. 19, trang 6: năm loss, trọng số presence/severity/health/GSHI/pixel = 1/2/1/1/0,5 | [Training script](../drive-c-dataset/scripts/train_perception_health_net.py): bốn term presence/severity/health/pixel; default 1/1/0,5/0,25, có pixel ramp và severity regularization. Không có term L_gshi riêng trong tổng loss đã đọc |
 | Taxonomy | Trang 4: 12 mode, có vignetting và exposure shift | Model có vignetting; DRIVE-C không tạo vignetting, tách overexposure/underexposure và map về exposure_shift |
 | Severity | KITTI evaluation trang 6: sweep 0,0–1,0 bước 0,1 | DRIVE-C dùng 0,08/0,18/0,35/0,55/0,75; thông số cụ thể lưu trong extra_json |
 | Spatial uncertainty | Eq. 11, 13, 18: mask tổng hợp giám sát pixel output | `pred_pix` là map học theo supervision; notebook LAB hiện chưa đánh giá map, AUSE hoặc reliability theo bbox |
-| Clip health | Bài phương pháp mô tả single-image monitor | [Inference script](drive-c-dataset/scripts/add_gshi_pred.py) trung bình 8 frame để ghi `gshi_pred`; frame54 và clip mean phải giữ riêng |
+| Clip health | Bài phương pháp mô tả single-image monitor | [Inference script](../drive-c-dataset/scripts/add_gshi_pred.py) trung bình 8 frame để ghi `gshi_pred`; frame54 và clip mean phải giữ riêng |
 
 Khác biệt paper–code là quan sát về phiên bản đang có; chưa có bằng chứng xác định nguyên nhân hoặc chứng minh checkpoint này chính là model của mọi bảng thí nghiệm trong PDF. LAB mô tả **checkpoint baseline phát hành cùng DRIVE-C**, không tuyên bố tái hiện toàn bộ paper phương pháp.
 
@@ -50,7 +50,7 @@ Khác biệt paper–code là quan sát về phiên bản đang có; chưa có b
 | 440,5 FPS | Table VII trang 9 | RTX 5090, 224 × 224, batch 1, 50 warm-up và 300 forward; không gán cho máy CPU hoặc input 384 × 1280 |
 | Pearson 0,339 / Spearman 0,341 | DRIVE-C, Fig. 4 và trang 5 | Predicted health với gshi_gt trên 610 clip; không phải accuracy |
 | Motion blur r=0,73; underexposure r=0,77 | DRIVE-C, Table 3 trang 7 | Correlation theo loại lỗi trên 50 clip/loại; không bảo đảm từng frame/cảnh đơn điệu |
-| 6/12 loại lỗi / monotonic fraction 0,475 | DRIVE-C trang 5/7 và [analysis script](drive-c-dataset/scripts/analyze_gshi_pred.py) | 6/12 xét mean qua cảnh; 0,475 xét từng cặp scenario–corruption; đều s1–s5, không gồm clean |
+| 6/12 loại lỗi / monotonic fraction 0,475 | DRIVE-C trang 5/7 và [analysis script](../drive-c-dataset/scripts/analyze_gshi_pred.py) | 6/12 xét mean qua cảnh; 0,475 xét từng cặp scenario–corruption; đều s1–s5, không gồm clean |
 
 Health target giảm theo severity là tính chất thiết kế công thức. Nhánh hồi quy từ ảnh không được bảo đảm đơn điệu bởi tính chất đó. Correlation với target, correlation với detector mAP và sai số health là ba phép đánh giá khác nhau.
 
@@ -62,7 +62,7 @@ Health target giảm theo severity là tính chất thiết kế công thức. N
 
 ## 6. Đường chạy tối thiểu và bàn giao
 
-Giai đoạn 2 sử dụng [scripts/stage2_smoke_test.py](scripts/stage2_smoke_test.py) với một clip thật S01 clean, 8 frame, đúng preprocessing và checkpoint. Chạy:
+Giai đoạn 2 sử dụng [scripts/stage2_smoke_test.py](../scripts/stage2_smoke_test.py) với một clip thật S01 clean, 8 frame, đúng preprocessing và checkpoint. Chạy:
 
 ```powershell
 python scripts/stage2_smoke_test.py
@@ -70,6 +70,6 @@ python scripts/stage2_smoke_test.py
 
 Script kiểm tra commit/hash, import đúng source, độ dài video, output hợp lệ và sai lệch mean8 với metadata nguồn dưới `1e-3`. Kết quả và log nằm ở `outputs/stage2/`. Các thư mục source/data cache nằm trong `.lab_cache/`, không đưa vào Git; checkpoint có sẵn ở `drive-c-dataset/checkpoints/`.
 
-Giai đoạn 3 dùng [test-drivec.ipynb](test-drivec.ipynb) để chạy đầy đủ 24 clip sau khi smoke test đạt. Nếu chuyển Kaggle/Colab, ghi lại môi trường và hardware của phiên đó, giữ nguyên frame/model/metric. File [configs/benchmark.json](configs/benchmark.json) hiện là đặc tả đối chiếu, chưa được notebook tự đọc.
+Giai đoạn 3 dùng [test-drivec.ipynb](../test-drivec.ipynb) để chạy đầy đủ 24 clip sau khi smoke test đạt. Nếu chuyển Kaggle/Colab, ghi lại môi trường và hardware của phiên đó, giữ nguyên frame/model/metric. File [configs/benchmark.json](../configs/benchmark.json) hiện là đặc tả đối chiếu, chưa được notebook tự đọc.
 
 **Mẫu câu Method:** “Nhóm sử dụng PerceptionHealthNet checkpoint phát hành cùng DRIVE-C để dự đoán health trên một tập con các clip sạch và corruption có đối chứng. Phương pháp GSHI được tham khảo từ bài camera reliability; triển khai và công thức nhãn được đối chiếu với phiên bản source cố định. Nhóm đo health cùng ba metric ảnh, chưa tái hiện thí nghiệm detector-coupled early warning.”

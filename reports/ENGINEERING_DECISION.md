@@ -2,7 +2,7 @@
 
 ## 1. Failure case được chọn
 
-**ID:** S01_motion_blur_s2, frame 54; đối chứng S01_clean frame 54. Nguồn số là [benchmark_summary.csv](outputs/stage3_small/benchmark_summary.csv) của lần chạy CPU mới, không phải số paper hoặc bảng 24 clip lịch sử.
+**ID:** S01_motion_blur_s2, frame 54; đối chứng S01_clean frame 54. Nguồn số là [benchmark_summary.csv](../outputs/stage3_small/benchmark_summary.csv) của lần chạy CPU mới, không phải số paper hoặc bảng 24 clip lịch sử.
 
 | Số đo | Clean | Motion blur s2 | Chênh lệch |
 | --- | ---: | ---: | ---: |
@@ -10,7 +10,7 @@
 | Health frame 54 | 0,148770 | 0,407456 | +0,258686 |
 | Health trung bình 8 frame | 0,221979 | 0,356979 | +0,135000 |
 
-![Cùng cảnh và frame với clean/ba mức blur](outputs/stage3_small/image_grid.png)
+![Cùng cảnh và frame với clean/ba mức blur](../outputs/stage3_small/image_grid.png)
 
 **[NHÓM ĐO]** Ảnh s2 nhòe hơn theo proxy B, trong khi model chấm health cao hơn clean. Health cũng tăng từ s1 lên s2, cả ở frame54 và mean8. Việc này làm cách xếp chất lượng chỉ theo health không nhất quán với mức corruption trên mẫu đã chạy.
 

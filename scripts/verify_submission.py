@@ -75,7 +75,9 @@ def main():
         assert row['including_clean_non_increasing'] == str(all(a >= b for a, b in zip(values, values[1:])))
     for filename in ['image_grid.png', 'metric_curves.png']:
         assert cv2.imread(str(out / filename)) is not None
-    reports = sorted((ROOT / 'reports').glob('*.md'))
+    reports = [ROOT / 'reports' / name for name in (
+        '2A202602599_LuuQuangKhai.md', 'LeHung.md',
+        'DangDinhDoan.md', '2A202602788_NguyenHoNam.md')]
     assert len(reports) == 4
     pending = []
     for report in reports:
@@ -91,7 +93,9 @@ def main():
             pending.append(report.name + ': student ID missing')
         if '[Th\u00e0nh vi\u00ean b\u1ed5 sung' in content:
             pending.append(report.name + ': actual contribution needs confirmation')
-    documents = list(ROOT.glob('*.md')) + reports
+    documents = (list(ROOT.glob('*.md')) + list((ROOT / 'reports').rglob('*.md'))
+                 + list((ROOT / 'docs').rglob('*.md'))
+                 + list((ROOT / 'drive-c-dataset').rglob('*.md')))
     for doc in documents:
         content = doc.read_text(encoding='utf-8')
         for target in re.findall(r'\]\((<[^>]+>|[^)]+)\)', content):
