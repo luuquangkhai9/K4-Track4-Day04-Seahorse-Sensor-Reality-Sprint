@@ -1,0 +1,7 @@
+Frozen source/checkpoint verified: caf16657b87cec8518008b74c72dd0dcb6088eb6
+Imports OK, device=cpu, CPU threads=4
+Video verified: 24.44 MB
+Strict checkpoint load OK in 0.79s; running 8-frame batch...
+S01 clean: frame54=0.148769, mean8=0.221979, author=0.221905, abs_error=0.00007408
+8-frame forward=2.43s; 24-clip forward-only estimate=58.3s
+PASS: real clean baseline reproduced; ready to attempt stage 3 on this CPU.

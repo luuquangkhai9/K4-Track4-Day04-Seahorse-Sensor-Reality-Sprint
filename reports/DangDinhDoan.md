@@ -75,6 +75,7 @@ Trade-off: metric ảnh dễ tính nhưng phụ thuộc texture/exposure; health
 **Đóng góp thực tế của tôi:**
 
 - Dựng môi trường CPU độc lập (WSL2, Python 3.13.15, đúng phiên bản pin), chạy `setup_demo.py`: source đúng commit, checkpoint đúng SHA-256.
+- Chạy lại smoke test baseline S01 clean: [outputs/stage2_repeat/](../outputs/stage2_repeat/run.log), PASS, sai lệch mean8 với tác giả 0,00007408.
 - Chạy lại toàn bộ benchmark 4 clip/32 health trên máy riêng: [outputs/stage3_repeat/](../outputs/stage3_repeat/run.log). PASS; sai lệch mean8 lớn nhất với tác giả 0,00032299; forward 8,56 giây.
 - Viết [compare_runs.py](../scripts/compare_runs.py) đối chiếu với bằng chứng đã lưu: 4 ảnh frame54 trùng từng byte, B/S/H sai khác 0, health lệch tối đa 2,98 × 10⁻⁷ ([kết quả](../outputs/stage3_repeat/comparison_vs_reference.csv)). Failure s2 tái hiện độc lập trên OS/CPU khác.
 - Sửa [verify_submission.py](../scripts/verify_submission.py) để chạy được trên clone mới (submodule rỗng, kiểm tra link trong clone đúng commit); điền bảng cấu hình tái lập, lệnh Linux và nhật ký trong [file công việc](../03_Thanh_vien_Code_Benchmark.md).

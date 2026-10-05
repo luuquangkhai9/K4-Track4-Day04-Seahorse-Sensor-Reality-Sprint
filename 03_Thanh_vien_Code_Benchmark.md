@@ -85,9 +85,9 @@ Nếu có health score hoặc metric bổ sung, thêm cột và ghi rõ công th
 
 ## Mốc và đầu ra
 
-Giai đoạn 4 đã soạn [bản báo cáo riêng của Đoàn](reports/DangDinhDoan.md). Cần bổ sung MSSV, rà khả năng chạy lại/provenance và ghi đóng góp thực tế trước nộp. Phần nói của Đoàn nằm trong [PITCH.md](reports/PITCH.md).
+[Bản báo cáo riêng của Đoàn](reports/DangDinhDoan.md) đã có MSSV, phần rà khả năng chạy lại/provenance và đóng góp thực tế. Phần nói của Đoàn nằm trong [PITCH.md](reports/PITCH.md).
 
-**Giai đoạn 2 đã có bằng chứng chạy CPU:** [báo cáo](docs/STAGE2_REPORT.md), [script](scripts/stage2_smoke_test.py), [manifest](outputs/stage2/run_manifest.json). Baseline thật S01 clean đạt ngưỡng tái hiện. Đặng ĐỈnh Đoàn dùng đường chạy này cho bước tiếp theo; chưa chạy mới đủ 24 clip ở giai đoạn 2. Không tự gán lần chạy hỗ trợ này vào nhật ký đóng góp cá nhân nếu chưa thực hiện/kiểm tra.
+**Giai đoạn 2 đã có bằng chứng chạy CPU:** [báo cáo](docs/STAGE2_REPORT.md), [script](scripts/stage2_smoke_test.py), [manifest](outputs/stage2/run_manifest.json). Baseline thật S01 clean đạt ngưỡng tái hiện. Đặng ĐỈnh Đoàn dùng đường chạy này cho bước tiếp theo; chưa chạy mới đủ 24 clip ở giai đoạn 2. Đoàn đã tự chạy lại smoke test này trên máy riêng: [outputs/stage2_repeat/](outputs/stage2_repeat/run.log), PASS, mean8 0.221979, sai lệch với tác giả 0.00007408; ảnh frame54 trùng từng byte, health 8 frame lệch tối đa 2,4 × 10⁻⁷ so với lần chạy gốc.
 
 - **Trước phút 45:** Môi trường/dữ liệu sẵn sàng, baseline smoke test chạy được.
 - **Trước phút 75:** Hoàn thành benchmark, lưu code/cấu hình/log/CSV/ảnh.
@@ -106,3 +106,19 @@ Giai đoạn 4 đã soạn [bản báo cáo riêng của Đoàn](reports/DangDin
 | 2026-10-05 23:58 | Viết `compare_runs.py`, so sánh với bằng chứng đã lưu | [comparison_vs_reference.json](outputs/stage3_repeat/comparison_vs_reference.json) | Ảnh/B/S/H trùng tuyệt đối; health lệch ≤2,98 × 10⁻⁷ |
 | 2026-10-05 23:58 | Sửa `verify_submission.py` cho clone mới (submodule chưa init) | [verify_submission.py](scripts/verify_submission.py), [verification.json](outputs/submission_check/verification.json) | Kiểm tra kỹ thuật PASS; còn pending thông tin cá nhân |
 | 2026-10-06 00:00 | Điền bảng cấu hình tái lập, checklist, lệnh Linux; bàn giao cho Nam | File này, [bản riêng](reports/DangDinhDoan.md) | Hoàn tất phần code/benchmark |
+| 2026-10-06 00:03 | Bổ sung MSSV; sửa `build_individual_reports.py` giữ lại phần đóng góp đã viết khi sinh lại báo cáo | Commit `4fc1739` | Chạy lại generator cho 4 báo cáo y hệt bản hiện tại |
+| 2026-10-06 00:05 | Chạy lại smoke test baseline S01 clean (giai đoạn 2) | [outputs/stage2_repeat/](outputs/stage2_repeat/run_manifest.json) | PASS; sai lệch với tác giả 0,00007408 |
+
+## Đối chiếu hoàn thành nhiệm vụ
+
+| Nhiệm vụ | Trạng thái | Bằng chứng |
+| --- | --- | --- |
+| 1. Kiểm tra code/dữ liệu, tái sử dụng phần phù hợp | Xong | Dùng lại `setup_demo.py`, `stage2_smoke_test.py`, `stage3_small_demo.py`; source/checkpoint/video đúng hash |
+| 2. Dùng 24 clip DRIVE-C | Không áp dụng | Đã thay bằng phạm vi nhỏ 4 clip theo [benchmark_small.json](configs/benchmark_small.json); 24 clip chỉ là lịch sử |
+| 3. Giữ nguyên tiền xử lý/metric, ghi tham số | Xong | Bảng cấu hình ở trên; [corruption_parameters.json](outputs/stage3_repeat/corruption_parameters.json) |
+| 4. Chạy benchmark, lưu metric/log/ảnh | Xong | [outputs/stage2_repeat/](outputs/stage2_repeat/run.log), [outputs/stage3_repeat/](outputs/stage3_repeat/run.log) |
+| 5. Bàn giao dữ liệu và hướng dẫn chạy lại cho thành viên 4 | Xong | Lệnh Linux/WSL ở trên, [compare_runs.py](scripts/compare_runs.py); số liệu báo cáo nhóm không đổi |
+| Checklist trước bàn giao (7 mục) | Xong | Mục *Kiểm tra trước khi bàn giao* |
+| MSSV, bản riêng, đóng góp thực tế | Xong | [reports/DangDinhDoan.md](reports/DangDinhDoan.md) |
+| Tập pitch phần Benchmark (60 giây) | Chưa | Cần nhóm tập và bấm giờ |
+| Nộp bản riêng trên VLearn | Chưa | Đoàn tự nộp kèm URL repository |
