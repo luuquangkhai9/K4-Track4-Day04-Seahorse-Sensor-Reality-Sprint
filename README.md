@@ -157,7 +157,7 @@ Trade-off: metric thủ công dễ tính nhưng phụ thuộc cảnh và ánh s�
 | Lưu Quang Khải — 2A202602599 | Đội trưởng, tổng hợp và quyết định kỹ thuật | [File cá nhân](01_LuuQuangKhai_2A202602599.md) |
 | Chưa điền tên/MSSV | Đọc nguồn và kiểm tra cơ sở phương pháp | [Template thành viên 2](02_Thanh_vien_Tai_lieu.md) |
 | Chưa điền tên/MSSV | Code và chạy benchmark | [Template thành viên 3](03_Thanh_vien_Code_Benchmark.md) |
-| Chưa điền tên/MSSV | Kiểm tra kết quả, plot và trình bày | [Template thành viên 4](04_Thanh_vien_Ket_qua_Trinh_bay.md) |
+| Nguyễn Hồ Nam — 2A202602788 | Kiểm tra kết quả, plot và trình bày | [File cá nhân](04_NguyenHoNam_2A202602788.md) |
 
 Các template phân công ban đầu có thiết kế Gaussian blur đề xuất. Cấu hình benchmark thực tế trong README là **motion blur/underexposure của DRIVE-C**; cần đồng bộ template khi hoàn thiện hồ sơ.
 
