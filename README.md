@@ -29,12 +29,12 @@ Sensor là camera RGB; failure là motion blur, tính năng liên quan là giám
 
 Hai nguồn của Shiva Aher có vai trò khác nhau:
 
-- *Safety-Critical Camera Reliability Monitoring for ADAS via Degradation-Aware Uncertainty Pattern Analysis*, arXiv:2605.05439v1: phương pháp GSHI/model và giới hạn. [PDF](<Safety-Critical Camera Reliability Monitoring for ADAS via Degradation-Aware Uncertainty Pattern Analysis.pdf>).
-- *DRIVE-C: A Controlled Corruption Dataset for Autonomous Driving*, arXiv:2605.09774v1: dữ liệu đối chứng và checkpoint baseline. [PDF](<DRIVE-C A Controlled Corruption Dataset for Autonomous Driving.pdf>).
+- *Safety-Critical Camera Reliability Monitoring for ADAS via Degradation-Aware Uncertainty Pattern Analysis*, arXiv:2605.05439v1: phương pháp GSHI/model và giới hạn. [PDF](<paper/Safety-Critical Camera Reliability Monitoring for ADAS via Degradation-Aware Uncertainty Pattern Analysis.pdf>).
+- *DRIVE-C: A Controlled Corruption Dataset for Autonomous Driving*, arXiv:2605.09774v1: dữ liệu đối chứng và checkpoint baseline. [PDF](<paper/DRIVE-C A Controlled Corruption Dataset for Autonomous Driving.pdf>).
 
 Nguồn thực thi: [drive-c-dataset v1.0.1](https://github.com/shiv-aher/drive-c-dataset/tree/v1.0.1), commit `caf16657b87cec8518008b74c72dd0dcb6088eb6`. Dữ liệu: [Zenodo 19656444](https://doi.org/10.5281/zenodo.19656444). Checkpoint `epoch_021_best.pth`, SHA-256 `c210d9a4f207584687583d1ab5b96a99e12b2f3dbb2727464c6c039e44fb8c0b`.
 
-Model EfficientNet-B2 nhiều nhánh xuất `pred_health` trực tiếp; nhóm không huấn luyện lại. Input RGB resize 384 × 1280, chia 255, CHW, eval/no gradient. `gshi_gt` tính từ severity, không phải ground truth của detector/an toàn. [PAPER_CODE_MAPPING.md](PAPER_CODE_MAPPING.md) ghi khác biệt công thức, taxonomy và loss giữa paper/source; không tuyên bố tái hiện mọi thí nghiệm paper phương pháp.
+Model EfficientNet-B2 nhiều nhánh xuất `pred_health` trực tiếp; nhóm không huấn luyện lại. Input RGB resize 384 × 1280, chia 255, CHW, eval/no gradient. `gshi_gt` tính từ severity, không phải ground truth của detector/an toàn. [PAPER_CODE_MAPPING.md](reports/PAPER_CODE_MAPPING.md) ghi khác biệt công thức, taxonomy và loss giữa paper/source; không tuyên bố tái hiện mọi thí nghiệm paper phương pháp.
 
 ## Benchmark và bằng chứng
 
@@ -60,13 +60,13 @@ Tổng forward **7,20 giây**, CPU 4 thread; toàn script đã cache **13,33 gi�
 
 ![Metric theo mức lỗi đã chọn](outputs/stage3_small/metric_curves.png)
 
-Bằng chứng: [CSV tổng hợp](outputs/stage3_small/benchmark_summary.csv), [32 health-frame](outputs/stage3_small/per_frame.csv), [đơn điệu](outputs/stage3_small/monotonicity.csv), [log](outputs/stage3_small/run.log), [manifest](outputs/stage3_small/run_manifest.json), [tham số lỗi](outputs/stage3_small/corruption_parameters.json), [STAGE3_REPORT.md](STAGE3_REPORT.md).
+Bằng chứng: [CSV tổng hợp](outputs/stage3_small/benchmark_summary.csv), [32 health-frame](outputs/stage3_small/per_frame.csv), [đơn điệu](outputs/stage3_small/monotonicity.csv), [log](outputs/stage3_small/run.log), [manifest](outputs/stage3_small/run_manifest.json), [tham số lỗi](outputs/stage3_small/corruption_parameters.json), [STAGE3_REPORT.md](docs/STAGE3_REPORT.md).
 
 ## Failure case và Engineering decision
 
 Ở s2, B giảm **94,37%**, health f54 tăng **0,258686** và mean8 tăng **0,135000** so với clean. Xếp hạng chỉ theo health sẽ ưu tiên s2 hơn clean trong trường hợp này. **[GIẢ THUYẾT]** khác biệt miền/cảnh hoặc calibration có thể góp phần; nguyên nhân chưa được kiểm chứng.
 
-**Đề xuất:** log health cùng B/S/H, kiểm tra mẫu bất đồng trước khi hiệu chỉnh ngưỡng giảm trọng số camera. Thêm cảnh và tập hiệu chỉnh/kiểm tra riêng để đo cảnh báo nhầm/bỏ sót. Chưa triển khai hoặc chứng minh quy tắc tốt hơn. Xem [ENGINEERING_DECISION.md](ENGINEERING_DECISION.md).
+**Đề xuất:** log health cùng B/S/H, kiểm tra mẫu bất đồng trước khi hiệu chỉnh ngưỡng giảm trọng số camera. Thêm cảnh và tập hiệu chỉnh/kiểm tra riêng để đo cảnh báo nhầm/bỏ sót. Chưa triển khai hoặc chứng minh quy tắc tốt hơn. Xem [ENGINEERING_DECISION.md](reports/ENGINEERING_DECISION.md).
 
 Giới hạn: một cảnh, một loại corruption tổng hợp; frame cùng clip không độc lập; chưa chạy s3/s4, cảnh đêm hoặc underexposure trong demo mới. Nhiều tham số PSF đổi cùng severity nên không cô lập riêng kernel. B phụ thuộc texture/exposure; S/H không có chiều tốt/xấu phổ quát. Chưa đo detector/mAP, latency end-to-end, fusion hoặc early warning. Số paper là **[NGUỒN]**, không phải kết quả nhóm.
 
@@ -79,12 +79,12 @@ Giới hạn: một cảnh, một loại corruption tổng hợp; frame cùng cl
 | Đặng ĐỈnh Đoàn — MSSV chờ bổ sung | Code/benchmark | [Đoàn](reports/DangDinhDoan.md) |
 | Nguyễn Hồ Nam — 2A202602788 | Kết quả, plot và pitch | [Nam](reports/2A202602788_NguyenHoNam.md) |
 
-[TEAMMATES.md](TEAMMATES.md) · [PITCH.md](PITCH.md) (kịch bản 4 phút 15 giây, chưa bấm giờ thực tế) · [Checklist nộp](SUBMISSION_CHECKLIST.md) · [Kế hoạch/trạng thái](LAB_COMPLETION_PLAN.md).
+[TEAMMATES.md](TEAMMATES.md) · [PITCH.md](reports/PITCH.md) (kịch bản 4 phút 15 giây, chưa bấm giờ thực tế) · [Checklist nộp](reports/SUBMISSION_CHECKLIST.md) · [Kế hoạch/trạng thái](reports/LAB_COMPLETION_PLAN.md).
 
 Mỗi người rà bản riêng, ghi đóng góp thực tế và tự nộp trên VLearn cùng URL repository. Hai MSSV còn thiếu cần bổ sung trước khi nộp. File cục bộ chưa tự xuất hiện trên GitHub.
 
 ## Kết quả lịch sử
 
-[test-drivec.ipynb](test-drivec.ipynb), [phn_24_results.csv](phn_24_results.csv), [phn_per_frame.csv](phn_per_frame.csv), [phn_curve.png](phn_curve.png), [fetch_sha256.txt](fetch_sha256.txt) là artifact bộ 24 clip lịch sử. [BENCHMARK_HISTORY.md](BENCHMARK_HISTORY.md) giữ mô tả cũ. **Không cần chạy lại 24 clip**; bộ bốn clip là bằng chứng chính hiện tại.
+[test-drivec.ipynb](test-drivec.ipynb), [phn_24_results.csv](outputs/phn_24_results.csv), [phn_per_frame.csv](outputs/phn_per_frame.csv), [phn_curve.png](outputs/phn_curve.png), [fetch_sha256.txt](fetch_sha256.txt) là artifact bộ 24 clip lịch sử. [BENCHMARK_HISTORY.md](docs/BENCHMARK_HISTORY.md) giữ mô tả cũ. **Không cần chạy lại 24 clip**; bộ bốn clip là bằng chứng chính hiện tại.
 
 Source `drive-c-dataset/` tham chiếu bằng submodule đúng commit; setup dùng clone riêng trong cache. Giữ ghi nhận nguồn và điều kiện sử dụng DRIVE-C khi chia sẻ code/checkpoint/dữ liệu.
