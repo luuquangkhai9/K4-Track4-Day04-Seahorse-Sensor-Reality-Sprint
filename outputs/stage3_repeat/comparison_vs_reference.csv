@@ -1,0 +1,5 @@
+sample_id,f54_png_identical,abs_diff_B,abs_diff_S_pct,abs_diff_H_bit,abs_diff_health_f54,abs_diff_health_mean8
+S01_clean,True,0.0,0.0,0.0,5.960464477539063e-08,4.470348358154297e-08
+S01_motion_blur_s1,True,0.0,0.0,0.0,2.682209014892578e-07,5.960464477539063e-08
+S01_motion_blur_s2,True,0.0,0.0,0.0,2.9802322387695312e-08,5.960464477539063e-08
+S01_motion_blur_s5,True,0.0,0.0,0.0,5.21540641784668e-08,3.725290298461914e-09

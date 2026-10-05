@@ -96,14 +96,19 @@ def main():
     documents = (list(ROOT.glob('*.md')) + list((ROOT / 'reports').rglob('*.md'))
                  + list((ROOT / 'docs').rglob('*.md'))
                  + list((ROOT / 'drive-c-dataset').rglob('*.md')))
+    # A fresh clone leaves the submodule empty; setup_demo.py keeps the same commit in the cache.
+    submodule, frozen = ROOT / 'drive-c-dataset', ROOT / '.lab_cache/drive-c-source'
     for doc in documents:
         content = doc.read_text(encoding='utf-8')
         for target in re.findall(r'\]\((<[^>]+>|[^)]+)\)', content):
             target = target.strip('<>')
             if target.startswith(('https://', 'http://', '#')):
                 continue
-            target = target.split('#', 1)[0]
-            assert (doc.parent / target).exists(), (doc.name, target)
+            path = (doc.parent / target.split('#', 1)[0]).resolve()
+            if path.is_relative_to(submodule) and not (submodule / '.git').exists():
+                assert (frozen / '.git').exists(), 'Run scripts/setup_demo.py to check source links'
+                path = frozen / path.relative_to(submodule)
+            assert path.exists(), (doc.name, target)
     assert 'url = https://github.com/shiv-aher/drive-c-dataset.git' in (ROOT / '.gitmodules').read_text()
     result = {'checked_at': datetime.now(timezone.utc).isoformat(), 'technical_evidence': 'pass',
               'scope': 'saved four-clip artifacts, image-derived metrics, CSV aggregation, provenance, reports and local links',

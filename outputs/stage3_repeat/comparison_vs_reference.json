@@ -1,0 +1,37 @@
+{
+  "reference": "outputs/stage3_small",
+  "repeat": "outputs/stage3_repeat",
+  "same_runner_config_source_checkpoint": true,
+  "same_video_sha256": true,
+  "image_metrics_identical": true,
+  "f54_png_identical": true,
+  "max_abs_diff_health_per_frame": 2.980232238769531e-07,
+  "health_tolerance": 1e-06,
+  "reference_python_versions": [
+    "3.13.15",
+    {
+      "torch": "2.14.1+cpu",
+      "torchvision": "0.29.1",
+      "numpy": "2.5.3",
+      "opencv-python-headless": "5.0.0.93",
+      "remotezip": "0.12.6",
+      "requests": "2.34.2",
+      "PyYAML": "6.0.3",
+      "matplotlib": "3.11.2"
+    }
+  ],
+  "repeat_python_versions": [
+    "3.13.15",
+    {
+      "torch": "2.14.1+cpu",
+      "torchvision": "0.29.1+cpu",
+      "numpy": "2.5.3",
+      "opencv-python-headless": "5.0.0.93",
+      "remotezip": "0.12.6",
+      "requests": "2.34.2",
+      "PyYAML": "6.0.3",
+      "matplotlib": "3.11.2"
+    }
+  ],
+  "status": "pass"
+}

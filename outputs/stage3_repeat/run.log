@@ -1,0 +1,11 @@
+Small demo: 4 clips, 1 scene, motion blur; device=cpu
+Fetching only 4 missing clips; clean baseline is reused if cached...
+Fetched S01_clean: 24.44 MB
+Fetched S01_motion_blur_s1: 12.41 MB
+Fetched S01_motion_blur_s2: 11.78 MB
+Fetched S01_motion_blur_s5: 5.43 MB
+[1/4] S01_clean: B=3544.14, health54=0.148769, mean8=0.221979, source_error=0.00007408, forward=2.08s
+[2/4] S01_motion_blur_s1: B=292.70, health54=0.275988, mean8=0.318326, source_error=0.00012877, forward=2.17s
+[3/4] S01_motion_blur_s2: B=199.49, health54=0.407456, mean8=0.356979, source_error=0.00032299, forward=2.02s
+[4/4] S01_motion_blur_s5: B=14.26, health54=0.076573, mean8=0.059943, source_error=0.00002021, forward=2.29s
+PASS: 4 clips / 32 health rows, max reproduction error=0.00032299
