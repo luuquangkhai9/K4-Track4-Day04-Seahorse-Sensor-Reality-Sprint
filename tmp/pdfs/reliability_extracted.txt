@@ -1,0 +1,1045 @@
+=== PAGE 1 ===
+Safety-Critical Camera Reliability Monitoring for
+ADAS via Degradation-Aware Uncertainty Pattern
+Analysis
+Shiva Aher, Senior Member, IEEE
+Abstract—Reliable camera input is essential for safety-critical
+ADAS perception, but most monitoring approaches detect sensor
+failures only after downstream performance has degraded. We
+propose a proactive camera reliability monitoring framework
+that estimates perception risk from degradation-induced uncer-
+tainty patterns before downstream failure becomes observable.
+The method introduces a Global Sensor Health Index (GSHI),
+a continuous reliability score that aggregates per-degradation
+severities using a risk-aware multiplicative formulation, allowing
+severe single-mode failures such as lens occlusion or motion
+blur to dominate the health estimate. A lightweight multi-
+task network predicts degradation type, severity, GSHI, and
+spatial uncertainty maps from a single RGB image without
+downstream task feedback. Training uses physics- and geometry-
+aware synthetic supervision over twelve camera degradation
+modes. Experiments on KITTI-derived degradations show that
+GSHI decreases monotonically with severity, achieves a health-
+estimation MAE of 0.064, and provides positive early-warning
+lead time of 0.47 ± 0.25 severity units before YOLOv8 detection
+failure. GSHI also outperforms IQA, detector-confidence, and
+clean-feature OOD baselines, and transfers zero-shot to real
+adverse-weather driving data. These results support degradation-
+aware uncertainty analysis as a practical direction for proactive
+camera reliability monitoring in intelligent vehicles.
+Index Terms—ADAS, autonomous driving, camera reliability,
+sensor health monitoring, uncertainty estimation, perception
+safety, degradation detection, intelligent vehicles.
+I. INTRODUCTION
+Camera-based perception is central to modern Advanced
+Driver Assistance Systems (ADAS), supporting object detec-
+tion, lane understanding, free-space estimation, and scene-
+level reasoning [1], [2]. In safety-critical driving, however,
+perception accuracy alone is an insufficient guarantee of safe
+operation: the system must also continuously assess whether
+its camera input is reliable enough to support downstream
+decisions. A detector may continue producing high-confidence
+outputs even when the image signal has been substantially
+degraded, deferring fallback actions until the perception stack
+has already entered an unsafe operating regime [3], [4].
+Real-world cameras are subject to a wide range of degrada-
+tions, including fog, rain, snow, low illumination, glare, motion
+blur, defocus blur, lens occlusion, compression artifacts, expo-
+sure shift, vignetting, and sensor noise [5]–[7]. These effects
+frequently introduce gradual image ambiguity that predates
+Shiva Aher is with the Georgia Institute of Technology, Atlanta, GA, USA.
+E-mail: saher8@gatech.edu.
+arXiv preprint, May 2026. Under review at IEEE Transactions on Intelligent
+Vehicles.
+any measurable collapse in downstream task performance [3],
+[8]. This temporal asymmetry creates areliability gap: by the
+time task-level indicators such as detection failure, tracking in-
+stability, or cross-sensor disagreement expose the problem [1],
+[9], the vehicle may have already sacrificed valuable reaction
+time.
+This paper addressessafety-critical camera reliability moni-
+toringfor ADAS. Rather than treating visual degradation only
+as a robustness stress test [3], [4] or as a generic image-quality
+distortion [10], [11], we model it directly as an indicator
+of perception risk. Our central hypothesis is that camera
+degradations induce characteristic global and spatial uncer-
+tainty patterns [12], [13] that are detectable before downstream
+perception failure becomes observable. Fig. 1 illustrates this
+concept: as degradation severity increases, the predicted GSHI
+falls while spatial uncertainty maps highlight the regions of the
+image that have become unreliable.
+We propose a degradation-aware reliability framework that
+jointly predicts degradation presence, continuous severity, a
+spatial uncertainty map, and a scalar GSHI from a single
+RGB image. GSHI provides a task-independent summary
+of camera input reliability, with values near one indicating
+healthy conditions and values approaching zero indicating
+degraded or critical states [2], [14]. Unlike a simple weighted
+average of degradation scores, the proposed multiplicative
+GSHI formulation ensures that a single severe failure mode
+such as lens occlusion or strong motion blur can dominate the
+global estimate, which matches the safety intuition that one
+critical fault outweighs several mild distortions.
+Because real driving datasets rarely provide fine-grained,
+per-image labels for degradation type, continuous severity,
+global health, and spatial degradation footprint, we train the
+monitor exclusively on physics- and geometry-aware synthetic
+supervision [5], [6]. Twelve camera degradation modes are
+applied to KITTI-derived images [15] with fully controlled
+severity parameters. For scene-dependent effects such as fog
+and defocus blur, monocular depth estimates [16] guide syn-
+thesis to produce spatially realistic degradations; critically,
+no depth information is required at inference time, so the
+deployed monitor takes only a single RGB image as input.
+Experiments show that GSHI decreases monotonically with
+degradation severity and achieves a mean absolute error of
+0.064for health estimation. Early-warning analysis shows pos-
+itive lead time for seven failure-inducing degradation modes,
+with an average lead time of0.47±0.25severity units
+before detector failure atτ H = 0.8. A threshold-sensitivity
+arXiv:2605.05439v1  [cs.CV]  6 May 2026
+
+=== PAGE 2 ===
+Clear s= 0.4 s= 0.8 s= 1.0 Uncertainty
+FogSnowMotion blur
+GSHI: 0.819
+ GSHI: 0.543
+ GSHI: 0.218
+ GSHI: 0.171
+GSHI: 0.819
+ GSHI: 0.307
+ GSHI: 0.013
+ GSHI: 0.003
+GSHI: 0.819
+ GSHI: 0.273
+ GSHI: 0.043
+ GSHI: 0.014
+Fig. 1. Teaser of the proposed camera reliability monitor. As degradation severity increases, the predicted Global Sensor Health Index (GSHI) decreases
+while spatial uncertainty highlights unreliable image regions, providing an early-warning signal before downstream perception failure.
+study further shows that positive lead time is maintained
+acrossτ H∈{0.7,0.8,0.9}, indicating that the early-warning
+behavior is not tied to a single manually selected operating
+point. Zero-shot evaluation on the DAWN dataset [17] demon-
+strates transfer to real fog, rain, and snow, and comparison
+against IQA [10], [11], [18] and OOD baselines confirms the
+advantage of degradation-aware supervision.
+The main contributions are summarized as follows:
+•Proactive reliability formulation.Camera reliability
+monitoring is formulated as a safety-critical perception
+problem for ADAS, estimating degradation-induced un-
+certaintybeforeany downstream task failure is observ-
+able.
+•Global Sensor Health Index (GSHI).A risk-aware
+multiplicative reliability score that maps to interpretable
+Healthy, Degraded, and Critical operating regimes, allow-
+ing severe single-mode failures to dominate the health
+estimate when appropriate.
+•Degradation-aware synthetic supervision pipeline.A
+physics- and geometry-aware synthesis framework cover-
+ing twelve camera failure modes with continuous sever-
+ity labels and depth-conditioned rendering for scene-
+dependent effects.
+•Lightweight multi-task monitor.A single-image net-
+work that jointly predicts degradation type, severity,
+GSHI, and spatial uncertainty maps at inference, with no
+downstream task feedback required.
+•Early-warning evaluation protocol.We introduce
+a detector-coupled evaluation protocol that measures
+whether camera-health warnings occur before down-
+stream YOLOv8 failure, including per-degradation lead
+time and threshold-sensitivity analysis.
+II. RELATEDWORK
+Robustness under adverse visual conditions.The robust-
+ness of deep perception models under synthetic and real-
+world corruptions—including blur, noise, weather, illumina-
+tion shifts, and compression artifacts—has been extensively
+studied. Benchmarks such as ImageNet-C [3] and driving-
+focused robustness studies [4], [8] demonstrate that mod-
+ern detectors and segmenters can suffer severe performance
+degradation under distribution shift. These studies are valuable
+because they expose performance cliffs that would otherwise
+remain invisible at deployment. However, they frame cor-
+ruptions as stress tests: the goal is to measure how much
+downstream task performance degradesafterthe perception
+model has already been exposed to a corrupted input. Our
+work takes the complementary view, treating degradation itself
+as a safety-relevant diagnostic signal from which perception
+risk can be estimatedbeforedownstream task failure becomes
+observable.
+Image quality assessment.No-reference image quality as-
+sessment (IQA) methods such as BRISQUE [10], NIQE [11],
+and PIQE [18] estimate perceptual quality from statistical
+image features, without requiring a clean reference. Learning-
+based IQA methods extend this by using deep features to
+regress quality scores. While these methods are effective
+for measuring perceptual distortion, perceptual quality is not
+equivalent to safety-critical perception reliability. A globally
+degraded image may still support accurate object detection,
+whereas a spatially localized artifact can compromise a safety-
+critical region—such as a pedestrian or a stop sign—while
+leaving overall image statistics largely unaffected. Further-
+more, IQA methods produce a single scalar quality estimate
+and do not model degradation type, continuous severity, spatial
+uncertainty footprint, or downstream perception risk. By con-
+trast, GSHI is designed specifically as a perception reliability
+score for ADAS, grounded in a degradation-aware taxonomy
+rather than generic visual quality statistics.
+Physics-based degradation modeling.Physics-based
+degradation models and adverse-condition datasets have been
+widely used for fog, rain, snow, blur, glare, noise, and com-
+pression simulation [5]–[7]. Such models are essential for
+controlled experiments because real adverse-condition data
+
+=== PAGE 3 ===
+rarely provides ground-truth severity annotations. Prior work
+primarily employs these models for data augmentation, image
+restoration, domain adaptation, or robustness benchmarking.
+We instead use severity-controlled, physics- and geometry-
+aware synthesis as asupervisorysignal for a camera reliability
+monitor. Depth is incorporated during synthesis for scene-
+dependent effects such as fog and defocus blur, using monoc-
+ular depth estimates inspired by dense prediction models [16],
+but the deployed monitor operates on a single RGB image
+without any depth input at inference.
+Uncertainty estimation.Uncertainty estimation in deep
+neural networks has been approached through Bayesian neu-
+ral networks, Monte Carlo dropout, deep ensembles, and
+uncertainty-aware multi-task learning [12], [13], [19], [20],
+with applications spanning segmentation, detection, depth
+estimation, and out-of-distribution detection. The dominant
+paradigm interprets predicted uncertainty as model confidence
+with respect to a specific downstream task. Our work focuses
+instead onsensor-induceduncertainty caused by degradation
+in the camera signal itself. This distinction is operationally
+important: a downstream detector may remain overconfident
+even when the image it receives has become unreliable,
+precisely because the model was not trained to represent the
+degraded input distribution.
+Sensor health monitoring.Sensor health monitoring in au-
+tonomous driving traditionally relies on hardware diagnostics,
+cross-sensor consistency checks, redundancy mechanisms, or
+downstream task-level failure indicators, and must ultimately
+be integrated with vehicle-level safety processes [1], [2], [9],
+[14]. These approaches are valuable but inherently reactive:
+a fault is detected only after disagreement, instability, or
+accuracy loss becomes measurable. Camera-only reliability
+monitoring is a harder problem because degradations can be
+gradual, spatially localized, mixed across multiple modes, and
+extremely difficult to label at scale in real data. Our framework
+addresses this gap by learning degradation-aware uncertainty
+patterns directly from physics-supervised synthetic data and
+aggregating them into an interpretable GSHI that can provide
+proactive early warnings and support fallback decisions before
+any task-level failure is detected.
+III. SAFETY-CRITICALCAMERARELIABILITY
+FRAMEWORK
+Given an RGB imageI∈R H×W×3 captured by a forward-
+facing ADAS camera, the goal is to estimate input reliability
+beforedownstream perception failure is observed. The monitor
+produces four outputs: degradation probabilities ˆp∈[0,1] K,
+severity estimates ˆs∈[0,1] K, a Global Sensor Health Index
+ˆH∈[0,1], and an optional spatial uncertainty map ˆU∈
+[0,1]H×W :
+fθ(I) = ( ˆp, ˆs, ˆH, ˆU), K= 12(1)
+The score ˆHis intentionally task-independent: it quantifies
+camera input reliability rather than the confidence of any
+particular detector, segmenter, or tracker. This distinction is
+critical, because a downstream model may remain highly
+confident on a degraded input, especially when object ap-
+pearance is partially preserved or when the model is poorly
+TABLE I
+GSHIRISK WEIGHTS USED FOR MULTIPLICATIVE HEALTH AGGREGATION
+Modew i αg(i) wiαg(i)
+Haze/Fog 1.30 1.00 1.30
+Rain 1.10 1.00 1.10
+Snow 1.20 1.00 1.20
+Low Light 1.30 1.00 1.30
+Motion Blur 1.40 1.10 1.54
+Defocus Blur 1.40 1.10 1.54
+Glare/Flare 1.50 1.10 1.65
+Vignetting 0.70 1.10 0.77
+Sensor Noise 1.10 0.95 1.05
+Exposure Shift 1.00 0.95 0.95
+JPEG Compression 0.80 0.95 0.76
+Lens Occlusion 1.60 1.15 1.84
+calibrated outside its training distribution. This distinction is
+consistent with prior observations that perception models may
+remain poorly calibrated under distribution shift or adverse
+visual conditions, even when downstream predictions appear
+confident.
+For operational use, ˆHis mapped to three regimes:Healthy
+(0.9≤ ˆH≤1.0),Degraded(0.6≤ ˆH <0.9), andCritical
+( ˆH <0.6). These thresholds define a deployment interface that
+can be recalibrated for a specific vehicle platform, perception
+stack, camera placement, operational design domain, and
+acceptable safety margin. In this work, the regimes are used
+for early-warning analysis and are not presented as universal
+safety limits.
+A. Global Sensor Health Index
+A simple weighted average of degradation severities is in-
+sufficient for safety-critical monitoring because a single severe
+failure mode—such as lens occlusion or strong motion blur—
+can render perception unsafe even when all other degradation
+channels are negligible. To capture this behavior, we define a
+multiplicative risk-aware health score:
+ˆH(I) =
+KY
+i=1
+(1−ˆsi(I))wiαg(i) (2)
+whereˆsi is the predicted severity of degradationi,w i is a
+degradation-specific risk weight,g(i)denotes the degradation
+group, andα g(i) is a group-level scaling exponent. The score
+satisfies ˆH∈[0,1], with values approaching one indicating
+healthy input.
+Unless otherwise stated, the GSHI exponents use the base
+degradation weights and group-scale multipliers in Table I;
+the effective exponent for modeiisw iαg(i). The effective
+exponent in Eq. (2) isw iαg(i), wherew i is the degradation-
+specific base weight andα g(i) is the group-scale multiplier.
+The largest effective weights are assigned to lens occlusion,
+glare/flare, motion blur, and defocus blur because these modes
+can rapidly compromise localized safety-critical evidence.
+Lower weights are assigned to vignetting and compression
+because mild forms of these degradations often preserve
+sufficient structure for downstream perception.
+The multiplicative formulation has two safety-relevant prop-
+erties. First, it ismonotonic: increasing any individual severity
+ˆsi cannot increase ˆH. Second, it issensitive to single-mode
+
+=== PAGE 4 ===
+failures: if a high-risk degradation carries a large exponent
+wiαg(i), even moderate severity in that channel can sharply
+reduce ˆHand trigger an early warning. This behavior reflects
+the operational safety intuition that a localized lens occlusion
+near a pedestrian, or a brief episode of strong motion blur, may
+be more perception-critical than several simultaneous mild
+distortions.
+B. Degradation Diagnosis and Severity Estimation
+Alongside the scalar health score, the monitor predicts a
+multi-label degradation presence vector,
+ˆp(I) = [ˆp1(I),...,ˆp K(I)](3)
+and a per-mode severity vector,
+ˆs(I) = [ˆs1(I),...,ˆs K(I)](4)
+These outputs make the health score interpretable and action-
+able. Two images may share a similar GSHI value yet require
+qualitatively different operational responses: a score of 0.5
+caused by moderate fog calls for different fallback behavior
+than the same score caused by localized lens occlusion.
+Explicit severity estimates also allow the health score to be
+recalibrated offline if a deployment platform assigns different
+risk weights to different degradation groups.
+C. Spatial and Object-Level Reliability
+The spatial uncertainty map ˆUlocalizes image regions
+that the monitor regards as unreliable. Global health scores
+cannot capture this: a localized artifact such as glare, vi-
+gnetting, or partial lens occlusion may overlap a pedestrian or
+a lane boundary and compromise a safety-critical detection,
+even when most of the image remains visually intact. When
+bounding-box detections are available from a co-running de-
+tector, object-level reliability can be derived by pooling spatial
+uncertainty inside each boxb j:
+rj = 1− 1
+|bj|
+X
+x∈bj
+ˆU(x)(5)
+A low value ofr j indicates that the detection lies within a
+spatially degraded region, providing a per-object reliability cue
+that complements the global GSHI.
+D. Fallback Interface
+The framework is designed to run as a lightweight parallel
+module alongside the existing perception stack. AHealthy
+GSHI supports nominal ADAS operation. ADegradedscore
+can trigger cautionary behaviors such as increased following
+distance, reduced automation authority, or cross-sensor vali-
+dation requests. ACriticalscore can initiate stronger fallback
+actions including driver notification, handover requests, or
+execution of a minimal-risk maneuver. The proposed monitor
+does not replace system-level safety validation; instead, it
+provides an additional diagnostic signal that can precede
+task-level failure and complement established safety-case and
+functional-safety processes [1], [2], [14].
+TABLE II
+CAMERA DEGRADATION TAXONOMY USED FOR RELIABILITY
+MONITORING
+Group Modes Reliability effect
+Weather Fog, rain, snow Visibility and contrast loss
+Illumination Low light, exposure Photon starvation, saturation
+Optical Defocus, glare, vignette Local/global optical ambiguity
+Motion Motion blur Boundary and texture loss
+Sensor/pipeline Noise, JPEG Signal and compression artifacts
+Occlusion Lens occlusion Local zero-signal regions
+IV. DEGRADATION-AWARESYNTHETICSUPERVISION
+Supervised training requires labels for degradation pres-
+ence, severity, global health, and spatial degradation structure,
+which are difficult to obtain from real driving data, even
+in adverse-condition datasets designed for robust perception
+evaluation [7], [17]. Such labels are prohibitively expensive
+to annotate in real driving data, and real adverse conditions
+are uncontrolled, may involve multiple simultaneous effects,
+and rarely come with continuous severity ground truth. We
+therefore construct a synthetic supervision pipeline in which
+all labels are derived analytically from the known parameters
+of the applied degradation operators. Each synthesized sample
+provides a label tuple(y,s ∗,H∗)and, when applicable, a
+pixel-level spatial maskM ∗.
+A. Degradation Taxonomy
+The taxonomy contains twelve ADAS-relevant modes:
+D={d fog,d rain,d snow,d low,d defocus,d motion,
+dglare,d vignette,d occlusion,d noise,d jpeg,d exposure}(6)
+Each mode has normalized severitys i∈[0,1]. The taxonomy
+covers environmental conditions, optical artifacts, illumination
+effects, sensor and imaging-pipeline distortions, and motion-
+induced blur. These modes have different safety implications:
+fog reduces long-range visibility, motion blur destroys object
+boundaries, and lens occlusion can create localized zero-signal
+regions.
+Table II summarizes the twelve camera degradation modes
+used for reliability monitoring. Each mode is generated with
+continuous severity supervision and grouped according to
+its dominant physical source. This grouping is used both
+to organize the synthetic supervision pipeline and to define
+group-level risk scaling in the GSHI aggregation.
+The taxonomy covers both global degradations, such as
+low light, compression, exposure shift, and sensor noise,
+and localized degradations, such as glare, vignetting, and
+lens occlusion. This distinction is important because localized
+degradations may affect safety-critical regions even when the
+global image remains partially usable.
+B. Label Generation Protocol
+For each clean training image, a single degradation mode is
+sampled and assigned a severity value drawn uniformly from
+[0,1]. A fixed proportion of images is deliberately retained in
+their clean state, ensuring that the model learns the Healthy
+
+=== PAGE 5 ===
+regime rather than treating every input as degraded. For mixed-
+degradation training, up to two physically compatible modes
+may be sampled with independently drawn severities. The
+resulting per-sample labels comprise a multi-hot presence
+vectory, continuous severity targets for the active modes,
+and a scalar health targetH ∗ computed analytically from the
+GSHI formula. This supervision design allows the network
+to learn not only whether a degradation is present, but how
+strongly each active mode affects overall camera reliability,
+and how multiple co-occurring degradations interact in the
+multiplicative health formulation.
+C. Severity-Controlled Generation
+Given a clean imageI, the synthesis operator applies one
+or two physically compatible degradation transforms,
+I′ =T(I;d i,si,ϕi)(7)
+whereϕ i parameterizes stochastic rendering choices such as
+blur direction, flare source position, fog density, particle size,
+compression quality factor, or occlusion blob location. Sam-
+pling at most two degradations per image reflects the sparsity
+of real-world camera failures and prevents the creation of
+implausible combinations. Explicitly incompatible pairings are
+excluded: heavy rain and heavy snow are never co-applied, and
+extreme glare is not paired with severe low-light conditions.
+These constraints improve label consistency and encourage
+the network to learn disentangled degradation signatures that
+generalize more cleanly to real-world inputs.
+D. Physics- and Geometry-Aware Models
+Some degradations depend on scene geometry. We use
+monocular depth only during synthesis, not inference, using
+dense prediction models as relative geometric cues [16]. Let
+˜D(x)∈[0,1]be normalized depth or disparity. Following
+common synthetic fog formulations [5], fog is generated with
+a Beer–Lambert-style model,
+t(x) = exp(−β(s) ˜D(x)),
+I′(x) =I(x)t(x) +A(1−t(x)) (8)
+whereβ(s)increases with severity andAis atmospheric
+light. This makes distant regions more attenuated than nearby
+regions.
+Defocus blur uses a depth-dependent circle-of-confusion
+proxy,
+C(x) =
+
+1
+˜D(x) +ϵ
+− 1
+Df +ϵ
+,
+σ(x) =σ max(s) C(x)
+maxxC(x)
+(9)
+Spatially varying blur is rendered by discretizing the blur
+map into depth layers and compositing globally blurred im-
+ages. Rain and snow are generated with streak- or particle-
+based rendering, consistent with prior physics-based adverse-
+weather rendering studies [6], optionally coupled with visibil-
+ity attenuation. Motion blur uses trajectory-based point-spread
+functions. Lens occlusion is synthesized using soft refractive
+blobs with severity-controlled coverage. Glare and flare are
+generated from bright regions using bloom, halo, ghosting, and
+streak patterns. Vignetting is modeled as radial attenuation;
+sensor noise combines shot and read noise; JPEG compression,
+exposure shift, and low light use severity-controlled compres-
+sion quality, intensity scaling, darkening, and amplified noise.
+E. Localized and Global Degradation Structure
+The synthetic pipeline distinguishes between global degra-
+dations and localized degradations. Global effects such as
+exposure shift, low light, compression, and sensor noise affect
+most of the image and primarily influence the global health
+score. Localized effects such as occlusion, glare, vignetting,
+and spatially varying blur can affect only selected regions. This
+distinction is important for ADAS because an artifact near a
+pedestrian, vehicle, or lane boundary may be more safety-
+critical than an artifact in the sky or background. The spatial
+masks used for pixel-level supervision are therefore generated
+only when the degradation has a physically meaningful spatial
+footprint.
+F . Target Health and Spatial Masks
+The target health score is computed from known severities
+using the same risk-aware aggregation:
+H∗(I′) =
+KY
+i=1
+(1−s ∗
+i )wiαg(i) (10)
+This provides continuous supervision without manually label-
+ing camera-health scores. The multiplicative target also allows
+a high-risk single degradation to produce a Critical label even
+when other modes are absent.
+For spatially structured degradations, the simulator returns
+masks such as occlusion masks, flare-energy maps, vignetting
+attenuation fields, and fog transmission maps. Available masks
+are combined as
+M∗(x) = max
+i∈Aspatial
+Mi(x)(11)
+and used only when reliable. Samples without valid masks
+are excluded from pixel-level supervision to avoid noisy
+training. At deployment, none of these synthesis-time signals
+are required; the monitor receives only a single RGB image.
+V. NETWORKARCHITECTURE ANDTRAINING
+The reliability monitor uses an EfficientNet-B2 encoder [21]
+initialized from ImageNet-pretrained weights. This backbone
+offers a favorable balance between representational capacity
+and computational efficiency, which is important for online,
+real-time monitoring. For an input imageI, the encoder
+extracts multi-scale feature maps{F 1,...,F L}=E θ(I).
+A global descriptorz= GAP(F L)is formed by global
+average pooling over the deepest feature map and fed to three
+lightweight prediction heads:
+ˆp=σ(h pres(z)), ˆs=σ(h sev(z)), ˆHnet =σ(h health(z))
+(12)
+A structured health estimate ˆHgshi is additionally computed
+from ˆsusing Eq. (2). Maintaining both outputs makes the
+
+=== PAGE 6 ===
+health score explicitly traceable to per-degradation severity
+evidence rather than relying solely on a black-box scalar
+regression.
+The direct head ˆHnet and the structured estimate ˆHgshi serve
+complementary roles. The direct head can absorb calibration
+residuals from holistic image evidence that may not be fully
+captured by the per-mode severity predictions, while the
+structured estimate preserves interpretability by anchoring the
+global reliability score to the degradation diagnosis outputs.
+Joint supervision of both terms encourages consistency be-
+tween root-cause identification and the overall health estimate,
+reducing the risk of a well-calibrated scalar predictor that is
+disconnected from the underlying degradation state.
+A. Spatial Uncertainty Head
+A shallow spatial head is attached to an intermediate feature
+mapF m, which retains more spatial detail than the final
+encoder representation. The head predicts a low-resolution
+uncertainty map and upsamples it to the input resolution:
+ˆUlow =h spatial(Fm), ˆU= Upsample( ˆUlow)(13)
+The spatial output highlights degraded or unreliable image re-
+gions and supports the object-level reliability score in Eq. (3).
+Because the spatial head is lightweight and reuses encoder
+features, the additional cost beyond image-level monitoring is
+small.
+B. Training Objective
+For each synthetic sample, the generation pipeline provides
+presence labelsy, per-mode severity targetss ∗, a scalar health
+targetH ∗, and an optional pixel-level maskM ∗. The multi-
+task training objective combines five terms:
+Lpres = 1
+K
+KX
+i=1
+BCE(ˆpi,yi),(14)
+Lsev = 1P
+iyi +ϵ
+KX
+i=1
+yi SmoothL1(ˆsi,s∗
+i ),(15)
+Lhealth = SmoothL1( ˆHnet,H∗),(16)
+Lgshi = SmoothL1( ˆHgshi,H∗),(17)
+Lpix = BCE( ˆU,M∗)(18)
+The full objective is
+L=λ presLpres +λ sevLsev +λ healthLhealth
++λ gshiLgshi +λ pixLpix
+(19)
+The pixel lossL pix is included only for samples with a reliable
+spatial mask; samples lacking a valid mask are excluded
+from pixel-level supervision to avoid noisy gradients. Severity
+regression is conditioned on the presence labels, so inactive
+degradation modes do not contribute toL sev and cannot
+corrupt the severity predictions for active modes. Loss weights
+{λ}are set toλ pres = 1.0,λ sev = 2.0,λ health = 1.0,
+λgshi = 1.0,λ pix = 0.5in all reported experiments.
+C. Online Inference
+At inference the monitor accepts a single RGB image and
+runs in parallel with the existing ADAS perception stack.
+No monocular depth, clean reference image, downstream
+task output, or redundant sensor is required. The four pre-
+dicted outputs—degradation type, severity, GSHI, and spatial
+uncertainty—are all available before any downstream task
+failure is observed, enabling the fallback interface described
+in Section III.
+VI. EXPERIMENTS
+We evaluate the proposed framework from five perspectives:
+health-score calibration, early warning before downstream
+detector failure, comparison with baseline reliability signals,
+spatial uncertainty quality, and zero-shot transfer to real ad-
+verse weather.
+A. Experimental Setup and Metrics
+KITTI [15] is used for controlled training and evaluation
+with on-the-fly synthetic degradations. DAWN [17] is used
+for zero-shot real-world evaluation under fog, rain, and snow.
+The monitor uses an EfficientNet-B2 backbone and is trained
+with the multi-task objective in Section V . Unless otherwise
+stated, a COCO-pretrained YOLOv8n detector [22] is used
+as a frozen downstream detector and is evaluated consistently
+across all degradation types and severity levels; it is not used
+to train the reliability monitor. This separation ensures that
+the proposed monitor estimates input reliability rather than
+learning detector-specific failure labels.
+For controlled evaluation, each validation image is degraded
+across a severity sweeps∈ {0.0,0.1,...,1.0}for each
+degradation mode. This produces paired measurements of
+predicted health and downstream detector performance as
+severity increases. Clean images are retained as the Healthy
+reference state. For real-world evaluation, DAWN images are
+not fine-tuned or used for calibration; they are used only to test
+whether learned uncertainty patterns transfer to real adverse
+weather.
+We report health MAE, issue mAP, severity MAE, Pearson
+correlation between GSHI and YOLOv8mAP 50:95, early-
+warning lead time, AUSE for spatial uncertainty, and runtime
+metrics. Health MAE evaluates global reliability calibration;
+issue mAP measures root-cause recognition across degrada-
+tion modes; severity MAE measures continuous degradation
+strength; and AUSE evaluates whether predicted uncertainty
+aligns with spatial degradation structure. Health estimation
+error is
+MAEH = 1
+N
+NX
+n=1
+| ˆHn−H∗
+n|(20)
+Issue mAP is the mean average precision over the twelve
+degradation labels, and severity MAE is computed only over
+active degradation modes.
+Early warning is defined as the severity gap between the
+first reliability warning and downstream detector failure:
+∆slead =s fail−s warn, ˆH(s warn)<τ H,(21)
+
+=== PAGE 7 ===
+Fig. 2. GSHI calibration across degradation severities. Predicted health decreases monotonically with normalized severity across twelve degradation modes,
+with degradation-specific response profiles that support early warning before downstream perception failure.
+mAP(sfail)<(1−δ)mAP(0)(22)
+withτ H = 0.8andδ= 0.20in the early-warning analysis.
+Positive lead time indicates that the monitor warns before
+detector failure.
+B. Health Calibration and Early Warning
+Fig. 2 shows that predicted GSHI decreases monotonically
+with severity across all twelve degradation modes. Environ-
+mental degradations such as fog, rain, and snow show smooth
+health decay, while high-risk localized failures such as lens
+occlusion cause sharper collapse. Scene-dependent modes such
+as defocus, exposure shift, and glare show larger variance be-
+cause their impact depends on layout, depth, and illumination.
+The full model achievesMAE H = 0.064, supporting GSHI
+as a continuous reliability score rather than a binary failure
+detector. The degradation-specific response profiles are also
+useful for system design: gradual modes such as fog support
+wider warning margins, while abrupt modes such as lens
+occlusion or motion blur require more conservative thresholds.
+To quantify whether the health estimate provides actionable
+warning before downstream task degradation, Table III re-
+ports per-degradation lead time and correlation with YOLOv8
+mAP50:95. Lead time is computed as the severity gap between
+the first GSHI warning and the first detector failure point.
+Positive values indicate that the reliability monitor detects
+the degraded camera state before the detector reaches the
+predefined failure threshold. GSHI provides positive lead time
+for seven degradation modes where YOLOv8 reaches the
+predefined failure threshold. Failure is defined as a 20%
+relative drop in YOLOv8mAP 50:95; warning occurs when
+GSHI falls belowτ H = 0.8. N/F indicates that the detector
+did not reach the failure threshold within the tested severity
+range.
+The largest lead times occur for compression, snow,
+haze/fog, and lens occlusion, while motion blur produces the
+shortest lead time due to its abrupt effect on image structure.
+For degradation modes marked N/F, the detector did not reach
+the 20% failure threshold within the tested severity range;
+these cases are still informative because they test whether
+the monitor responds to degraded sensing conditions before
+measurable task failure occurs.
+The correlation values show that the relationship be-
+tween camera health and detector performance is degradation-
+TABLE III
+EARLY-WARNING AND CORRELATION ANALYSIS.
+Degradation Lead Time↑Corr. w/ mAP↑
+Haze/Fog 0.50 0.95
+Rain 0.30 0.99
+Snow 0.70 0.93
+Low Light 0.30 0.99
+Motion Blur 0.10 0.98
+Defocus Blur N/F−0.91
+Glare/Flare N/F 0.89
+Vignetting N/F 0.75
+Sensor Noise N/F 0.73
+Exposure Shift N/F 0.90
+Compression 0.90 0.70
+Lens Occlusion 0.50 0.25
+Mean over failure modes0.47±0.25–
+TABLE IV
+SENSITIVITY OF EARLY-WARNING BEHAVIOR TO THEGSHIWARNING
+THRESHOLDτ H
+τH Lead Time↑Warning Rate↑Trigger Rate
+0.70.44±0.23100.0% 100.0%
+0.80.47±0.25100.0% 100.0%
+0.90.47±0.25100.0% 100.0%
+dependent. Weather and illumination degradations generally
+show strong positive correlation, while defocus blur and lens
+occlusion are more scene-dependent. In defocus blur, detector
+mAP does not decrease monotonically across the sampled
+severity range, producing a negative correlation despite the
+health monitor assigning lower reliability to stronger blur. For
+lens occlusion, the health score can drop rapidly because lo-
+calized occlusion is treated as high risk, while global detector
+mAP may not decrease proportionally unless the occlusion
+overlaps labeled objects.
+To evaluate whether early-warning behavior depends on a
+single threshold choice, we vary the GSHI warning threshold
+τH in Table IV. Failure is defined as a 20% relative drop in
+YOLOv8mAP 50:95. Warning rate is computed over degrada-
+tion modes where the detector reaches the failure threshold;
+trigger rate is computed over all evaluated degradation modes.
+Acrossτ H ∈{0.7,0.8,0.9}, the monitor maintains positive
+lead time for all failure-inducing degradation modes, with
+mean lead time ranging from0.44to0.47severity units. This
+indicates that the early-warning result is not tied to a single
+manually selected operating point. In practice,τ H should be
+
+=== PAGE 8 ===
+TABLE V
+COMPARISON WITH BASELINE RELIABILITY SIGNALS
+Method Corr. w/ mAP↑Lead Time↑
+BRISQUE 0.59 No
+NIQE 0.73 No
+PIQE 0.72 No
+YOLO confidence 0.90 No
+Clean-feature OOD (EffNet-B2) 0.60 Yes, 0.19
+Proposed GSHI (failure subset) 0.95 Yes, 0.47
+TABLE VI
+ABLATION STUDY ONKITTI-DERIVED DEGRADED IMAGES
+Model GSHI MAE↓Issue mAP↑AUSE↓
+ResNet-50 baseline 0.124 0.782 0.089
+EffNet-B2 global only 0.081 0.854 –
+EffNet-B2 full model 0.064 0.891 0.042
+calibrated according to the target vehicle platform, operational
+design domain, and acceptable false-warning rate.
+C. Baseline Comparison and Ablation
+We compare GSHI with no-reference image quality assess-
+ment methods (BRISQUE, NIQE, PIQE), a YOLO confidence
+baseline, and a clean-feature OOD baseline. IQA scores are
+normalized to[0,1]so that larger values indicate healthier
+images, while YOLO confidence is computed by averaging de-
+tection confidences. The clean-feature OOD baseline extracts
+ImageNet-pretrained EfficientNet-B2 features, fits a clean
+KITTI feature distribution, and uses feature-space distance
+from clean images as an anomaly score. The feature extractor
+is frozen and receives no degradation-specific supervision
+or fine-tuning, making this baseline an unsupervised clean-
+distribution anomaly detector. These baselines test whether
+generic perceptual quality, detector confidence, or clean-
+distribution anomaly detection can substitute for a proactive
+camera reliability signal.
+Table V compares the proposed GSHI with generic image-
+quality, detector-confidence, and clean-feature OOD baselines.
+“No” indicates that the method does not warn before the
+detector reaches the failure threshold. For GSHI, correlation
+and lead time are reported over the failure-inducing subset
+used in the baseline comparison. BRISQUE, NIQE, and
+PIQE show moderate correlation with downstream detector
+performance, but they do not provide reliable early warning
+under the selected threshold because they are not designed to
+estimate ADAS perception risk. YOLO confidence correlates
+more strongly with mAP, but it remains a task-dependent
+and reactive signal: confidence tends to degrade only after
+object evidence has already weakened. The clean-feature OOD
+baseline provides a more relevant anomaly-style comparison
+and achieves positive lead time of0.19severity units, but its
+correlation remains substantially lower than GSHI. In contrast,
+the proposed GSHI achieves the strongest correlation on the
+failure-inducing subset and provides a larger average lead time
+of0.47severity units before downstream perception failure.
+Table VI evaluates the contribution of the proposed architec-
+ture components. Lower GSHI MAE and AUSE indicate better
+health estimation and spatial uncertainty localization; higher
+Fog (DAWN)
+GSHI: 0.102
+Pred. uncertainty (overlay)
+Rain (DAWN)
+GSHI: 0.057
+Pred. uncertainty (overlay)
+Snow (DAWN)
+GSHI: 0.061
+Pred. uncertainty (overlay)
+Fig. 3. Zero-shot generalization on DAWN. Predicted uncertainty overlays
+and GSHI values under real fog, rain, and snow demonstrate transfer from
+synthetic training to real adverse weather.
+issue mAP indicates better degradation recognition. Replacing
+the ResNet-50 baseline with EfficientNet-B2 improves health
+estimation and degradation recognition, reducing GSHI MAE
+from 0.124 to 0.081 and increasing issue mAP from 0.782 to
+0.854. Adding the spatial uncertainty head further improves
+health estimation to 0.064 and provides localized uncertainty
+maps with AUSE 0.042. These results indicate that the full
+model benefits from both stronger global features and localized
+degradation evidence, supporting the design of a joint global-
+spatial reliability monitor.
+D. Spatial Uncertainty and Real-World Generalization
+The spatial uncertainty maps localize degraded regions
+rather than acting as generic saliency maps. For degradations
+with reliable masks, the full model achieves AUSE0.042com-
+pared with0.089for the ResNet-50 baseline. This indicates
+that the learned uncertainty aligns with physically degraded
+regions and can provide interpretability for the global health
+score.
+When evaluated on DAWN without fine-tuning, the model
+identifies real fog, rain, and snow with balanced accuracy of
+84.2%. Fig. 3 shows that low GSHI values and structured
+uncertainty overlays are produced under real adverse weather,
+supporting synthetic-to-real transfer of degradation-induced
+uncertainty patterns. Fog produces broad uncertainty in low-
+visibility regions, rain increases uncertainty around streaks
+and low-contrast objects, and snow emphasizes particle-heavy
+regions and obscured object boundaries.
+This evaluation is intentionally zero-shot: no DAWN image
+is used for training or threshold tuning. The result therefore
+tests whether the model has learned general uncertainty pat-
+terns associated with physical degradation rather than memo-
+
+=== PAGE 9 ===
+TABLE VII
+RUNTIME AND DEPLOYMENT ANALYSIS MEASURED AT INPUT
+RESOLUTION224×224ON ANNVIDIA GEFORCERTX 5090
+Model Params FLOPs Latency FPS
+(M) (G) (ms)
+ResNet-50 baseline 25.99 4.23 1.43 701.4
+EffNet-B2 global only 7.74 0.68 2.22 449.4
+EffNet-B2 full model 7.91 0.72 2.27 440.5
+rizing synthetic artifacts. The low GSHI values in Fig. 3 should
+be interpreted as conservative reliability estimates under ad-
+verse weather. Such behavior is useful for safety monitoring
+because the goal is to flag degraded sensing conditions early,
+even when a downstream detector may still produce outputs.
+E. Runtime and Deployment
+The monitor is designed as a lightweight parallel module
+that receives the same RGB input as the ADAS perception
+stack and does not require detector outputs, temporal history,
+redundant sensors, or depth at inference. Its outputs can
+support warning, confidence modulation, cross-sensor valida-
+tion, maintenance alerts, or fallback triggering. Object-level
+reliability is computed by pooling ˆUinside detector boxes
+and therefore adds negligible cost.
+As shown in Table VII, the full model adds only 0.17M pa-
+rameters and 0.04G FLOPs over the global-only EfficientNet-
+B2 variant, while maintaining real-time throughput above 400
+FPS on the measured GPU. Latency and FPS are averaged over
+300 forward passes after 50 warm-up iterations with batch size
+1. This indicates that the spatial uncertainty head introduces
+minimal overhead relative to the backbone and can run in
+parallel with the downstream perception stack.
+Although EfficientNet-B2 has substantially lower parameter
+count and FLOPs than the ResNet-50 baseline, measured
+latency depends on hardware-specific kernel efficiency. The
+full model nevertheless runs at 440.5 FPS, supporting online
+deployment.
+In deployment, GSHI thresholds should be calibrated using
+platform-specific data, operational speed, sensor redundancy,
+and acceptable safety margins. For resource-constrained sys-
+tems, the spatial head can be disabled and only image-
+level reliability outputs can be used; for higher-performance
+systems, both global and spatial outputs can support more
+detailed confidence modulation.
+VII. FAILURECASES ANDLIMITATIONS
+Several limitations of the current framework merit atten-
+tion. First, physics- and geometry-aware synthesis improves
+training realism but cannot fully reproduce the complexity of
+natural degradation mixtures, such as simultaneous windshield
+contamination, road spray, reflections, exposure instability,
+and motion blur encountered in real driving. The monitor
+may therefore produce conservatively low GSHI estimates
+on unfamiliar real-world combinations. While conservatism is
+preferable to missed faults in safety-critical settings, excessive
+false warnings can erode system availability and driver trust.
+Second, real driving datasets rarely provide continuous
+degradation severity annotations or ground-truth camera health
+labels. The DAWN evaluation validates synthetic-to-real trans-
+fer qualitatively and through weather recognition accuracy,
+but it does not constitute a quantitative calibration of GSHI
+against real-world ground truth. A rigorous real-world vali-
+dation would require a controlled data collection protocol in
+which visibility, lens contamination level, illumination, and
+downstream perception performance are measured jointly and
+continuously.
+Third, the Healthy, Degraded, and Critical regime thresholds
+(0.9 and 0.6) are not universal safety limits. They must be
+calibrated for each vehicle platform, camera mounting posi-
+tion, perception stack, operational design domain, and required
+safety margin. A high-speed highway system will require more
+conservative thresholds than a low-speed parking-assistance
+system.
+Fourth, the twelve-mode taxonomy does not cover all possi-
+ble camera faults. Rolling-shutter distortion, wiper occlusion,
+lens misalignment, dead pixels, thermal artifacts, color-channel
+failure, and long-term sensor aging are absent. Unseen degra-
+dation modes may produce elevated uncertainty estimates, but
+root-cause identification will be unreliable.
+Fifth, the monitor is single-frame. Temporal integration
+could suppress false positives from transient objects, help dis-
+tinguish persistent lens contamination from momentary occlu-
+sion, and improve sensitivity to slowly evolving degradations
+such as gradual fogging or progressive wiper smear. Sixth,
+the object-level reliability score is a simple spatial pooling
+operation. Future extensions could weight individual spatial
+locations by object class, distance, motion state, and driving
+context to better assess whether localized uncertainty is safety-
+critical for the current scene.
+Finally, controlled evaluation in this work is limited
+to KITTI-derived degradations. Future work will assess
+cross-dataset calibration on additional benchmarks such as
+ACDC [7], BDD100K [23], nuScenes-C [24], and Waymo-
+derived [25] adverse-condition splits to test generalization
+more comprehensively. The proposed GSHI should be re-
+garded as a complementary diagnostic input to a broader safety
+architecture, not as a stand-alone functional-safety mechanism.
+VIII. CONCLUSION
+This paper presented a proactive, safety-critical camera reli-
+ability monitor for ADAS perception. The framework models
+camera degradation as a direct perception risk and jointly
+predicts degradation type, severity, spatial uncertainty, and a
+Global Sensor Health Index from a single RGB image, with
+no downstream task feedback required at inference. The risk-
+aware multiplicative GSHI formulation ensures that severe
+single-mode failures dominate the reliability estimate and
+maps naturally to interpretable Healthy, Degraded, and Critical
+operating regimes. A physics- and geometry-aware synthetic
+supervision pipeline covering twelve camera failure modes
+provides fully labeled training data without manual annotation.
+Experiments demonstrate that GSHI decreases monotoni-
+cally with degradation severity, achieves a health-estimation
+
+=== PAGE 10 ===
+MAE of 0.064, and provides positive early-warning lead
+time of0.47±0.25severity units for seven failure-inducing
+degradation modes. Threshold-sensitivity analysis confirms
+that this early-warning behavior is stable acrossτ H ∈
+{0.7,0.8,0.9}. Ablation experiments validate the contribution
+of the EfficientNet-B2 backbone and spatial uncertainty head.
+Comparison with IQA methods, detector-confidence signals,
+and a clean-feature OOD baseline shows that the proposed
+GSHI achieves superior correlation with downstream detection
+performance and substantially longer warning lead time than
+all alternatives. Zero-shot evaluation on DAWN confirms that
+learned uncertainty patterns transfer to real fog, rain, and snow
+without any fine-tuning.
+Future work will extend the framework to temporal se-
+quence monitoring, broader degradation taxonomies covering
+unseen fault types, open-set camera anomaly detection, multi-
+sensor reliability fusion, cross-dataset calibration on bench-
+marks such as ACDC and nuScenes-C, and platform-specific
+threshold calibration for production ADAS deployments.
+REFERENCES
+[1] P. Koopman and M. Wagner, “Challenges in autonomous vehicle testing
+and validation,”SAE International Journal of Transportation Safety,
+vol. 4, no. 1, pp. 15–24, 2016.
+[2] S. Burton, L. Gauerhof, and C. Heinzemann, “Making the case for
+safety of machine learning in highly automated driving,” inInternational
+Conference on Computer Safety, Reliability, and Security, 2017.
+[3] D. Hendrycks and T. Dietterich, “Benchmarking neural network ro-
+bustness to common corruptions and perturbations,” inInternational
+Conference on Learning Representations, 2019.
+[4] C. Michaelis, A. Mitzkus, R. Geirhos, E. Rusak, O. Bringmann, A. S.
+Ecker, M. Bethge, and W. Brendel, “Benchmarking robustness in object
+detection: Autonomous driving when winter is coming,”arXiv preprint
+arXiv:1907.07484, 2019.
+[5] C. Sakaridis, D. Dai, and L. Van Gool, “Semantic foggy scene under-
+standing with synthetic data,”International Journal of Computer Vision,
+vol. 126, pp. 973–992, 2018.
+[6] S. Halder, J.-F. Lalonde, and R. de Charette, “Physics-based rendering
+for improving robustness to rain,” inIEEE/CVF International Confer-
+ence on Computer Vision, 2019.
+[7] C. Sakaridis, D. Dai, and L. Van Gool, “ACDC: The adverse conditions
+dataset with correspondences for semantic driving scene understanding,”
+inIEEE/CVF International Conference on Computer Vision, 2021.
+[8] R. Taori, A. Dave, V . Shankar, N. Carlini, B. Recht, and L. Schmidt,
+“Measuring robustness to natural distribution shifts in image classifica-
+tion,” inAdvances in Neural Information Processing Systems, 2020.
+[9] O. Zendel, M. Murschitz, M. Humenberger, and W. Herzner, “How
+good is my test data? introducing safety analysis for computer vision,”
+International Journal of Computer Vision, vol. 125, pp. 95–109, 2017.
+[10] A. Mittal, A. K. Moorthy, and A. C. Bovik, “No-reference image
+quality assessment in the spatial domain,”IEEE Transactions on Image
+Processing, vol. 21, no. 12, pp. 4695–4708, 2012.
+[11] A. Mittal, R. Soundararajan, and A. C. Bovik, “Making a completely
+blind image quality analyzer,”IEEE Signal Processing Letters, vol. 20,
+no. 3, pp. 209–212, 2013.
+[12] A. Kendall and Y . Gal, “What uncertainties do we need in bayesian
+deep learning for computer vision?” inAdvances in Neural Information
+Processing Systems, 2017.
+[13] R. McAllister, Y . Gal, A. Kendall, M. Van Der Wilk, A. Shah, R. Cipolla,
+and A. Weller, “Concrete problems for autonomous vehicle safety: Ad-
+vantages of bayesian deep learning,” inInternational Joint Conference
+on Artificial Intelligence, 2017.
+[14] ISO,ISO 26262: Road vehicles–Functional safety, International Orga-
+nization for Standardization, 2018.
+[15] A. Geiger, P. Lenz, C. Stiller, and R. Urtasun, “Vision meets robotics:
+The KITTI dataset,”International Journal of Robotics Research, vol. 32,
+no. 11, pp. 1231–1237, 2013.
+[16] R. Ranftl, A. Bochkovskiy, and V . Koltun, “Vision transformers for dense
+prediction,” inProceedings of the IEEE/CVF International Conference
+on Computer Vision, 2021.
+[17] M. A. Kenk and M. Hassaballah, “DAWN: Vehicle detection in adverse
+weather nature dataset,”arXiv preprint arXiv:2008.05402, 2020.
+[18] N. Venkatanath, D. Praneeth, M. C. Bh, S. S. Channappayya, and
+S. S. Medasani, “Blind image quality evaluation using perception based
+features,” inNational Conference on Communications, 2015.
+[19] Y . Gal and Z. Ghahramani, “Dropout as a bayesian approximation:
+Representing model uncertainty in deep learning,” inInternational
+Conference on Machine Learning, 2016.
+[20] A. Kendall, Y . Gal, and R. Cipolla, “Multi-task learning using uncer-
+tainty to weigh losses for scene geometry and semantics,” inIEEE/CVF
+Conference on Computer Vision and Pattern Recognition, 2018.
+[21] M. Tan and Q. V . Le, “Efficientnet: Rethinking model scaling for
+convolutional neural networks,” inInternational Conference on Machine
+Learning, 2019.
+[22] G. Jocher, A. Chaurasia, and J. Qiu, “Ultralytics YOLO,” GitHub
+repository, 2023.
+[23] F. Yu, H. Chen, X. Wang, W. Xian, Y . Chen, F. Liu, V . Madhavan,
+and T. Darrell, “BDD100K: A diverse driving dataset for heterogeneous
+multitask learning,” inIEEE/CVF Conference on Computer Vision and
+Pattern Recognition, 2020, pp. 2636–2645.
+[24] H. Caesar, V . Bankiti, A. H. Lang, S. V ora, V . E. Liong, Q. Xu, A. Kr-
+ishnan, Y . Pan, G. Baldan, and O. Beijbom, “nuScenes: A multimodal
+dataset for autonomous driving,” inIEEE/CVF Conference on Computer
+Vision and Pattern Recognition, 2020, pp. 11 621–11 631.
+[25] P. Sun, H. Kretzschmar, X. Dotiwalla, A. Chouard, V . Patnaik, P. Tsui,
+J. Guo, Y . Zhou, Y . Chai, B. Caine, V . Vasudevan, W. Han, J. Ngiam,
+H. Zhao, A. Timofeev, S. Ettinger, M. Krivokon, A. Gao, A. Joshi,
+S. Zhao, S. Cheng, Y . Zhang, J. Shlens, Z. Chen, and D. Anguelov,
+“Scalability in perception for autonomous driving: Waymo open dataset,”
+inIEEE/CVF Conference on Computer Vision and Pattern Recognition,
+2020, pp. 2446–2454.

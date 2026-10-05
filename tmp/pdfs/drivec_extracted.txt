@@ -1,0 +1,773 @@
+=== PAGE 1 ===
+DRIVE-C: A Controlled Corruption Dataset for Autonomous Driving
+Shiva Aher
+Georgia Institute of Technology, Georgia, United States
+saher8@gatech.edu
+arXiv preprint, May 2026. Under review at IEEE Data Descriptions.
+Abstract
+DRIVE-C is a controlled corruption dataset designed to
+evaluate visual perception robustness in autonomous driv-
+ing systems. It is built from real-world forward-facing
+driving videos collected across daytime, nighttime, urban,
+rural, freeway, and parking environments. Clean clips are
+anonymized via localized face and license plate blurring,
+then transformed with physics-inspired synthetic degra-
+dations.
+The dataset contains 10 clean clips and 600 corrupted
+clips spanning 12 camera degradation types across five
+severity levels, with per-clip metadata and Global Sensor
+Health Index (GSHI) annotations. DRIVE-C supports
+robustness benchmarking, degradation-aware modeling,
+uncertainty estimation, out-of-distribution (OOD) detec-
+tion, and sensor health monitoring for Advanced Driver
+Assistance Systems (ADAS). By providing pixel-aligned
+clean and degraded video clips with fully reproducible cor-
+ruption parameters, DRIVE-C offers a structured testbed
+for studying perception reliability under controlled cam-
+era degradation.
+Dataset DOI/PID:10.5281/zenodo.19656444
+Data type/location:Video dataset with clean and syn-
+thetically corrupted clips, associated metadata, and GSHI
+annotations; collected in Michigan, United States; hosted
+on Zenodo.
+Keywords:autonomous driving, camera degradation,
+corruption dataset, driving perception, robustness, sensor
+health, uncertainty estimation.
+BACKGROUND
+Camera-based perception is a core component of Ad-
+vanced Driver Assistance Systems (ADAS) and au-
+tonomous driving, yet its performance is highly sensi-
+tive to image degradations encountered in real-world op-
+eration. These include low-light conditions, glare, mo-
+tion blur, sensor noise, adverse weather, compression ar-
+tifacts, and partial occlusions. While widely used driving
+datasets such as KITTI [1], nuScenes [2], and Waymo [3]
+support perception tasks under natural conditions, they
+do not provide systematic control over degradation types
+and severity. Conversely, corruption benchmarks such as
+ImageNet-C [4] are typically derived from web imagery
+and do not preserve the viewpoint, geometry, and tempo-
+ral characteristics of onboard automotive cameras.
+DRIVE-C is designed to bridge this gap by combining
+real-world driving footage with controlled, reproducible
+degradations. Clean video clips are drawn from forward-
+facing vehicle-mounted camera recordings across diverse
+environments, including urban, suburban, freeway, park-
+ing, daytime, and nighttime scenarios. A structured set
+of degradations is then generated using physics-inspired
+models at multiple severity levels, enabling controlled ro-
+bustness evaluation while retaining realistic scene charac-
+teristics.
+The dataset is intended to support a broad range
+of data-centric research tasks. These include robust-
+ness benchmarking of perception models under domain
+shift, degradation-aware training and fine-tuning, out-
+of-distribution (OOD) detection, uncertainty calibration,
+failure mode analysis, and sensor health monitoring for
+safety-critical ADAS applications. The availability of
+aligned clean and degraded clip pairs with structured
+metadata enables reproducible evaluation and direct com-
+parison across degradation conditions and model architec-
+tures. Researchers developing or evaluating object detec-
+tors, lane estimators, depth predictors, or semantic seg-
+mentation models under realistic sensor degradation sce-
+narios will find DRIVE-C directly applicable.
+Recent dataset descriptor publications further em-
+phasize the importance of structured, well-documented
+datasets for reproducible research [5]. Comparable cor-
+ruption datasets in adjacent domains, such as ImageNet-
+C, have become standard benchmarks within their com-
+munities; DRIVE-C aims to serve a similar role for auto-
+motive camera perception.
+This dataset has not previously been used in any pub-
+lication. The current release covers 10 capture scenarios
+and 12 corruption types, each applied at 5 severity levels.
+Detailed dataset statistics are provided in the Records and
+Storage section. The DRIVE-C dataset is publicly avail-
+able on Zenodo [6].
+arXiv:2605.09774v1  [cs.CV]  10 May 2026
+
+=== PAGE 2 ===
+Clean reference
+F og, severity 5
+ Rain, severity 5
+Motion blur, severity 5
+ Lens occlusion, severity 5
+Controlled corrupted variants
+Fig. 1: Teaser of DRIVE-C. A clean forward-facing driving clip is paired with controlled corrupted variants across
+multiple camera degradation types. DRIVE-C contains 10 scenarios, 12 corruption types, 5 severity levels, 610 clips,
+78,080 frames, and metadata including severity and Global Sensor Health Index (GSHI) labels.
+COLLECTION METHODS AND
+DESIGN
+Data Acquisition Hardware and Camera
+Configuration
+DRIVE-C is collected using a forward-facing action cam-
+era mounted inside a passenger vehicle to approximate the
+viewpoint of a windshield-mounted automotive perception
+sensor. The capture platform is a DJI Osmo Action 4 [7],
+installed in a fixed forward-facing configuration to ensure
+viewpoint consistency across recording sessions. The cam-
+era records natively at 3840×2160 (4K UHD) and 30 fps;
+all clips are downsampled to 1280×720 (HD) for release to
+reduce storage overhead while retaining sufficient spatial
+resolution for perception tasks.
+Camera parameters are manually controlled where pos-
+sible to reduce inter-session variability. For nighttime
+driving, representative settings include a shutter speed of
+1/40 s, ISO 1600, and white balance of 4000 K. For day-
+time driving, lower ISO values and faster shutter speeds
+are used, with fixed white balance to avoid frame-to-
+frame color variation. Cloudy and transitional lighting
+conditions are adjusted to reduce highlight clipping and
+washed-out sky regions. In-camera low-light enhancement
+is disabled to preserve native sensor characteristics.
+Capture Scenarios
+Data are collected from real-world driving sessions across
+diverse environments in Michigan, United States, on
+April 1 and April 5, 2026. Environments include urban
+streets, suburban roads, rural roads, multi-lane freeways,
+and a parking lot. Many recordings contain continuous
+transitions between scene types. As a result, DRIVE-C
+Table 1: Per-scenario metadata for the 10 DRIVE-C cap-
+ture scenarios.
+ID Scene Type Weather Time Traffic Frames
+S01 Urban Cloudy Day Moderate 128
+S02 Freeway Cloudy Day Moderate 128
+S03 Urban Sunny Day Moderate 128
+S04 Rural Cloudy Day Moderate 128
+S05 Parking lot Sunny Day Moderate 128
+S06 Urban Cloudy Night Moderate 128
+S07 Urban Cloudy Night Moderate 128
+S08 Urban Cloudy Night None 128
+S09 Urban Sunny Day Low 128
+S10 Rural Cloudy Day Moderate 128
+does not rely on rigid per-frame scene labels as primary
+metadata fields; instead, each clip is associated with a
+high-level scene type and capture condition metadata, en-
+abling flexible downstream labeling.
+The dataset comprises 10 scenarios (S01–S10), each a
+fixed 128-frame clip (approximately 4.3 s at 30 fps) drawn
+from a distinct source video. The scenarios span three
+lighting and weather regimes:
+•Daytime, clear/sunny— scenarios S03, S05, S09
+(scene types: urban, parking lot, urban),
+•Daytime, cloudy— scenarios S01, S02, S04, S10
+(scene types: urban, freeway, rural, rural),
+•Nighttime, cloudy— scenarios S06, S07, S08
+(scene types: urban, urban, urban).
+Table 1 summarizes the per-scenario metadata.
+2
+
+=== PAGE 3 ===
+Real driving
+videos
+Privacy
+anonymization
+Clean clips
+10 scenarios
+Controlled
+corruptions
+DRIVE-C
+610 clips
+78,080 frames
+12 degradation modes across 5 severity levels
+Weather
+fog, rain,
+snow, glare
+Optical
+defocus blur, motion blur,
+low light, occlusion
+Sensor
+sensor noise, overexposure,
+underexposure, JPEG compression
+Released metadata
+corruption type
+severity
+GSHI labels
+clip metadata
+Supported research tasks
+Robustness
+benchmarking
+Sensor health
+monitoring
+Uncertainty
+estimation
+OOD / failure
+analysis
+Fig. 2: Overview of DRIVE-C. Real forward-facing driving videos are anonymized and converted into clean clips, then
+transformed using controlled camera corruptions across weather, optical, and sensor/pipeline degradation families.
+Each corrupted clip includes severity metadata and GSHI labels, enabling robustness benchmarking, uncertainty
+estimation, and sensor health monitoring for autonomous driving perception.
+Data Processing Pipeline
+The dataset is constructed using a reproducible multi-
+stage pipeline:
+1. Record forward-facing driving video at 4K/30 fps us-
+ing a fixed vehicle-mounted camera.
+2. Select a 128-frame clip from each source video, down-
+sampled to 1280×720.
+3. Organize clips by scenario identifier in a structured
+directory hierarchy.
+4. Apply automated anonymization to faces and license
+plates.
+5. Record processing provenance in per-frame and per-
+clip metadata files.
+6. Perform quality review to confirm scene coverage and
+lighting representativeness.
+7. Apply 12 controlled corruption types at 5 severity
+levels using a reproducible degradation pipeline to
+produce the final corrupted clip set.
+This design separates real-world data acquisition from
+synthetic corruption generation and preserves full trace-
+ability from each corrupted clip back to its clean source
+clip and originating source video.
+Anonymization Strategy
+To protect privacy in real-world driving imagery, DRIVE-
+C employs an automated anonymization pipeline based on
+pretrained YOLO-family detectors [8] executed with GPU
+inference. The anonymization process includes:
+•localized elliptical blurring for detected faces,
+•localized rectangular blurring for detected license
+plates,
+•optional fallback anonymization based on broader
+person or vehicle detections when primary detectors
+yield low confidence.
+Face blurring is applied using elliptical masks, and li-
+cense plate blurring is tightly constrained to detected
+bounding regions rather than applying coarse masking,
+preserving surrounding scene context for downstream per-
+ception tasks.
+Controlled Corruption Design
+DRIVE-C follows a two-stage design: a clean anonymized
+base clip set and a derived corruption clip set. Corruptions
+are applied exclusively to clean clips to ensure that privacy
+processing does not interfere with degradation severity or
+introduce confounding artifacts.
+The dataset includes 12 corruption types spanning three
+degradation families, as listed in Table 2. The corrup-
+tion models are adapted from the benchmark framework
+of Hendrycks and Dietterich [4] and implemented using
+3
+
+=== PAGE 4 ===
+OpenCV [9], with modifications to reflect the geometry,
+dynamic range, and temporal characteristics of forward-
+facing automotive cameras. Corruption-specific genera-
+tion parameters (e.g., fog airlight, rain density and streak
+angle, motion blur kernel size, JPEG quality factor, and
+exposure EV shift) are stored per-clip in theextra json
+metadata field, enabling full reproducibility of each de-
+graded clip.
+Each corruption type is parameterized across five sever-
+ity levels (1–5) using a continuous normalized severity
+value:s 1 = 0.08,s 2 = 0.18,s 3 = 0.35,s 4 = 0.55,
+s5 = 0.75. Level 1 represents a mild, barely perceptible
+degradation; level 5 represents a severe degradation that
+substantially impairs scene visibility or sensor readability.
+VALIDATION AND QUALITY
+Capture Quality
+The ten clean base clips were reviewed during and after
+collection to ensure sufficient visual quality across all cap-
+ture conditions. Camera settings were iteratively adjusted
+per session to reduce common issues such as highlight clip-
+ping, low contrast in cloudy conditions, and excessive mo-
+tion blur.
+Nighttime captures (S06–S08) were validated to confirm
+that key scene elements, including lane markings, vehicles,
+and road structure, remained visible while preserving re-
+alistic sensor noise and low-light characteristics. Daytime
+captures were reviewed for sharpness, stable exposure, and
+representative coverage of the target environments. The
+dataset intentionally preserves natural acquisition vari-
+ability rather than enforcing strict normalization, as this
+variability is relevant to robustness and reliability evalua-
+tion.
+The optical and sensor characteristics of the DJI Osmo
+Action 4 are relevant to interpreting the clean base clips.
+The camera uses a 1/1.3-inch CMOS sensor with a fixed
+aperture of f/2.8, a 155 ◦ ultra-wide field of view, and
+supports an ISO range of 100–12800 for video. At the
+nighttime capture setting of ISO 1600, luminance noise is
+present but controlled, consistent with manufacturer char-
+acterization of the sensor; noise becomes more pronounced
+above ISO 1600, particularly in shadow regions [7]. The
+maximum video bitrate is 130 Mbps, and all clips are
+recorded in H.264/MP4 format prior to the downsam-
+pling step. The camera uses electronic image stabilization
+(EIS); all in-camera stabilization and low-light enhance-
+ment were disabled during data collection to preserve na-
+tive sensor output. These characteristics define the base-
+line noise floor and dynamic range of the clean clips from
+which all corrupted variants are derived.
+Anonymization Quality
+Anonymization quality is recorded for each processed clip.
+Metadata fields include per-frame counts of detected face
+Fig. 3: Ground-truth GSHI as a function of degradation
+severity (levels 1–5) across all 12 corruption types. All
+corruptions exhibit a consistent monotonic decrease, con-
+firming the GSHI metric is well-ordered across severity
+levels.
+regions, license plate regions, and fallback anonymization
+events. This logging enables systematic auditing of pri-
+vacy coverage and supports targeted inspection of chal-
+lenging cases, including small faces, oblique license plates,
+nighttime scenes, and motion-blurred frames.
+The anonymization pipeline is implemented using
+OpenCV [9], PyTorch [10], and Ultralytics YOLO mod-
+els [8].
+Near-Duplicate Reduction
+The 10 clean scenarios are selected as fixed 128-frame
+windows from their respective source videos, chosen to
+avoid highly redundant segments such as stationary stops
+or prolonged straight-line highway sections with minimal
+scene change. This explicit clip-selection approach re-
+places a general perceptual-hash deduplication step, pro-
+viding more deliberate control over scenario diversity. Per-
+ceptual hashing [11] is available in the processing codebase
+for use in future dataset expansions.
+GSHI Definition and Ground-Truth Be-
+havior
+The Global Sensor Health Index (GSHI) [12] is a scalar
+metric in the range [0,1] that quantifies the perceptual
+impact of a degradation on a given clip. Ground-truth
+GSHI values (gshi gt) are computed directly from the
+applied corruption severity and per-corruption taxonomy
+weights, making them fully deterministic given the gener-
+ation parameters.
+As shown in Fig. 3,gshi gtexhibits a consistent mono-
+tonic decrease with increasing severity across all 12 cor-
+ruption types. This holds across all three degradation
+families — weather, optical, and sensor — confirming that
+the GSHI formulation is sensitive to degradation intensity
+and well-ordered across severity levels.
+4
+
+=== PAGE 5 ===
+Fig. 4: Predicted versus ground-truth GSHI across all 610
+clips (Pearsonr= 0.339, Spearmanρ= 0.341). The
+model shows a systematic bias toward lower predicted val-
+ues and increased dispersion at higher ground-truth GSHI
+levels.
+Baseline Prediction Analysis
+To assess the practical utility of DRIVE-C as a bench-
+mark, we evaluate PerceptionHealthNet, a baseline model
+that directly predicts GSHI from input clip frames. Across
+all 610 clips, the Pearson correlation between predicted
+GSHI (gshi pred) and ground-truth GSHI isr= 0.339,
+with a Spearman rank correlation ofρ= 0.341. The mean
+predicted GSHI is 0.380 for clean clips and 0.283 for cor-
+rupted clips, indicating that the model captures a coarse
+separation between clean and corrupted inputs, despite its
+limited fine-grained correlation with ground-truth GSHI.
+Fig. 4 shows the scatter of predicted versus ground-
+truth GSHI across all samples. Predictions exhibit a sys-
+tematic bias toward lower values and increased dispersion,
+particularly at higher ground-truth GSHI levels, suggest-
+ing the model underestimates perceptual quality for mild-
+to-moderate degradations.
+Per-Corruption Baseline Results
+Table 3 reports per-corruption Pearson and Spearman cor-
+relations, monotonicity of predicted GSHI across severity
+levels, and mean predicted GSHI at severities 1, 3, and 5
+for all 12 corruption types.
+The model performs best on underexposure (r= 0.77,
+ρ= 0.84) and motion blur (r= 0.73,ρ= 0.80), where
+predicted GSHI decreases monotonically and substantially
+froms 1 tos 5. Moderate performance is observed for fog,
+rain, glare/flare, lens occlusion, low light, and overexpo-
+sure (r= 0.47–0.64). The model fails to track severity for
+sensor noise (r=−0.16), JPEG compression (r= 0.09),
+defocus blur (r= 0.12), and snow (r= 0.29), where pre-
+dictions remain nearly flat across severity levels. Only 6
+of 12 corruption types show globally monotonic predicted
+GSHI froms 1 tos 5 (monotonicity fraction: 0.475).
+These results confirm that DRIVE-C exposes substan-
+tial headroom for degradation-aware modeling, particu-
+larly for perceptually subtle corruptions that the baseline
+cannot reliably rank.
+Known Limitations
+DRIVE-C comprises 10 scenarios drawn from video col-
+lected on two recording sessions, which limits diversity
+in geographic coverage, vehicle type, and weather con-
+ditions. The dataset focuses on forward-facing monoc-
+ular camera data and does not include synchronized li-
+dar, radar, or stereo modalities. Dense semantic anno-
+tations such as per-frame bounding boxes or segmenta-
+tion masks are not provided. The baseline model (Per-
+ceptionHealthNet) shows limited sensitivity to perceptu-
+ally subtle corruptions such as sensor noise, JPEG com-
+pression, and defocus blur, which the dataset exposes as
+open research challenges. DRIVE-C is therefore most suit-
+able for robustness evaluation, degradation-aware model-
+ing, and sensor health monitoring research rather than
+supervised perception training requiring dense labels. To-
+gether, these results demonstrate that DRIVE-C provides
+a structured and challenging benchmark for advancing
+degradation-aware perception and sensor health estima-
+tion in autonomous driving systems.
+RECORDS AND STORAGE
+DRIVE-C is a video clip dataset. All clips are stored as
+MP4 files at 1280×720 resolution and 30 fps. The dataset
+comprises 610 clips in total: 10 clean clips and 600 cor-
+rupted clips (12 corruption types×5 severity levels×10
+scenarios). Each clip is 128 frames (≈4.3 s). The total
+frame count across all clips is 78,080 (1,280 clean; 76,800
+corrupted). Clips are partitioned intodevandtestsplits
+of 305 clips each, stratified across corruption types and
+scenarios.
+Table 4 summarizes the top-level dataset statistics.
+Directory Structure
+The dataset is organized into two top-level directories.
+Clean clips are stored flat underclean clips/. Cor-
+rupted clips are organized hierarchically by corruption
+type and then severity level undercorrupted/, making
+it straightforward to load all clips of a given corruption
+type or a given severity across corruption types.
+drive_c/
+clean_clips/
+S01_clean.mp4
+S02_clean.mp4
+...
+S10_clean.mp4
+5
+
+=== PAGE 6 ===
+Table 2: The 12 corruption types in DRIVE-C organized
+by degradation family.
+Family Corruption Type Description
+Weather
+Fog Homogeneous scat-
+tering reducing
+contrast and depth
+cues
+Rain Streak-based precipi-
+tation with motion-
+dependent angle
+Snow Particle-based accu-
+mulation with bright-
+ness variation
+Glare / flare Specular highlight
+blooming from direct
+or reflected light
+Optical
+Motion blur Linear kernel blur
+along the direction of
+vehicle motion
+Defocus blur Radially symmetric
+blur simulating lens
+focus error
+Lens occlusion Partial obstruction
+from water droplets
+or debris
+Low light Luminance reduction
+with amplified sensor
+noise
+Sensor
+Sensor noise Gaussian additive
+noise applied at the
+pixel level
+Overexposure Global gain increase
+causing highlight
+clipping
+Underexposure Global gain reduc-
+tion causing shadow
+crushing
+JPEG compression Block-artifact com-
+pression at decreasing
+quality factors
+corrupted/
+fog/
+s1/ S01_fog_s1.mp4 to S10_xx.mp4
+s2/ S01_fog_s2.mp4 to S10_xx.mp4
+...
+s5/ S01_fog_s5.mp4 to S10_xx.mp4
+rain/
+s1/ ... s5/
+snow/
+s1/ ... s5/
+[one subdirectory per corruption type]
+Each corrupted clip filename follows the convention
+[scenario id] [corruption type] [severity name].mp4
+(e.g.,S03 motion blur s4.mp4), enabling unambiguous
+identification without consulting the metadata file.
+Metadata Files
+All metadata is provided in two CSV files distributed with
+the dataset.
+final metadata.csvis the primary metadata file with
+one row per clip (610 rows, 27 fields). It covers clip
+identity, corruption labels, severity values, scene con-
+text, video properties, generation parameters, ground-
+truth GSHI, and baseline model predictions. Table 5 lists
+the key fields.
+scenario metadata.csvprovides per-scenario source
+video details including the source video identifier, clip
+frame range, capture date, original resolution, and scene
+annotations (10 rows).
+Clip Relationships
+Each clean clipSXX clean.mp4is the direct source for
+60 corrupted clips (12 corruption types×5 severity lev-
+els). All corrupted clips derived from the same sce-
+nario are pixel-aligned to their clean counterpart, enabling
+paired clean–corrupted evaluation. Thescenario idand
+source video idfields infinal metadata.csvprovide
+full traceability from any corrupted clip back to its clean
+base and originating source video.
+INSIGHTS AND NOTES
+Suggested Usage Patterns
+DRIVE-C supports several distinct research workflows be-
+yond the robustness benchmarking use case described in
+the Validation section.
+Paired clean–corrupted evaluation.Each cor-
+rupted clip has a pixel-aligned clean counterpart under the
+same scenario identifier. This enables direct subtraction-
+based analysis of degradation effects, no-reference versus
+full-reference quality metric comparison, and controlled
+ablation of model components sensitive to specific corrup-
+tion families.
+Severity-aware training and fine-tuning.The con-
+tinuousseverity valuefield (s 1 = 0.08 throughs 5 =
+0.75) can be used as a regression target or curriculum sig-
+nal for training degradation-aware models, beyond the five
+discrete severity levels.
+Multi-label degradation detection.The
+pred presence jsonandpred severity jsonfields
+provide per-clip probability estimates across all 12
+degradation classes, supporting multi-label classification
+and degradation mixture studies.
+Time-series and temporal analysis.Each clip is
+a contiguous 128-frame sequence at 30 fps. Researchers
+6
+
+=== PAGE 7 ===
+Table 3: Per-corruption baseline evaluation of GSHI prediction across all 12 corruption types (50 clips each). Pearson
+rand Spearmanρmeasure correlation with ground-truth GSHI. Mono. indicates whether predicted GSHI is mono-
+tonically non-increasing froms 1 tos 5. ¯ps1, ¯ps3, ¯ps5 are mean predicted GSHI at each severity.
+Corruption Type PearsonrSpearmanρMono. ¯p s1 ¯ps3 ¯ps5
+Underexposure0.77 0.84Yes 0.353 0.208 0.059
+Motion blur 0.73 0.80 Yes 0.229 0.135 0.041
+Rain 0.64 0.65 Yes 0.322 0.226 0.132
+Low light 0.60 0.56 No 0.426 0.460 0.171
+Glare / flare 0.56 0.55 Yes 0.355 0.286 0.135
+Overexposure 0.51 0.45 No 0.434 0.368 0.230
+Fog 0.50 0.55 Yes 0.057 0.041 0.028
+Lens occlusion 0.47 0.45 Yes 0.341 0.309 0.167
+Snow 0.29 0.27 No 0.372 0.354 0.259
+Defocus blur 0.12 0.13 No 0.380 0.378 0.325
+JPEG compression 0.09 0.07 No 0.372 0.386 0.333
+Sensor noise−0.16−0.17 No 0.388 0.522 0.457
+Table 4: Top-level DRIVE-C dataset statistics.
+Property Value
+Total clips 610
+Clean clips 10
+Corrupted clips 600
+Scenarios 10 (S01–S10)
+Corruption types 12
+Severity levels 5 (s1–s5)
+Frames per clip 128
+Total frames 78,080
+Resolution 1280×720 (HD)
+Native resolution 3840×2160 (4K UHD)
+Frame rate 30 fps
+Format MP4 (H.264)
+Dev / test split 305 / 305 clips
+Capture dates April 1 and April 5, 2026
+Capture location Michigan, United States
+studying temporal dynamics of degradation effects, opti-
+cal flow robustness, or video quality assessment can ex-
+ploit the temporal structure rather than treating clips as
+independent frame collections.
+General video quality assessment.Although
+DRIVE-C is designed for automotive perception, the con-
+trolled degradation structure and GSHI metric are not
+specific to driving. The dataset can serve as a benchmark
+for no-reference video quality estimators in any domain
+where camera sensor health is relevant.
+Caveats and Special Cases
+Scene type imbalance.The 10 scenarios are not uni-
+formly distributed across scene types: 6 are urban, 2 rural,
+1 freeway, and 1 parking lot. Urban scenarios are over-
+represented, and scene types such as tunnels, construc-
+tion zones, and highway on-ramps are absent. Researchers
+drawing conclusions about freeway or parking-lot-specific
+robustness should account for this imbalance.
+Nighttime scenario concentration.All three night-
+time scenarios (S06, S07, S08) are urban and cloudy.
+There are no nighttime rural, freeway, or clear-sky sce-
+narios in the current release. Models evaluated on night-
+time clips in DRIVE-C are therefore evaluated specifically
+on urban nighttime conditions, not nighttime driving in
+general.
+Baseline model false positives on clean clips.The
+baseline PerceptionHealthNet model assigns low predicted
+GSHI to several clean clips, with nighttime scenarios par-
+ticularly affected: S08 (ˆg= 0.149, predicted class: vi-
+gnetting) and S07 (ˆg= 0.181, predicted class: vignetting)
+receive lower health scores than many corrupted clips.
+This reflects the model’s difficulty distinguishing natural
+low-light acquisition characteristics from synthetic degra-
+dation. Users relying ongshi predfor quality filtering
+should validate thresholds against the clean clip distribu-
+tion before applying them to new data.
+Non-monotonic baseline predictions for subtle
+corruptions.For sensor noise, JPEG compression, defo-
+cus blur, and snow, the baseline model’s predicted GSHI
+does not decrease monotonically with increasing sever-
+ity — and for sensor noise the Pearson correlation with
+ground-truth GSHI is negative (r=−0.16). These cor-
+ruption types should be treated as open benchmarking
+challenges rather than solved cases in any downstream
+evaluation.
+Dev/test split assignment.Scenarios S01–S05 are
+assigned to thedevsplit and S06–S10 to thetestsplit.
+Because split assignment is at the scenario level (not the
+clip level), the dev and test sets differ not only in sample
+identity but also in scene type and lighting distribution:
+the dev set contains the freeway and parking-lot scenarios,
+while the test set contains all three nighttime scenarios.
+Researchers should be aware of this structural difference
+when interpreting generalization results between splits.
+7
+
+=== PAGE 8 ===
+Table 5: Key fields infinal metadata.csv(610 rows, 27 fields).
+Field Type Description
+sample idString Unique clip identifier, e.g.,S01 fog s3.
+scenario idString Scenario identifier (S01–S10).
+source video idString Source video identifier for traceability.
+splitString Benchmark split:devortest.
+clip typeStringcleanorcorrupted.
+corruption typeString Corruption name, e.g.,fog,motion blur.
+severity levelInteger Integer severity (0 = clean, 1–5 = corrupted).
+severity nameString Severity label, e.g.,s0,s1, ...,s5.
+severity valueFloat Continuous severity used by the generator.
+is cleanBoolean Indicates whether the sample is an uncorrupted clean clip.
+gshiFloat Assigned Global Sensor Health Index value for the clip.
+weatherString Scene weather, e.g.,sunnyorcloudy.
+time of dayString Lighting regime:dayornight.
+scene typeString Scene label:urban,rural,freeway, etc.
+traffic levelString Approximate traffic density, e.g.,none,low, ormoderate.
+fpsInteger Frame rate (30 for all clips).
+resolutionString Clip resolution (1280x720for all clips).
+num framesInteger Number of frames (128 for all clips).
+output pathString Relative path to the MP4 file within the dataset.
+extra jsonJSON Per-clip corruption-generation parameters for reproducibility.
+gshi gtFloat Ground-truth GSHI computed from severity and taxonomy weights.
+gshi predFloat Baseline model predicted GSHI.
+pred top1 issueString Highest-probability predicted degradation class.
+pred top1 probFloat Probability of the top predicted class.
+pred presence jsonJSON Predicted presence probabilities for all degradation classes.
+pred severity jsonJSON Predicted severity values for all degradation classes.
+pred present thresh jsonJSON Thresholded predicted-present flags for degradation classes.
+Privacy processing and native sensor character-
+istics.Corrupted clips are generated from anonymized
+clean clips. The anonymization step (localized face and li-
+cense plate blurring) modifies small regions of each frame.
+For the vast majority of pixels and for global image statis-
+tics, this has no effect. However, studies specifically ex-
+amining face or vehicle detection robustness under degra-
+dation should note that face and plate regions have been
+replaced with blurred content.
+Corruption independence assumption.Each cor-
+rupted clip contains exactly one active corruption type.
+Real-world sensor degradation often involves simultane-
+ous or correlated degradations (e.g., rain combined with
+lens occlusion, or low light combined with motion blur).
+DRIVE-C’s single-corruption design enables controlled
+evaluation but does not directly cover compound degrada-
+tion scenarios. Researchers interested in compound degra-
+dations can construct them by applying the provided gen-
+eration scripts to the clean clips with multiple active cor-
+ruption types.
+SOURCE CODE AND SCRIPTS
+The DRIVE-C dataset is constructed using a Python-
+based processing pipeline. The associated repository pro-
+vides utilities for:
+•selecting and extracting scenario clip windows from
+source videos,
+•anonymizing faces and license plates using GPU-
+accelerated YOLO-family detectors,
+•generating controlled corruption variants across all 12
+corruption types and 5 severity levels,
+•computing ground-truth GSHI values from applied
+severity and taxonomy weights,
+•running the PerceptionHealthNet baseline model to
+producegshi predand per-class degradation predic-
+tions, and
+•generating and validating thefinal metadata.csv
+andscenario metadata.csvmanifest files.
+The codebase is publicly available at:
+https://github.com/shiv-aher/drive-c-dataset
+The repository includes all scripts and configuration
+files required to reproduce the dataset generation pro-
+cess from the original source videos. Corruption-specific
+8
+
+=== PAGE 9 ===
+generation parameters for each clip are stored in the
+extra jsonfield offinal metadata.csv, enabling any
+individual corrupted clip to be regenerated independently
+without rerunning the full pipeline.
+To support long-term reproducibility, the source code
+repository will be archived with a persistent DOI via Zen-
+odo corresponding to the dataset release version. The
+dataset itself will be publicly released through a perma-
+nent data repository with open access.
+The implementation is written in Python and leverages
+widely used open-source libraries including OpenCV [9],
+PyTorch [10], and Ultralytics YOLO [8].
+ACKNOWLEDGEMENTS
+The dataset was collected, processed, and documented by
+the author. The data collection system was designed, the
+processing pipeline implemented, corruption variants gen-
+erated, and the dataset prepared for publication indepen-
+dently.
+Special thanks to Manisha A. for her support in real-
+world data collection, including coordinating capture ses-
+sions, assisting with camera setup, and ensuring consistent
+coverage across diverse driving environments.
+This work was conducted independently, without exter-
+nal grants or awards.
+The author declares no conflicts of interest.
+References
+[1] A. Geiger, P. Lenz, C. Stiller, and R. Urtasun, “Vi-
+sion meets robotics: The kitti dataset,”International
+Journal of Robotics Research, vol. 32, no. 11, pp.
+1231–1237, 2013.
+[2] H. Caesar, V. Bankiti, A. H. Lang, S. Vora, V. E.
+Liong, Q. Xu, A. Krishnan, Y. Pan, G. Baldan, and
+O. Beijbom, “nuscenes: A multimodal dataset for au-
+tonomous driving,” inProceedings of the IEEE/CVF
+Conference on Computer Vision and Pattern Recog-
+nition, 2020, pp. 11 621–11 631.
+[3] P. Sunet al., “Scalability in perception for au-
+tonomous driving: Waymo open dataset,” inPro-
+ceedings of the IEEE/CVF Conference on Computer
+Vision and Pattern Recognition, 2020, pp. 2446–2454.
+[4] D. Hendrycks and T. Dietterich, “Benchmarking neu-
+ral network robustness to common corruptions and
+perturbations,” inProceedings of the International
+Conference on Learning Representations, 2019.
+[5] S. Makonin, I. Ziyat, R. Sampson, S. An,
+F. Popowich, P. Palmer, and D. Agosti, “Descrip-
+tor: Simon fraser university electric vehicle parking
+dataset (sfu-evp),”IEEE Data Descriptions, vol. 1,
+pp. 13–21, 2024.
+[6] S. Aher, “Drive-c: A controlled corruption dataset
+for autonomous driving,” https://doi.org/10.5281/
+zenodo.19656444, 2026, zenodo dataset.
+[7] DJI, “Dji osmo action 4 product specifications,”
+https://www.dji.com/osmo-action-4/specs, 2024.
+[8] G. Jocher, A. Chaurasia, and J. Qiu, “Ultralyt-
+ics yolo,” https://github.com/ultralytics/ultralytics,
+2024.
+[9] G. Bradski, “The opencv library,”Dr. Dobb’s Jour-
+nal of Software Tools, 2000.
+[10] A. Paszkeet al., “Pytorch: An imperative style, high-
+performance deep learning library,” inAdvances in
+Neural Information Processing Systems, 2019.
+[11] J. Buchner, “Imagehash,” https://github.com/
+JohannesBuchner/imagehash, 2024.
+[12] S. Aher, “Safety-critical camera reliability moni-
+toring for adas via degradation-aware uncertainty
+pattern analysis,” https://arxiv.org/abs/2605.05439,
+2026, arXiv preprint.
+9
