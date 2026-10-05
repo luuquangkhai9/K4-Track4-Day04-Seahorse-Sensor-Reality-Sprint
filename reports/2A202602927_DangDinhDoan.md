@@ -7,7 +7,7 @@
 - **Repository chung:** <https://github.com/luuquangkhai9/K4-Track4-Day04-Seahorse-Sensor-Reality-Sprint>.
 - **Phạm vi:** Demo mới 4 clip S01, không phải benchmark mới 24 clip.
 
-Bản này tổng hợp bằng chứng chung của nhóm. Vai trò trên là phân công; thành viên cần rà nội dung và bổ sung đóng góp thực tế của mình trước khi nộp.
+Bản này dùng bằng chứng chung của nhóm; phần việc tôi trực tiếp thực hiện được ghi ở mục *Đóng góp thực tế của tôi*.
 
 ## 1. Problem
 
@@ -86,5 +86,3 @@ Trade-off: metric ảnh dễ tính nhưng phụ thuộc texture/exposure; health
 2. Shiva Aher, *DRIVE-C: A Controlled Corruption Dataset for Autonomous Driving*, arXiv:2605.09774v1, 10/05/2026. Table 3 trang 7: baseline; trang 7–8: caveats. [PDF](<../paper/DRIVE-C A Controlled Corruption Dataset for Autonomous Driving.pdf>).
 3. [Source tag v1.0.1](https://github.com/shiv-aher/drive-c-dataset/tree/v1.0.1); [dataset DOI](https://doi.org/10.5281/zenodo.19656444).
 4. [Health từng frame](../outputs/stage3_small/per_frame.csv), [monotonicity](../outputs/stage3_small/monotonicity.csv), [log](../outputs/stage3_small/run.log), [tham số PSF](../outputs/stage3_small/corruption_parameters.json).
-
-Trước nộp: hoàn thiện MSSV nếu còn thiếu, ghi đóng góp thực tế, rà nội dung, nộp bản riêng này cùng URL repository trên VLearn và mở lại kiểm tra truy cập.

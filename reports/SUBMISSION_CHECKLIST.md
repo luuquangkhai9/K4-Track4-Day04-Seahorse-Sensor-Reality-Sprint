@@ -6,7 +6,7 @@
 | --- | --- | --- | --- |
 | Lưu Quang Khải | 2A202602599 | [Bản của Khải](2A202602599_LuuQuangKhai.md) | Đóng góp thực tế, rà nội dung |
 | Lê Hưng | Chờ bổ sung | [Bản của Hưng](LeHung.md) | MSSV, đóng góp thực tế, rà nội dung |
-| Đặng ĐỈnh Đoàn | 2A202602927 | [Bản của Đoàn](DangDinhDoan.md) | Rà nội dung |
+| Đặng ĐỈnh Đoàn | 2A202602927 | [Bản của Đoàn](2A202602927_DangDinhDoan.md) | Rà nội dung |
 | Nguyễn Hồ Nam | 2A202602788 | [Bản của Nam](2A202602788_NguyenHoNam.md) | Đóng góp thực tế, rà nội dung |
 
 Các bản đã có đủ năm mục và bằng chứng benchmark. Nội dung chung được soạn từ kết quả nhóm; mỗi người cần ghi phần thực sự đã làm, không tự nhận toàn bộ công việc hỗ trợ. MSSV còn thiếu không được tự tạo.

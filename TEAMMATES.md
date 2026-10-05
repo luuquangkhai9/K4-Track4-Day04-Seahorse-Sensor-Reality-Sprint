@@ -20,7 +20,7 @@ Thiết kế thực hiện: [BENCHMARK_DESIGN.md](docs/BENCHMARK_DESIGN.md). L�
 | --- | --- | --- |
 | Lưu Quang Khải | [reports/2A202602599_LuuQuangKhai.md](reports/2A202602599_LuuQuangKhai.md) | Cần rà và ghi đóng góp thực tế |
 | Lê Hưng | [reports/LeHung.md](reports/LeHung.md) | Cần MSSV, rà và ghi đóng góp thực tế |
-| Đặng ĐỈnh Đoàn | [reports/DangDinhDoan.md](reports/DangDinhDoan.md) | Đã có MSSV và đóng góp thực tế; cần rà nội dung |
+| Đặng ĐỈnh Đoàn | [reports/2A202602927_DangDinhDoan.md](reports/2A202602927_DangDinhDoan.md) | Đã có MSSV và đóng góp thực tế; cần rà nội dung |
 | Nguyễn Hồ Nam | [reports/2A202602788_NguyenHoNam.md](reports/2A202602788_NguyenHoNam.md) | Cần rà và ghi đóng góp thực tế |
 
 Xem [checklist nộp](reports/SUBMISSION_CHECKLIST.md). Việc chuẩn bị file chưa thay thế lượt nộp cá nhân.

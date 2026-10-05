@@ -7,7 +7,7 @@
 - Đội trưởng: Lưu Quang Khải — 2A202602599
 - Chủ đề: T1 — Camera degradation health score
 - Thiết kế chung: [BENCHMARK_DESIGN.md](docs/BENCHMARK_DESIGN.md); [File đội trưởng](01_LuuQuangKhai_2A202602599.md).
-- Cấu hình đối chiếu: [configs/benchmark.json](configs/benchmark.json), chưa tự tích hợp vào notebook.
+- Cấu hình đối chiếu: [configs/benchmark.json](configs/benchmark.json) và [configs/benchmark_small.json](configs/benchmark_small.json); `stage3_small_demo.py` đọc trực tiếp cả hai (notebook lịch sử không dùng).
 
 ## Nhiệm vụ
 
@@ -69,7 +69,7 @@ Số trong báo cáo nhóm (6 chữ số thập phân) không đổi.
 
 ## Định dạng kết quả đề xuất
 
-Demo nhỏ dùng schema của script: `benchmark_summary.csv` (1 dòng/clip, B/S/H, health f54/mean8, delta so clean, sai lệch với tác giả) và `per_frame.csv` (`sample_id`, `frame_idx`, `gshi_pred`), nối bằng `sample_id`. Schema lịch sử `phn_24_results.csv`/`phn_per_frame.csv` giữ nguyên trong `outputs/`. Lưu thêm manifest/log thực tế; không làm tròn health trước khi kiểm tra tái hiện. Tham số corruption nằm trong cột `param`.
+Demo nhỏ dùng schema của script: `benchmark_summary.csv` (1 dòng/clip, B/S/H, health f54/mean8, delta so clean, sai lệch với tác giả) và `per_frame.csv` (`sample_id`, `frame_idx`, `gshi_pred`), nối bằng `sample_id`. Schema lịch sử `phn_24_results.csv`/`phn_per_frame.csv` giữ nguyên trong `outputs/`. Lưu thêm manifest/log thực tế; không làm tròn health trước khi kiểm tra tái hiện. Tham số corruption không nằm trong CSV mà trong `corruption_parameters.json` (lấy từ `extra_json` của metadata DRIVE-C); CSV có `severity_value` và `blur_kernel_px`.
 
 Nếu có health score hoặc metric bổ sung, thêm cột và ghi rõ công thức. Không điền số giả cho kết quả chưa chạy.
 
@@ -85,7 +85,7 @@ Nếu có health score hoặc metric bổ sung, thêm cột và ghi rõ công th
 
 ## Mốc và đầu ra
 
-[Bản báo cáo riêng của Đoàn](reports/DangDinhDoan.md) đã có MSSV, phần rà khả năng chạy lại/provenance và đóng góp thực tế. Phần nói của Đoàn nằm trong [PITCH.md](reports/PITCH.md).
+[Bản báo cáo riêng của Đoàn](reports/2A202602927_DangDinhDoan.md) đã có MSSV, phần rà khả năng chạy lại/provenance và đóng góp thực tế. Phần nói của Đoàn nằm trong [PITCH.md](reports/PITCH.md).
 
 **Giai đoạn 2 đã có bằng chứng chạy CPU:** [báo cáo](docs/STAGE2_REPORT.md), [script](scripts/stage2_smoke_test.py), [manifest](outputs/stage2/run_manifest.json). Baseline thật S01 clean đạt ngưỡng tái hiện. Đặng ĐỈnh Đoàn dùng đường chạy này cho bước tiếp theo; chưa chạy mới đủ 24 clip ở giai đoạn 2. Đoàn đã tự chạy lại smoke test này trên máy riêng: [outputs/stage2_repeat/](outputs/stage2_repeat/run.log), PASS, mean8 0.221979, sai lệch với tác giả 0.00007408; ảnh frame54 trùng từng byte, health 8 frame lệch tối đa 2,4 × 10⁻⁷ so với lần chạy gốc.
 
@@ -95,7 +95,7 @@ Nếu có health score hoặc metric bổ sung, thêm cột và ghi rõ công th
 - **Trước phút 115:** Hoàn thiện hướng dẫn chạy và bản riêng.
 - File/commit bàn giao: [outputs/stage3_repeat/](outputs/stage3_repeat/run_manifest.json), [compare_runs.py](scripts/compare_runs.py), sửa [verify_submission.py](scripts/verify_submission.py); commit của Đặng ĐỈnh Đoàn trên `main` (`git log --author=Doan0904`).
 - Lỗi còn tồn tại và ảnh hưởng tới kết quả: Không có lỗi kỹ thuật. `verify_submission.py` trước đây báo lỗi link trên clone mới vì submodule `drive-c-dataset/` rỗng — đã sửa để đối chiếu link trong clone đúng commit ở `.lab_cache`; không ảnh hưởng số liệu. Python <3.12 không cài được numpy 2.5.3. Giới hạn phạm vi (1 cảnh, 3 mức) giữ như báo cáo nhóm.
-- Chuẩn bị bản nộp riêng trên VLearn: Đã ghi MSSV và đóng góp vào [bản riêng](reports/DangDinhDoan.md); còn lượt nộp VLearn.
+- Chuẩn bị bản nộp riêng trên VLearn: Đã ghi MSSV và đóng góp vào [bản riêng](reports/2A202602927_DangDinhDoan.md); còn lượt nộp VLearn.
 
 ## Nhật ký đóng góp cá nhân
 
@@ -105,9 +105,10 @@ Nếu có health score hoặc metric bổ sung, thêm cột và ghi rõ công th
 | 2026-10-05 23:55–23:57 | Chạy lại benchmark 4 clip trên CPU 4 thread, máy riêng (WSL2) | [outputs/stage3_repeat/](outputs/stage3_repeat/run.log) | PASS 4 clip/32 health; sai lệch với tác giả 0,00032299 |
 | 2026-10-05 23:58 | Viết `compare_runs.py`, so sánh với bằng chứng đã lưu | [comparison_vs_reference.json](outputs/stage3_repeat/comparison_vs_reference.json) | Ảnh/B/S/H trùng tuyệt đối; health lệch ≤2,98 × 10⁻⁷ |
 | 2026-10-05 23:58 | Sửa `verify_submission.py` cho clone mới (submodule chưa init) | [verify_submission.py](scripts/verify_submission.py), [verification.json](outputs/submission_check/verification.json) | Kiểm tra kỹ thuật PASS; còn pending thông tin cá nhân |
-| 2026-10-06 00:00 | Điền bảng cấu hình tái lập, checklist, lệnh Linux; bàn giao cho Nam | File này, [bản riêng](reports/DangDinhDoan.md) | Hoàn tất phần code/benchmark |
+| 2026-10-06 00:00 | Điền bảng cấu hình tái lập, checklist, lệnh Linux; bàn giao cho Nam | File này, [bản riêng](reports/2A202602927_DangDinhDoan.md) | Hoàn tất phần code/benchmark |
 | 2026-10-06 00:03 | Bổ sung MSSV; sửa `build_individual_reports.py` giữ lại phần đóng góp đã viết khi sinh lại báo cáo | Commit `4fc1739` | Chạy lại generator cho 4 báo cáo y hệt bản hiện tại |
 | 2026-10-06 00:05 | Chạy lại smoke test baseline S01 clean (giai đoạn 2) | [outputs/stage2_repeat/](outputs/stage2_repeat/run_manifest.json) | PASS; sai lệch với tác giả 0,00007408 |
+| 2026-10-06 | Đổi tên bản riêng theo MSSV_HọTên; cập nhật mọi liên kết, `verify_submission.py`, generator; bỏ câu nhắc việc trong bản riêng đã hoàn thiện | [2A202602927_DangDinhDoan.md](reports/2A202602927_DangDinhDoan.md) | Liên kết và kiểm tra PASS |
 
 ## Đối chiếu hoàn thành nhiệm vụ
 
@@ -119,6 +120,6 @@ Nếu có health score hoặc metric bổ sung, thêm cột và ghi rõ công th
 | 4. Chạy benchmark, lưu metric/log/ảnh | Xong | [outputs/stage2_repeat/](outputs/stage2_repeat/run.log), [outputs/stage3_repeat/](outputs/stage3_repeat/run.log) |
 | 5. Bàn giao dữ liệu và hướng dẫn chạy lại cho thành viên 4 | Xong | Lệnh Linux/WSL ở trên, [compare_runs.py](scripts/compare_runs.py); số liệu báo cáo nhóm không đổi |
 | Checklist trước bàn giao (7 mục) | Xong | Mục *Kiểm tra trước khi bàn giao* |
-| MSSV, bản riêng, đóng góp thực tế | Xong | [reports/DangDinhDoan.md](reports/DangDinhDoan.md) |
+| MSSV, bản riêng, đóng góp thực tế | Xong | [reports/2A202602927_DangDinhDoan.md](reports/2A202602927_DangDinhDoan.md) |
 | Tập pitch phần Benchmark (60 giây) | Chưa | Cần nhóm tập và bấm giờ |
 | Nộp bản riêng trên VLearn | Chưa | Đoàn tự nộp kèm URL repository |

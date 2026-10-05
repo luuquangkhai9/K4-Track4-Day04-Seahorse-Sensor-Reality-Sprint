@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-05T17:00:14.213898+00:00",
+  "checked_at": "2026-10-05T17:11:25.065129+00:00",
   "technical_evidence": "pass",
   "scope": "saved four-clip artifacts, image-derived metrics, CSV aggregation, provenance, reports and local links",
   "documents_checked": 23,
@@ -9,7 +9,6 @@
     "2A202602599_LuuQuangKhai.md: actual contribution needs confirmation",
     "LeHung.md: student ID missing",
     "LeHung.md: actual contribution needs confirmation",
-    "DangDinhDoan.md: student ID missing",
     "2A202602788_NguyenHoNam.md: actual contribution needs confirmation"
   ],
   "limitations": "Does not prove rehearsal, remote upload, access permissions or VLearn submission."

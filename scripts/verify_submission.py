@@ -77,7 +77,7 @@ def main():
         assert cv2.imread(str(out / filename)) is not None
     reports = [ROOT / 'reports' / name for name in (
         '2A202602599_LuuQuangKhai.md', 'LeHung.md',
-        'DangDinhDoan.md', '2A202602788_NguyenHoNam.md')]
+        '2A202602927_DangDinhDoan.md', '2A202602788_NguyenHoNam.md')]
     assert len(reports) == 4
     pending = []
     for report in reports:
