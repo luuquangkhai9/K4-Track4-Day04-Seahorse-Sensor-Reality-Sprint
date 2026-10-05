@@ -2,16 +2,18 @@
 
 ## Thông tin
 
-- Họ tên: [Điền]
-- Mã sinh viên: [Điền]
+- Họ tên: **Lê Hưng**
+- Mã sinh viên: [Chờ bổ sung]
 - Đội trưởng: Lưu Quang Khải — 2A202602599
 - Chủ đề: T1 — Camera degradation health score
-- Thiết kế chung: [File đội trưởng](01_Luu_Quang_Khai_Doi_truong.md)
+- Thiết kế chung: [BENCHMARK_DESIGN.md](BENCHMARK_DESIGN.md); [File đội trưởng](01_LuuQuangKhai_2A202602599.md).
 
 ## Nhiệm vụ
 
-1. Đọc tài liệu có sẵn trong repository; tìm thêm paper/repository nếu cần.
-2. Chọn 1–2 nguồn sát với failure case nhóm chốt, ưu tiên nguồn gốc và code có thể kiểm tra.
+**Phạm vi báo cáo đang thực hiện:** demo nhỏ S01 clean + motion blur s1/s2/s5; nguồn phương pháp/dữ liệu giữ nguyên. Phân biệt kết quả mới bốn clip với số paper và kết quả 24 clip lịch sử; không đưa kết luận ngày/đêm hay underexposure vào phần nhóm đo mới.
+
+1. Đọc hai nguồn đã chọn: *Safety-Critical Camera Reliability Monitoring…* (arXiv:2605.05439v1) và *DRIVE-C* (arXiv:2605.09774v1).
+2. Hoàn thiện `PAPER_CODE_MAPPING.md`: vai trò từng nguồn, health head trực tiếp so với công thức GSHI, beta/clipping, loss, taxonomy và phiên bản code thực sự chạy.
 3. Giải thích metric đo điều gì, điều gì không thể kết luận từ metric đó.
 4. Gửi thành viên 3 cách tính/thiết lập liên quan; gửi thành viên 4 nội dung trích dẫn và giới hạn.
 
@@ -37,9 +39,13 @@ Từ khóa tham khảo: `camera image quality assessment autonomous driving`, `b
 
 ## Đầu ra và bàn giao
 
-- **Trước phút 35:** Có nguồn phù hợp, cách tính metric và lưu ý cho người chạy code.
-- **Trước phút 80:** Hoàn thiện bảng nguồn, kiểm tra cách nhóm diễn giải kết quả.
-- **Trước phút 105:** Cung cấp đoạn tóm tắt và trích dẫn cho báo cáo/slide.
+Giai đoạn 4 đã soạn [bản báo cáo riêng của Hưng](reports/LeHung.md). Cần bổ sung MSSV, rà trích dẫn/đối chiếu triển khai và ghi đóng góp thực tế trước khi nộp. Phần nói của Hưng nằm trong [PITCH.md](PITCH.md).
+
+**Giai đoạn 2 đã có đầu ra chung:** [PAPER_CODE_MAPPING.md](PAPER_CODE_MAPPING.md). Lê Hưng phụ trách rà và sử dụng nội dung/trích dẫn khi viết bản riêng. File ghi nguồn là công việc hỗ trợ đã thực hiện trong repository, không tự gán toàn bộ đóng góp này cho cá nhân trước khi người đó xác nhận.
+
+- **Trước phút 45:** Bảng paper–code và cách tính metric đủ để người chạy dùng đúng nguồn.
+- **Trước phút 95:** Kiểm tra cách nhóm diễn giải bảng kết quả và limitation.
+- **Trước phút 115:** Trích dẫn/Method hoàn chỉnh cho báo cáo, hoàn thiện bản riêng.
 - File ghi chú/commit: [Điền]
 - Vấn đề cần đội trưởng quyết định: [Điền]
 

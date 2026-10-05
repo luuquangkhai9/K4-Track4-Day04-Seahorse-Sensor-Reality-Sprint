@@ -1,0 +1,27 @@
+{
+  "S01_clean": {},
+  "S01_motion_blur_s1": {
+    "severity": 0.08,
+    "ksize": 11,
+    "n_points": 11,
+    "accel": 0.06181227050214258,
+    "linear": false,
+    "psf_smooth_sigma": 0.1055931635400593
+  },
+  "S01_motion_blur_s2": {
+    "severity": 0.18,
+    "ksize": 13,
+    "n_points": 14,
+    "accel": 0.13597839513213414,
+    "linear": true,
+    "psf_smooth_sigma": 0.23141633638881304
+  },
+  "S01_motion_blur_s5": {
+    "severity": 0.75,
+    "ksize": 33,
+    "n_points": 32,
+    "accel": 0.6467527925765073,
+    "linear": false,
+    "psf_smooth_sigma": 0.9042165163174374
+  }
+}

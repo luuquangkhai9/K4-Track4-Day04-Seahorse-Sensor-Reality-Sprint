@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "purpose": "Stage-1 benchmark specification; current notebook does not load this file automatically",
+  "topic": "T1 camera degradation health score",
+  "platform": "ADAS",
+  "dataset": {
+    "name": "DRIVE-C",
+    "version_doi": "10.5281/zenodo.19656444",
+    "paired_scenarios": ["S01", "S06"],
+    "additional_clean_scenarios": ["S07", "S08"],
+    "expected_clip_count": 24,
+    "expected_frames_per_video": 128,
+    "sample_frame_indices_zero_based": [0, 18, 36, 54, 73, 91, 109, 127],
+    "primary_frame_index": 54,
+    "expected_health_rows": 192,
+    "corruption_origin": "released corrupted variants; no additional corruption applied",
+    "severity_names": ["s1", "s2", "s3", "s4", "s5"],
+    "severity_values": [0.08, 0.18, 0.35, 0.55, 0.75],
+    "motion_blur_kernel_px": [11, 13, 19, 27, 33],
+    "underexposure_delta_ev": [-0.16, -0.36, -0.70, -1.10, -1.50]
+  },
+  "model": {
+    "name": "PerceptionHealthNet",
+    "source_url": "https://github.com/shiv-aher/drive-c-dataset.git",
+    "expected_tag": "v1.0.1",
+    "expected_commit_from_saved_notebook": "caf16657b87cec8518008b74c72dd0dcb6088eb6",
+    "checkpoint": "epoch_021_best.pth",
+    "checkpoint_sha256": "c210d9a4f207584687583d1ab5b96a99e12b2f3dbb2727464c6c039e44fb8c0b",
+    "health_output": "pred_health",
+    "evaluation_mode": true,
+    "gradients": false,
+    "input": {"color": "RGB", "height": 384, "width": 1280, "resize": "INTER_AREA", "scale_divisor": 255, "layout": "CHW", "imagenet_normalization": false},
+    "clip_aggregation": "arithmetic mean of eight frame health outputs"
+  },
+  "handcrafted_metrics": {
+    "frame_index": 54,
+    "input": {"height": 720, "width": 1280, "conversion": "COLOR_RGB2GRAY", "dtype": "uint8", "pixel_range": [0, 255]},
+    "B": {"operator": "cv2.Laplacian", "ddepth": "CV_64F", "ksize": 1, "border": "BORDER_DEFAULT", "aggregation": "variance", "ddof": 0},
+    "S_pct": {"lower_inclusive": 5, "upper_inclusive": 250, "formula": "100 * mean(gray <= 5 OR gray >= 250)", "unit": "%"},
+    "H_bit": {"histogram_bins": 256, "formula": "-sum(p * log2(p)) for p > 0", "unit": "bit"}
+  },
+  "analysis": {
+    "baseline": "clean in the same scenario and frame",
+    "separate_by": ["scenario", "corruption", "frame_or_clip_aggregation"],
+    "monotonicity": "non-increasing health from s1 to s5; clean-to-s1 assessed separately",
+    "author_reproduction_max_abs_error_exclusive": 0.001,
+    "ground_truth_interpretation": "gshi_gt is severity-derived, not measured downstream reliability"
+  }
+}

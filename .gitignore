@@ -1,0 +1,6 @@
+.lab_cache/
+kaggle_work/
+tmp/
+__pycache__/
+*.pyc
+.venv/

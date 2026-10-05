@@ -1,12 +1,28 @@
 # Kế hoạch hoàn thành LAB — T1 Camera degradation health score
 
+## Phạm vi thực hiện hiện tại — demo nhỏ theo yêu cầu nhóm
+
+Nhóm yêu cầu thu nhỏ giai đoạn 3 để xác nhận tính khả thi. **Đường chạy chính hiện tại là 4 clip S01: clean + motion blur s1/s2/s5 (kernel 11/13/33 px), 32 health/frame và 4 ảnh frame 54.** Ba mức lỗi đủ phần tạo/đánh giá mức suy giảm tối thiểu của T1. Chỉ kiểm tra một cảnh, một loại lỗi; chưa suy rộng sang ngày/đêm hoặc underexposure.
+
+Dùng [configs/benchmark_small.json](configs/benchmark_small.json) và [scripts/stage3_small_demo.py](scripts/stage3_small_demo.py); kết quả mới lưu trong `outputs/stage3_small/`. Phần kế hoạch 24 clip phía dưới là thiết kế ban đầu và nguồn kết quả lịch sử, không phải yêu cầu phải chạy tiếp. Lần chạy mới của nhóm cần ưu tiên bộ nhỏ này khi viết báo cáo/pitch.
+
+Sau demo: Nam kiểm tra bảng/plot/ảnh bốn clip; Hưng rà trích dẫn và giới hạn; Đoàn bàn giao script/log; Khải tổng hợp failure/decision; bốn người viết bản riêng. Không cần chạy đủ 24 clip để hoàn thiện LAB trong phạm vi mới.
+
+**Giai đoạn 3 đã thực hiện:** PASS bốn clip/32 health-frame trên CPU, sai lệch nguồn tối đa 0,000323. B/health/entropy/ratio, ảnh và kiểm tra đơn điệu đã lưu. Xem [STAGE3_REPORT.md](STAGE3_REPORT.md). Tiếp theo hoàn thiện báo cáo/failure/decision/pitch từ bộ nhỏ.
+
+**Giai đoạn 4 đã chuẩn bị:** [ENGINEERING_DECISION.md](ENGINEERING_DECISION.md), bốn báo cáo trong `reports/`, [PITCH.md](PITCH.md) và [SUBMISSION_CHECKLIST.md](SUBMISSION_CHECKLIST.md). Xem [STAGE4_REPORT.md](STAGE4_REPORT.md). Còn hai MSSV, xác nhận đóng góp, tập pitch, chia sẻ và nộp bài; không coi chúng là đã hoàn thành.
+
 ## 1. Mục tiêu và phạm vi
 
 Nhóm Seahorse gồm **4 người**, đội trưởng **Lưu Quang Khải — 2A202602599**. Kế hoạch cập nhật sau khi đọc hai bài báo, đối chiếu source code và kết quả đã lưu, bám toàn bộ hướng dẫn LAB.
 
 Repository chung: <https://github.com/luuquangkhai9/K4-Track4-Day04-Seahorse-Sensor-Reality-Sprint>.
 
-**Đích hoàn thành:** notebook chạy được; baseline + 5 mức lỗi; health score và ba metric thủ công; CSV/log/plot/ảnh minh chứng; một failure case và một engineering decision; README, TEAMMATES, bốn báo cáo cá nhân và pitch 3–5 phút. Các checkbox chưa đánh dấu là công việc còn phải thực hiện.
+**Cập nhật giai đoạn 1:** Đã chuẩn bị [thiết kế benchmark](BENCHMARK_DESIGN.md), [cấu hình đối chiếu](configs/benchmark.json) và [TEAMMATES](TEAMMATES.md); đã đồng bộ phân công. Lê Hưng phụ trách tài liệu, Đặng ĐỈnh Đoàn phụ trách code/benchmark, Nguyễn Hồ Nam — 2A202602788 phụ trách kết quả/pitch. Giảng viên đã chấp thuận nhóm 4 người theo thông tin đội trưởng cung cấp. Chỉ còn thiếu MSSV của Hưng và Đoàn. Chi tiết kiểm kê dữ liệu/môi trường nằm trong thiết kế; chưa chạy inference mới.
+
+**Cập nhật giai đoạn 2:** Đã hoàn thiện [paper–code mapping](PAPER_CODE_MAPPING.md), xác minh source/checkpoint và chạy mới S01 clean trên CPU. Mean8 = 0,221979, sai lệch nguồn = 0,000074; forward 8 frame khoảng 3,62 giây. Đủ đường chạy tối thiểu, chưa cần Colab/Kaggle. Xem [STAGE2_REPORT.md](STAGE2_REPORT.md). Giai đoạn 3 còn tải 23 clip và chạy/kiểm tra benchmark đầy đủ.
+
+**Đích hoàn thành hiện tại:** script demo chạy được; baseline + **3 mức motion blur**; health score và ba metric thủ công; CSV/log/plot/ảnh minh chứng; một failure case và một engineering decision; README, TEAMMATES, bốn báo cáo cá nhân và pitch 3–5 phút. Các checkbox chưa đánh dấu là công việc còn phải thực hiện.
 
 **Bài toán:** Camera trên xe ADAS bị motion blur hoặc thiếu sáng; kiểm tra các metric chất lượng ảnh và health score của PerceptionHealthNet có phản ánh mức suy giảm trên cùng cảnh hay không. Tính năng liên quan là giám sát chất lượng ảnh trước nhận diện đối tượng.
 
@@ -14,7 +30,7 @@ Repository chung: <https://github.com/luuquangkhai9/K4-Track4-Day04-Seahorse-Sen
 
 Giữ **T1** làm chủ đề duy nhất. Hai loại lỗi được phân tích riêng, không trộn blur và underexposure trong cùng một điều kiện. Ưu tiên motion blur làm câu chuyện chính; underexposure là phép thử bổ sung đã có trong notebook. Dùng checkpoint phát hành cùng DRIVE-C; không huấn luyện lại trong 120 phút. Detector, early-warning benchmark, uncertainty overlay và ngưỡng ngày/đêm là phần mở rộng sau khi đủ sản phẩm tối thiểu.
 
-Hướng dẫn yêu cầu đúng 5 thành viên, 5 báo cáo và 5 lượt nộp. Nhóm thực tế có 4 người: cần xác nhận với giảng viên cách xử lý; kế hoạch chuẩn bị 4 bản thật, không tự coi yêu cầu 5 người đã được miễn và không thêm người giả.
+Giảng viên đã chấp thuận nhóm **4 người**, theo thông tin đội trưởng cung cấp. Kế hoạch thực hiện bốn báo cáo và bốn lượt nộp riêng, cùng dẫn tới repository chung.
 
 ## 2. Trạng thái hiện có và phần còn thiếu
 
@@ -27,9 +43,9 @@ Hướng dẫn yêu cầu đúng 5 thành viên, 5 báo cáo và 5 lượt nộp
 | Plot | `phn_curve.png` | Kiểm tra nhãn, bổ sung plot metric thủ công nếu cần |
 | Truy vết dữ liệu | `fetch_sha256.txt` | Ghi nguồn tải, cách chọn clip/frame; hash không thay thế dữ liệu hay ảnh minh chứng |
 | Ảnh trước/sau | Notebook có cell xuất `phn_grid.png`; chưa thấy file này ở gốc | Xuất và lưu grid hoặc cặp ảnh cùng frame |
-| Phân công | 4 file `01_...md` đến `04_...md` | Điền tên/MSSV; cập nhật Gaussian blur đề xuất cũ sang motion blur/underexposure; sửa liên kết tới tên file đội trưởng hiện tại |
+| Phân công | Đã có tên và vai trò của cả bốn người | Bổ sung MSSV của Lê Hưng và Đặng ĐỈnh Đoàn |
 | README | Đã có | Cập nhật vai trò hai bài báo và khác biệt paper–code |
-| Hồ sơ nộp | Chưa có TEAMMATES và bộ bốn báo cáo cuối cùng | Tạo danh sách thành viên, bốn bản riêng, kiểm tra repo URL và quyền truy cập |
+| Hồ sơ nộp | TEAMMATES đã có đủ bốn tên, thiếu hai MSSV; chưa có đủ bộ bốn báo cáo cuối cùng | Hoàn thiện MSSV/bản riêng, kiểm tra repo URL và quyền truy cập |
 
 Đã kiểm tra tính nhất quán CSV: trung bình 8 frame so với cột kết quả nguồn đã làm tròn có chênh lệch tối đa khoảng **0,000599**. Notebook lưu output khoảng **0,000626** khi so với metadata trước làm tròn. Hai cách kiểm tra dùng độ chính xác khác nhau; cần lưu bảng đối chiếu không làm tròn khi chạy lại. Khớp số là kiểm tra tái hiện, chưa xác nhận model đánh giá đúng sensor health.
 
@@ -144,9 +160,9 @@ Trade-off cần nêu: metric thủ công dễ tính nhưng phụ thuộc cảnh/
 
 | Gói | Người chính | Đầu ra | Điều kiện đạt |
 | --- | --- | --- | --- |
-| A — Điều phối | **Khải** | Thiết kế thống nhất, TEAMMATES, engineering decision | Có tên/MSSV thật; scope rõ; quyết định gắn số đo; xác nhận cách xử lý nhóm 4 người |
-| B — Paper/code | **Thành viên 2** | `PAPER_CODE_MAPPING.md`, trích dẫn | Mỗi claim chính có trang/bảng/file; phân biệt phương pháp và bản triển khai |
-| C — Tái hiện | **Thành viên 3** | Notebook output, CSV, manifest/log, ảnh | Truy vết được model/data/frame; kiểm tra số mẫu và tái hiện |
+| A — Điều phối | **Khải** | Thiết kế thống nhất, TEAMMATES, engineering decision | Có tên/MSSV thật; scope rõ; quyết định gắn số đo |
+| B — Paper/code | **Lê Hưng** | `PAPER_CODE_MAPPING.md`, trích dẫn | Mỗi claim chính có trang/bảng/file; phân biệt phương pháp và bản triển khai |
+| C — Tái hiện | **Đặng ĐỈnh Đoàn** | Notebook output, CSV, manifest/log, ảnh | Truy vết được model/data/frame; kiểm tra số mẫu và tái hiện |
 | D — Phân tích/pitch | **Thành viên 4** | Bảng delta, monotonicity, plot, `PITCH.md` | Số khớp CSV; hình có baseline/tham số/đơn vị; failure có ảnh |
 | E — Bản cá nhân | **Cả bốn người** | `reports/<MSSV>_<HoTen>.md` | Mỗi bản đủ năm mục, có đóng góp cá nhân và link bằng chứng chung |
 
@@ -154,9 +170,9 @@ Thành viên 2 và 4 làm song song trong khi thành viên 3 chạy code. Mỗi 
 
 ### Mốc 120 phút
 
-| Giai đoạn | Khải — đội trưởng | Thành viên 2 — nguồn | Thành viên 3 — code | Thành viên 4 — kết quả/pitch |
+| Giai đoạn | Khải — đội trưởng | Lê Hưng — nguồn | Đặng ĐỈnh Đoàn — code | Nguyễn Hồ Nam — kết quả/pitch |
 | --- | --- | --- | --- | --- |
-| 0–15: Chuẩn bị | Chốt claim, baseline, vai trò; ghi vấn đề nhóm 4 người | Kiểm tra nguồn đã có | Kiểm tra môi trường/notebook | Chuẩn bị bảng metric |
+| 0–15: Chuẩn bị | Chốt claim, baseline, vai trò; bổ sung thông tin nhân sự | Kiểm tra nguồn đã có | Kiểm tra môi trường/notebook | Chuẩn bị bảng metric |
 | 15–45: Nguồn và đường chạy | Chốt khả năng thực hiện, tránh mở rộng quá mức | Hoàn thành phiếu nguồn và trích dẫn | Setup, kiểm tra checkpoint/dữ liệu | Chuẩn bị khung 5 mục báo cáo |
 | 45–95: Thiết kế và chạy | Theo dõi tiến độ, kiểm tra đối chứng | Đối chiếu tham số, định nghĩa metric | Chạy/lưu CSV, log và ảnh | Kiểm tra CSV, plot và chênh lệch |
 | 95–115: Failure và cải tiến | Chốt engineering decision | Tách limitation nguồn/nhóm | Truy xuất mẫu và cấu hình failure | Hoàn thiện bảng/ảnh, câu chuyện trình bày |
@@ -166,7 +182,7 @@ Chia giai đoạn 45–95 thành **45–75 chạy/lưu bằng chứng**, **75–
 
 **Mốc chuyển phương án:** Nếu phút 45 chưa chạy được model vì môi trường/mạng, dùng kết quả lịch sử có nguồn gốc rõ ràng để tái tính phân tích; không mô tả là inference mới. Nếu có ảnh sạch hợp lệ, có thể chạy phép blur thủ công 3–5 mức để có benchmark mới, đặt tên riêng. Không tải toàn bộ dataset hoặc huấn luyện lại để cứu một demo quá phạm vi.
 
-Chuẩn bị khung báo cáo từ sớm để 5 phút cuối chỉ kiểm tra và tập nói. Các file phân công trước đây dùng mốc và Gaussian blur đề xuất; khi thực hiện ưu tiên lịch/cấu hình trong kế hoạch này, rồi đồng bộ lại các template.
+Chuẩn bị khung báo cáo từ sớm để 5 phút cuối chỉ kiểm tra và tập nói. Các file phân công đã được liên kết tới thiết kế giai đoạn 1; dùng cấu hình chung và lịch trong kế hoạch này khi thực hiện.
 
 ## 7. Sản phẩm cần lưu và nộp — Bước 6–7
 
@@ -175,7 +191,7 @@ Giữ tên thư mục gốc hiện tại `K4-Track4-Day04-Seahorse-Sensor-Realit
 | File/thư mục dự kiến | Nội dung bắt buộc |
 | --- | --- |
 | `README.md` | Problem, nguồn, môi trường, cách chạy, đường dẫn kết quả và giới hạn |
-| `TEAMMATES.md` ở gốc | Khải và 3 thành viên thật với họ tên/MSSV; ghi vấn đề yêu cầu 5 người và cách xử lý được giảng viên xác nhận |
+| `TEAMMATES.md` ở gốc | Họ tên/MSSV của bốn người; ghi nhận giảng viên đã chấp thuận nhóm 4 người |
 | `test-drivec.ipynb` | Code cùng output, cấu hình và kiểm tra tái hiện |
 | `phn_24_results.csv`, `phn_per_frame.csv` | Số đo và ID/frame truy vết |
 | `fetch_sha256.txt`, log chạy | Truy vết dữ liệu, commit/checkpoint/môi trường |
@@ -195,13 +211,13 @@ Pitch gợi ý **4 phút 15 giây**: Khải 30 giây problem; thành viên 2 nó
 
 ## 8. Tiêu chí hoàn thành
 
-- [ ] **40% — Benchmark:** code chạy được, có baseline/5 mức lỗi, số đo, log và ảnh/plot truy vết.
-- [ ] **25% — Failure thực tế:** chỉ đúng một mẫu lỗi, tham số, chênh lệch metric và giới hạn tác động tới tính năng.
-- [ ] **20% — Thuật toán:** giải thích input/output, phương pháp, metric và limitation từ nguồn đã đọc.
-- [ ] **15% — Trade-off:** đề xuất liên hệ số đo, nêu rủi ro cảnh báo sai và phép thử kiểm chứng tiếp theo.
-- [ ] Tách rõ **[NGUỒN]**, **[NHÓM ĐO]**, **[GIẢ THUYẾT]**; không trình bày số liệu nguồn như nhóm tự đo.
+- [x] **40% — Benchmark:** đã chuẩn bị bằng chứng demo nhỏ, baseline/3 mức lỗi, số đo, log và ảnh/plot.
+- [x] **25% — Failure thực tế:** đã viết mẫu lỗi, tham số, chênh lệch và giới hạn tác động.
+- [x] **20% — Thuật toán:** đã viết input/output, phương pháp, metric và limitation từ hai nguồn.
+- [x] **15% — Trade-off:** đã viết đề xuất liên hệ số đo và phép kiểm chứng tiếp theo.
+- [x] Đã tách **[NGUỒN]**, **[NHÓM ĐO]**, **[GIẢ THUYẾT]** trong hồ sơ. Các mục này là kiểm tra nội dung chuẩn bị, không phải điểm đã chấm.
 - [ ] README, TEAMMATES, tên/MSSV 4 người và 4 báo cáo cá nhân đầy đủ.
-- [ ] Có xác nhận cách xử lý quy mô nhóm 4 người so với yêu cầu 5 người.
+- [x] Đội trưởng đã xác nhận giảng viên chấp thuận nhóm 4 người.
 - [ ] Paper–code mapping mô tả đúng triển khai; không gán mAP, lead severity hoặc FPS của paper cho kết quả nhóm.
 - [ ] Link artifact hoạt động, không thiếu ảnh hoặc dẫn tới đường dẫn máy cá nhân trong bản nộp.
 - [ ] Repository chia sẻ có đủ kết quả, không cần đưa cache dữ liệu lớn vào Git.

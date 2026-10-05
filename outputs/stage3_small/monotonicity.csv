@@ -1,0 +1,4 @@
+metric,sampled_degraded_levels,degraded_non_increasing,including_clean_non_increasing,clean_to_s1_delta
+B,"s1,s2,s5",True,True,-3251.4432706594544
+health_f54,"s1,s2,s5",False,False,0.1272178590297699
+health_mean8,"s1,s2,s5",False,False,0.09634704887866974

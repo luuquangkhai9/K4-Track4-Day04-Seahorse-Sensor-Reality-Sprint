@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "base_config": "configs/benchmark.json",
+  "purpose": "Small stage-3 feasibility demo; replaces the 24-clip execution scope",
+  "scenario": "S01",
+  "corruption": "motion_blur",
+  "sample_ids": ["S01_clean", "S01_motion_blur_s1", "S01_motion_blur_s2", "S01_motion_blur_s5"],
+  "blur_kernels_px": [0, 11, 13, 33],
+  "severity_names": ["s0", "s1", "s2", "s5"],
+  "severity_values": [0.0, 0.08, 0.18, 0.75],
+  "expected_clip_count": 4,
+  "expected_health_rows": 32,
+  "primary_frame_index": 54,
+  "health_aggregation": "frame54 and mean8 reported separately",
+  "monotonicity_scope": "only the sampled levels s1, s2, s5; clean assessed separately",
+  "claim_limit": "One-scene feasibility and failure demonstration, not full-dataset or day-night validation"
+}

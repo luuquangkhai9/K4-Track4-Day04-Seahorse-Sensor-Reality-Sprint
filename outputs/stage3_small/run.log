@@ -1,0 +1,6 @@
+Small demo: 4 clips, 1 scene, motion blur; device=cpu
+[1/4] S01_clean: B=3544.14, health54=0.148770, mean8=0.221979, source_error=0.00007413, forward=1.83s
+[2/4] S01_motion_blur_s1: B=292.70, health54=0.275987, mean8=0.318326, source_error=0.00012882, forward=1.81s
+[3/4] S01_motion_blur_s2: B=199.49, health54=0.407456, mean8=0.356979, source_error=0.00032293, forward=1.77s
+[4/4] S01_motion_blur_s5: B=14.26, health54=0.076573, mean8=0.059943, source_error=0.00002021, forward=1.80s
+PASS: 4 clips / 32 health rows, max reproduction error=0.00032293

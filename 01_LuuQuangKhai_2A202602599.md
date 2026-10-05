@@ -6,47 +6,54 @@
 - Mã sinh viên: **2A202602599**
 - Chủ đề: **T1 — Camera degradation health score**
 - Vai trò: Chốt phạm vi, điều phối, kiểm tra bằng chứng và tổng hợp báo cáo.
-- Quy mô thực tế: **4 thành viên**. Hướng dẫn LAB yêu cầu đúng 5 người; ghi nhận khác biệt này và trao đổi với giảng viên.
-- Repository chung: [Điền URL]
+- Quy mô thực tế: **4 thành viên**, đã được giảng viên chấp thuận theo thông tin đội trưởng cung cấp.
+- Repository chung: <https://github.com/luuquangkhai9/K4-Track4-Day04-Seahorse-Sensor-Reality-Sprint>
+- Danh sách nhóm: [TEAMMATES.md](TEAMMATES.md).
+- Thiết kế chi tiết: [BENCHMARK_DESIGN.md](BENCHMARK_DESIGN.md); cấu hình đối chiếu: [benchmark.json](configs/benchmark.json).
 
 ## Thiết kế thử nghiệm chung — chốt trong phút 0–15
 
-Các giá trị bên dưới là đề xuất ban đầu, có thể cập nhật theo dữ liệu/code nhóm đang có. Sau khi chốt, cả nhóm dùng cùng cấu hình.
+**Phạm vi hiện tại sau yêu cầu thu nhỏ giai đoạn 3:** bốn clip S01 clean + motion blur s1/s2/s5, kernel 11/13/33 px; 32 health/frame, metric thủ công ở frame 54. Ưu tiên kết quả mới trong `outputs/stage3_small/`. Phần thiết kế 24 clip bên dưới giữ làm lịch sử; không yêu cầu chạy mới underexposure/S06 hoặc các mức blur khác.
+
+Thiết kế đã được ghi cụ thể ở giai đoạn 1, dựa trên notebook và kết quả đã lưu. Lần chạy tiếp theo kiểm tra tái hiện; chưa phải inference mới ở bước chuẩn bị này.
 
 | Nội dung | Thiết kế / thông tin cần điền |
 | --- | --- |
 | Nền tảng | Xe ADAS |
 | Tính năng | Giám sát chất lượng ảnh đầu vào cho nhận diện đối tượng |
 | Sensor | Camera |
-| Failure case | Ảnh nhòe do mô phỏng Gaussian blur; chưa đại diện cho mọi dạng nhòe thực tế |
-| Claim ban đầu | Khi mức Gaussian blur tăng, variance of Laplacian dự kiến giảm trên cùng ảnh gốc; đây là proxy độ sắc nét, chưa chứng minh chất lượng detector giảm |
+| Failure case | Motion blur; bổ sung underexposure trên DRIVE-C; health có thể không phản ánh nhất quán mức lỗi |
+| Claim ban đầu | Motion blur tăng → variance of Laplacian và health dự kiến giảm trên cùng cảnh/frame; kết quả đã có ngoại lệ, cần kiểm tra lại |
 | Metric chính | Variance of Laplacian trên ảnh grayscale; phương sai đáp ứng Laplacian, không phải đại lượng vật lý |
-| Quy ước tính | [Chốt thư viện, grayscale, dtype, thang pixel, resize và tham số Laplacian] |
-| Baseline | Ảnh gốc, không thêm corruption; áp dụng cùng tiền xử lý và metric |
-| Điều kiện lỗi | 3–5 mức blur; [điền kernel/sigma cụ thể], chỉ thay đổi blur |
-| Dữ liệu | [Nguồn, danh sách ảnh/frame, số lượng, giấy phép nếu có] |
-| Tổng hợp | Đo từng ảnh ở mọi mức; báo cáo trung bình và độ phân tán, kèm ví dụ ngoại lệ |
-| Health score | [Công thức, khoảng giá trị và cách chuẩn hóa]; nếu chưa xây dựng thì báo cáo metric thô và nêu rõ |
-| Metric bổ sung | [Tùy chọn: saturation ratio, entropy hoặc detector confidence; ghi công thức/đơn vị] |
+| Quy ước tính | Frame 54 gốc 1280 × 720, RGB → gray uint8; Laplacian CV_64F, ksize=1, variance ddof=0 |
+| Baseline | Clean cùng scenario/frame; cùng tiền xử lý và metric |
+| Điều kiện lỗi | Motion blur kernel 11/13/19/27/33 px; underexposure delta_ev −0,16/−0,36/−0,70/−1,10/−1,50; chạy riêng từng loại |
+| Dữ liệu | DRIVE-C: S01/S06 clean và hai loại lỗi × 5 mức, thêm S07/S08 clean; 24 clip |
+| Tổng hợp | Tách cảnh/loại lỗi; bảng frame 54; mean 8 frame cho health clip; kiểm tra đơn điệu s1–s5 riêng clean → s1 |
+| Health score | `pred_health` trực tiếp của PerceptionHealthNet, thang 0–1; không thay thế bằng nhãn gshi_gt |
+| Metric bổ sung | S_pct: % gray ≤5 hoặc ≥250; H_bit: entropy histogram 256 bin, bit; chưa đo detector |
 
 ## Phân công nhóm 4 người
 
 | Thành viên | Phụ trách chính | Đầu ra |
 | --- | --- | --- |
 | Lưu Quang Khải — 2A202602599 | Điều phối, thiết kế thử nghiệm, quyết định kỹ thuật | Bảng chốt thiết kế, báo cáo tổng hợp và đề xuất |
-| [Thành viên 2] | Paper/repository và giới hạn nguồn | Bảng nguồn, claim được hỗ trợ, giới hạn áp dụng |
-| [Thành viên 3] | Code, corruption và chạy benchmark | Code/notebook, cấu hình, lệnh chạy và log |
-| [Thành viên 4] | Kiểm tra benchmark, plot và trình bày | Bảng kết quả, hình minh chứng, slide/kịch bản |
+| Lê Hưng — MSSV chờ bổ sung | Paper/repository và giới hạn nguồn | Bảng nguồn, claim được hỗ trợ, giới hạn áp dụng |
+| Đặng ĐỈnh Đoàn — MSSV chờ bổ sung | Code, corruption và chạy benchmark | Code/notebook, cấu hình, lệnh chạy và log |
+| Nguyễn Hồ Nam — 2A202602788 | Kiểm tra benchmark, plot và trình bày | Bảng kết quả, hình minh chứng, slide/kịch bản |
 
 ## Mốc phối hợp trong 120 phút
 
 - **0–15:** Chốt thiết kế, điền tên/MSSV và phân công.
-- **15–35:** Thành viên 2 đọc nguồn; thành viên 3 chạy thử; thành viên 4 chuẩn bị bảng kết quả; đội trưởng kiểm tra phạm vi.
-- **35–80:** Chạy benchmark, lưu bằng chứng, đối chiếu metric và ghi failure case.
-- **80–105:** Tổng hợp kết quả, giới hạn và đề xuất cải tiến.
-- **105–120:** Kiểm tra sản phẩm, tập trình bày 3–5 phút và chuẩn bị bản nộp riêng.
+- **15–45:** Thành viên 2 đối chiếu hai nguồn/code; thành viên 3 setup và smoke test; Nam chuẩn bị bảng; Khải rà phạm vi.
+- **45–75:** Chạy benchmark, lưu output, log và ảnh.
+- **75–95:** Kiểm tra số liệu, plot và failure case; dừng thêm tính năng.
+- **95–115:** Hoàn thiện quyết định kỹ thuật, README và bốn báo cáo riêng.
+- **115–120:** Kiểm tra link và tập pitch 3–5 phút.
 
 ## Quyết định kỹ thuật sau khi có kết quả
+
+Đã soạn [ENGINEERING_DECISION.md](ENGINEERING_DECISION.md), [bản báo cáo riêng](reports/2A202602599_LuuQuangKhai.md) và [pitch](PITCH.md). Khải rà kết luận, ghi đóng góp thực tế và kiểm tra hồ sơ trước nộp; không điền nội dung chưa làm vào nhật ký.
 
 - Claim được hỗ trợ / không được hỗ trợ / chưa đủ bằng chứng: [Điền]
 - Bằng chứng định lượng và đường dẫn: [Điền]
