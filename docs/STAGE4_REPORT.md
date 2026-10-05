@@ -6,7 +6,7 @@
 
 - [ENGINEERING_DECISION.md](../reports/ENGINEERING_DECISION.md): failure S01 s2, quan sát/nguồn/giả thuyết, tác động đo được/suy luận, trade-off và phép thử cải tiến.
 - [Báo cáo Khải](../reports/2A202602599_LuuQuangKhai.md).
-- [Báo cáo Hưng](../reports/LeHung.md), MSSV chờ bổ sung.
+- [Báo cáo Hưng](../reports/2A202602665_LeTuanHung.md), MSSV 2A202602665.
 - [Báo cáo Đoàn](../reports/2A202602927_DangDinhDoan.md), MSSV 2A202602927.
 - [Báo cáo Nam](../reports/2A202602788_NguyenHoNam.md).
 - [PITCH.md](../reports/PITCH.md): năm lượt nói cho bốn người, phân bổ 4 phút 15 giây, Q&A và hình cần mở.

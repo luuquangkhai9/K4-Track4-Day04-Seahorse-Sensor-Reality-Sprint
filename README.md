@@ -75,7 +75,7 @@ Giới hạn: một cảnh, một loại corruption tổng hợp; frame cùng cl
 | Thành viên | Vai trò | Bản riêng |
 | --- | --- | --- |
 | Lưu Quang Khải — 2A202602599 | Đội trưởng, thiết kế và quyết định | [Khải](reports/2A202602599_LuuQuangKhai.md) |
-| Lê Hưng — MSSV chờ bổ sung | Tài liệu và đối chiếu paper–code | [Hưng](reports/LeHung.md) |
+| Lê Tuấn Hưng — 2A202602665 | Tài liệu và đối chiếu paper–code | [Hưng](reports/2A202602665_LeTuanHung.md) |
 | Đặng ĐỈnh Đoàn — 2A202602927 | Code/benchmark | [Đoàn](reports/2A202602927_DangDinhDoan.md) |
 | Nguyễn Hồ Nam — 2A202602788 | Kết quả, plot và pitch | [Nam](reports/2A202602788_NguyenHoNam.md) |
 

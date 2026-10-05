@@ -76,7 +76,7 @@ def main():
     for filename in ['image_grid.png', 'metric_curves.png']:
         assert cv2.imread(str(out / filename)) is not None
     reports = [ROOT / 'reports' / name for name in (
-        '2A202602599_LuuQuangKhai.md', 'LeHung.md',
+        '2A202602599_LuuQuangKhai.md', '2A202602665_LeTuanHung.md',
         '2A202602927_DangDinhDoan.md', '2A202602788_NguyenHoNam.md')]
     assert len(reports) == 4
     pending = []

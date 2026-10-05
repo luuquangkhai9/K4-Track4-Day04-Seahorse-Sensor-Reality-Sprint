@@ -1,6 +1,6 @@
 # Đối chiếu hai bài báo với triển khai LAB
 
-**Phụ trách trong nhóm:** Lê Hưng; Khải rà nội dung, Đặng ĐỈnh Đoàn xác minh đường chạy.  
+**Phụ trách trong nhóm:** Lê Tuấn Hưng; Khải rà soát nội dung, Đặng ĐỈnh Đoàn xác minh đường chạy.  
 **Bản source được kiểm tra:** tag `v1.0.1`, commit `caf16657b87cec8518008b74c72dd0dcb6088eb6` trong clone riêng `.lab_cache/drive-c-source`. Các file model, inference, training, GSHI, taxonomy, analysis và metadata khớp byte với bản sao `drive-c-dataset/` ở gốc tại lúc kiểm tra. Không suy ra commit nguồn từ repository nhóm.
 
 ## 1. Nguồn thực sự đã đọc

@@ -1,13 +1,13 @@
-# Báo cáo LAB cá nhân — Lê Hưng
+# Báo cáo LAB cá nhân — Lê Tuấn Hưng
 
-- **MSSV:** Chờ bổ sung trước khi nộp
+- **MSSV:** 2A202602665
 - **Nhóm:** Seahorse, 4 người
 - **Chủ đề:** T1 — Camera degradation health score; xe ADAS.
 - **Vai trò được phân công:** Tài liệu; đối chiếu paper–code và trích dẫn.
 - **Repository chung:** <https://github.com/luuquangkhai9/K4-Track4-Day04-Seahorse-Sensor-Reality-Sprint>.
 - **Phạm vi:** Demo mới 4 clip S01, không phải benchmark mới 24 clip.
 
-Bản này tổng hợp bằng chứng chung của nhóm. Vai trò trên là phân công; thành viên cần rà nội dung và bổ sung đóng góp thực tế của mình trước khi nộp.
+Bản này tổng hợp bằng chứng chung của nhóm. Phần đóng góp cá nhân bên dưới chỉ ghi các nội dung tôi đã rà soát và đối chiếu từ tài liệu, báo cáo và output đã lưu; tôi không tự nhận phần chạy benchmark hoặc viết code nếu không trực tiếp thực hiện.
 
 ## 1. Problem
 
@@ -72,7 +72,13 @@ Trade-off: metric ảnh dễ tính nhưng phụ thuộc texture/exposure; health
 
 **Góc rà soát theo vai trò cá nhân:** Phần phụ trách rà soát là vai trò hai nguồn và khác biệt triển khai. Eq. 2/10 của paper phương pháp mô tả GSHI có cấu trúc; Eq. 12 có nhánh health trực tiếp. Source inference dùng pred_health của nhánh trực tiếp, công thức nhãn có beta/clipping, và training loss phát hành khác mô tả PDF. Vì vậy bản này mô tả checkpoint baseline DRIVE-C, chưa tuyên bố tái hiện mọi bảng thí nghiệm phương pháp.
 
-**Đóng góp thực tế của tôi:** [Thành viên bổ sung việc đã thực hiện/kiểm tra và file hoặc commit tương ứng; không điền việc chưa làm.]
+**Đóng góp thực tế của tôi:**
+
+- Rà hai paper được nhóm sử dụng, đối chiếu vai trò của paper phương pháp với paper/data DRIVE-C, và ghi lại nguồn, phiên bản, phạm vi áp dụng trong [PAPER_CODE_MAPPING.md](PAPER_CODE_MAPPING.md).
+- Rà sự khác nhau giữa health head trực tiếp `pred_health`, nhãn severity-derived `gshi_gt`, công thức GSHI có beta/clipping, taxonomy và training loss của source tag `v1.0.1`.
+- Rà cách diễn giải metric `B`, `S_pct`, `H_bit`, `health_f54` và `health_mean8`; phân biệt metric proxy ảnh, output model và các kết luận không được suy ra như mAP hoặc functional safety.
+- Đọc và đối chiếu output LAB đã lưu trong [benchmark_summary.csv](../outputs/stage3_small/benchmark_summary.csv), [monotonicity.csv](../outputs/stage3_small/monotonicity.csv), [corruption_parameters.json](../outputs/stage3_small/corruption_parameters.json), [run_manifest.json](../outputs/stage3_small/run_manifest.json) và [run.log](../outputs/stage3_small/run.log), không chạy lại code.
+- Ghi failure case S01 motion blur s2 và các giới hạn của phép thử vào báo cáo cá nhân; nội dung này cần nhóm rà lại trước khi nộp.
 
 ## Nguồn và bằng chứng
 
@@ -81,4 +87,4 @@ Trade-off: metric ảnh dễ tính nhưng phụ thuộc texture/exposure; health
 3. [Source tag v1.0.1](https://github.com/shiv-aher/drive-c-dataset/tree/v1.0.1); [dataset DOI](https://doi.org/10.5281/zenodo.19656444).
 4. [Health từng frame](../outputs/stage3_small/per_frame.csv), [monotonicity](../outputs/stage3_small/monotonicity.csv), [log](../outputs/stage3_small/run.log), [tham số PSF](../outputs/stage3_small/corruption_parameters.json).
 
-Trước nộp: hoàn thiện MSSV nếu còn thiếu, ghi đóng góp thực tế, rà nội dung, nộp bản riêng này cùng URL repository trên VLearn và mở lại kiểm tra truy cập.
+Trước nộp: nhóm cần rà nội dung và xác nhận phần đóng góp, nộp bản riêng này cùng URL repository trên VLearn, rồi mở lại kiểm tra quyền truy cập và các liên kết bằng chứng.

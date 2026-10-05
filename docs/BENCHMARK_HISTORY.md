@@ -183,7 +183,7 @@ Trade-off: metric thủ công dễ tính nhưng phụ thuộc cảnh và ánh s�
 | Thành viên | Vai trò | Tài liệu công việc |
 | --- | --- | --- |
 | Lưu Quang Khải — 2A202602599 | Đội trưởng, tổng hợp và quyết định kỹ thuật | [File cá nhân](../01_LuuQuangKhai_2A202602599.md) |
-| Lê Hưng — MSSV chờ bổ sung | Đọc nguồn và kiểm tra cơ sở phương pháp | [File công việc](../02_Thanh_vien_Tai_lieu.md) |
+| Lê Tuấn Hưng — 2A202602665 | Đọc nguồn và kiểm tra cơ sở phương pháp | [File công việc](../02_Thanh_vien_Tai_lieu.md) |
 | Đặng ĐỈnh Đoàn — 2A202602927 | Code và chạy benchmark | [File công việc](../03_Thanh_vien_Code_Benchmark.md) |
 | Nguyễn Hồ Nam — 2A202602788 | Kiểm tra kết quả, plot và trình bày | [File cá nhân](../04_NguyenHoNam_2A202602788.md) |
 

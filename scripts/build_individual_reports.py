@@ -18,7 +18,7 @@ assert len(rows) == 4
 people = [
     ("2A202602599_LuuQuangKhai.md", "Lưu Quang Khải", "2A202602599", "Đội trưởng; thiết kế, điều phối và quyết định kỹ thuật",
      "Phần phụ trách rà soát là giới hạn claim và quan hệ giữa số đo với quyết định. Demo chỉ đủ xác nhận pipeline và ngoại lệ trên S01; không dùng correlation của paper để thay kết quả nhóm, không suy ra mAP hoặc hiệu quả fusion. Quyết định là log/kiểm tra mẫu bất đồng trước khi hiệu chỉnh ngưỡng down-weight, rồi thiết kế phép thử so với health-only trên tập cảnh khác."),
-    ("LeHung.md", "Lê Hưng", "Chờ bổ sung trước khi nộp", "Tài liệu; đối chiếu paper–code và trích dẫn",
+    ("2A202602665_LeTuanHung.md", "Lê Tuấn Hưng", "Chờ bổ sung trước khi nộp", "Tài liệu; đối chiếu paper–code và trích dẫn",
      "Phần phụ trách rà soát là vai trò hai nguồn và khác biệt triển khai. Eq. 2/10 của paper phương pháp mô tả GSHI có cấu trúc; Eq. 12 có nhánh health trực tiếp. Source inference dùng pred_health của nhánh trực tiếp, công thức nhãn có beta/clipping, và training loss phát hành khác mô tả PDF. Vì vậy bản này mô tả checkpoint baseline DRIVE-C, chưa tuyên bố tái hiện mọi bảng thí nghiệm phương pháp."),
     ("2A202602927_DangDinhDoan.md", "Đặng ĐỈnh Đoàn", "2A202602927", "Code; môi trường, inference và bằng chứng tái hiện",
      "Phần phụ trách rà soát là khả năng chạy lại: source riêng đúng commit, checkpoint/video đúng hash, eval/inference mode và tám frame cố định. Manifest lưu hash script, config, source, video và phiên bản thư viện; CSV lưu health chưa làm tròn. Khớp mean8 với nguồn là kiểm tra nhất quán pipeline, không xác nhận model health đúng. Giữ kết quả mới trong outputs/stage3_small, tách CSV 24 clip lịch sử."),

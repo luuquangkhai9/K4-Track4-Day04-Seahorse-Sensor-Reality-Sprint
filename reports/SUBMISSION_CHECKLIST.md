@@ -5,7 +5,7 @@
 | Người nộp | MSSV | Báo cáo Markdown | Cần bổ sung |
 | --- | --- | --- | --- |
 | Lưu Quang Khải | 2A202602599 | [Bản của Khải](2A202602599_LuuQuangKhai.md) | Đóng góp thực tế, rà nội dung |
-| Lê Hưng | Chờ bổ sung | [Bản của Hưng](LeHung.md) | MSSV, đóng góp thực tế, rà nội dung |
+| Lê Hưng | 2A202602665 | [Bản của Hưng](2A202602665_LeTuanHung.md) | MSSV, đóng góp thực tế, rà nội dung |
 | Đặng ĐỈnh Đoàn | 2A202602927 | [Bản của Đoàn](2A202602927_DangDinhDoan.md) | Rà nội dung |
 | Nguyễn Hồ Nam | 2A202602788 | [Bản của Nam](2A202602788_NguyenHoNam.md) | Đóng góp thực tế, rà nội dung |
 
@@ -24,7 +24,7 @@ Các bản đã có đủ năm mục và bằng chứng benchmark. Nội dung ch
 
 - [x] Đã kiểm tra số liệu/ảnh/bảng báo cáo và liên kết cục bộ; xem [nghiệm thu](../docs/STAGE5_REPORT.md) và [kết quả kiểm tra](../outputs/submission_check/verification.json).
 - [x] Đã bổ sung hướng dẫn CPU cho checkout mới, setup và cấu hình submodule đúng nguồn.
-- [ ] Bổ sung MSSV của Hưng vào TEAMMATES, file công việc và bản riêng tương ứng (MSSV của Đoàn đã có).
+- [x] Bổ sung MSSV của Hưng vào TEAMMATES, file công việc và bản riêng tương ứng (MSSV của Đoàn đã có).
 - [ ] Mỗi người rà bản riêng và ghi đóng góp thực tế có file/commit hỗ trợ.
 - [ ] Tập pitch và bấm giờ đạt 3–5 phút; chuẩn bị mở ảnh/CSV/log khi được hỏi.
 - [ ] Các file mới đã được chia sẻ lên repository người chấm truy cập được. Việc tạo file cục bộ chưa có nghĩa chúng đã xuất hiện trên GitHub.
