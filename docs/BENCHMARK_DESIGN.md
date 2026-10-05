@@ -7,7 +7,7 @@ Cấu hình đang thực thi: [configs/benchmark_small.json](../configs/benchmar
 **Đã chạy bộ nhỏ thành công:** [STAGE3_REPORT.md](STAGE3_REPORT.md). Metadata blur thay nhiều tham số PSF cùng severity, không chỉ kernel; xem report khi diễn giải đối chứng.
 
 **Ngày lập:** 05/10/2026 (Asia/Bangkok).  
-**Trạng thái giai đoạn 1:** Đã chuẩn bị phạm vi, cấu hình và phân công đủ bốn người; giảng viên đã chấp thuận nhóm 4 người theo thông tin đội trưởng cung cấp. Còn thiếu MSSV của Lê Hưng và Đặng ĐỈnh Đoàn. Giai đoạn 1 chưa chạy inference; baseline mới đã chạy ở giai đoạn 2, xem [STAGE2_REPORT.md](STAGE2_REPORT.md).
+**Trạng thái giai đoạn 1:** Đã chuẩn bị phạm vi, cấu hình và phân công đủ bốn người. Giai đoạn 1 chưa chạy inference; baseline mới đã chạy ở giai đoạn 2, xem [STAGE2_REPORT.md](STAGE2_REPORT.md).
 
 ## Bảng chốt trước khi chạy
 
@@ -99,6 +99,5 @@ Kiểm tra này chỉ đọc artifact, tìm module và kiểm tra hash; không p
 - [x] Kiểm kê CSV, checkpoint, dữ liệu và môi trường cục bộ.
 - [x] Nhận họ tên và phân công của Lê Hưng, Đặng ĐỈnh Đoàn.
 - [ ] Nhận MSSV của Lê Hưng và Đặng ĐỈnh Đoàn.
-- [x] Nhận thông tin giảng viên chấp thuận quy mô 4 người.
 
 Các mục nhân sự còn chờ không ngăn việc chuẩn bị kỹ thuật giai đoạn 2, nhưng phải hoàn thiện trước khi coi hồ sơ nộp đạt yêu cầu.

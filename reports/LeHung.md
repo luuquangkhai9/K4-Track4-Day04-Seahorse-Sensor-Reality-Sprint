@@ -1,7 +1,7 @@
 # Báo cáo LAB cá nhân — Lê Hưng
 
 - **MSSV:** Chờ bổ sung trước khi nộp
-- **Nhóm:** Seahorse, 4 người, được giảng viên chấp thuận theo thông tin đội trưởng.
+- **Nhóm:** Seahorse, 4 người
 - **Chủ đề:** T1 — Camera degradation health score; xe ADAS.
 - **Vai trò được phân công:** Tài liệu; đối chiếu paper–code và trích dẫn.
 - **Repository chung:** <https://github.com/luuquangkhai9/K4-Track4-Day04-Seahorse-Sensor-Reality-Sprint>.

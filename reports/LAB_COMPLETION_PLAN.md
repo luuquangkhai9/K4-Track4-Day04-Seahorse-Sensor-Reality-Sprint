@@ -1,6 +1,6 @@
 # Kế hoạch hoàn thành LAB — trạng thái cuối
 
-**Phạm vi thống nhất:** T1, xe ADAS, camera/motion blur; **4 clip S01 clean + s1/s2/s5**, không chạy lại 24 clip. Nhóm 4 người đã được giảng viên chấp thuận theo thông tin đội trưởng. Kế hoạch ban đầu được giữ trong [LAB_PLAN_HISTORY.md](../docs/LAB_PLAN_HISTORY.md).
+**Phạm vi thống nhất:** T1, xe ADAS, camera/motion blur; **4 clip S01 clean + s1/s2/s5**, không chạy lại 24 clip. Kế hoạch ban đầu được giữ trong [LAB_PLAN_HISTORY.md](../docs/LAB_PLAN_HISTORY.md).
 
 ## Các giai đoạn
 

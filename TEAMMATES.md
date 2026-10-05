@@ -10,8 +10,6 @@
 | 3 | **Đặng ĐỈnh Đoàn** | Chờ bổ sung | Môi trường, dữ liệu, inference và log tái hiện | [Đặng ĐỈnh Đoàn](03_Thanh_vien_Code_Benchmark.md) |
 | 4 | **Nguyễn Hồ Nam** | **2A202602788** | Kiểm tra CSV, plot, failure case và pitch | [Nam](04_NguyenHoNam_2A202602788.md) |
 
-**Giảng viên đã chấp thuận nhóm 4 người**, theo thông tin đội trưởng cung cấp. Nhóm chuẩn bị bốn báo cáo và bốn lượt nộp riêng. Danh sách còn thiếu MSSV của Lê Hưng và Đặng ĐỈnh Đoàn; cần bổ sung trước khi nộp.
-
 Mỗi thành viên chuẩn bị bản báo cáo riêng đủ Problem → Method → Benchmark → Failure case → Engineering decision, dẫn cùng repository và tự hoàn tất lượt nộp trên VLearn.
 
 Thiết kế thực hiện: [BENCHMARK_DESIGN.md](docs/BENCHMARK_DESIGN.md). Lịch và tiêu chí nghiệm thu: [LAB_COMPLETION_PLAN.md](reports/LAB_COMPLETION_PLAN.md).

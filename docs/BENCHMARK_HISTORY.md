@@ -25,7 +25,6 @@ Bài LAB **T1 — Camera degradation health score**: đo tác động của moti
 
 **Đội trưởng:** Lưu Quang Khải — MSSV **2A202602599**. Nhóm thực tế có **4 thành viên**, dùng chung [repository](https://github.com/luuquangkhai9/K4-Track4-Day04-Seahorse-Sensor-Reality-Sprint) và mỗi người nộp báo cáo riêng trên VLearn.
 
-Giảng viên đã chấp thuận nhóm **4 người**, theo thông tin đội trưởng cung cấp; nhóm chuẩn bị bốn bản báo cáo và bốn lượt nộp riêng.
 
 ## 1. Problem — Camera suy giảm thì health score thay đổi ra sao?
 
@@ -194,7 +193,7 @@ Giai đoạn 1 đã chốt **motion blur/underexposure của DRIVE-C** trong [th
 
 Benchmark đã có notebook output, CSV và plot. Để hoàn thành bài LAB, nhóm còn cần:
 
-- [x] Đã nhận thông tin giảng viên chấp thuận nhóm 4 người.
+
 - [ ] Bổ sung MSSV của Lê Hưng và Đặng ĐỈnh Đoàn vào `TEAMMATES.md`.
 - [x] Lưu ảnh trước/sau cùng frame trong `outputs/stage3_small/image_grid.png` và kiểm tra link.
 - [x] Đã ghi môi trường/lệnh smoke test thực tế và bảng đối chiếu paper/repository.

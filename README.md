@@ -1,6 +1,6 @@
 # Seahorse · Sensor Reality Sprint
 
-LAB **T1 — Camera degradation health score**, nền tảng xe ADAS. Nhóm kiểm tra motion blur ảnh hưởng tới metric ảnh và health score của PerceptionHealthNet trên cùng cảnh như thế nào. Giảng viên đã chấp thuận nhóm **4 người**, theo thông tin đội trưởng **Lưu Quang Khải — 2A202602599**.
+LAB **T1 — Camera degradation health score**, nền tảng xe ADAS. Nhóm kiểm tra motion blur ảnh hưởng tới metric ảnh và health score của PerceptionHealthNet trên cùng cảnh như thế nào.
 
 **Kết quả:** demo **4 clip S01**, gồm clean và motion blur s1/s2/s5, đã chạy trên CPU. Ở s2, blur score giảm **94,37%** nhưng health tăng cả tại frame54 và trung bình 8 frame. Đây là failure case về xếp hạng chất lượng trên mẫu đã thử; chưa đo detector/mAP hoặc độ an toàn ADAS.
 

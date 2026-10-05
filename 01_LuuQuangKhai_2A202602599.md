@@ -6,7 +6,7 @@
 - Mã sinh viên: **2A202602599**
 - Chủ đề: **T1 — Camera degradation health score**
 - Vai trò: Chốt phạm vi, điều phối, kiểm tra bằng chứng và tổng hợp báo cáo.
-- Quy mô thực tế: **4 thành viên**, đã được giảng viên chấp thuận theo thông tin đội trưởng cung cấp.
+- Quy mô thực tế: **4 thành viên**.
 - Repository chung: <https://github.com/luuquangkhai9/K4-Track4-Day04-Seahorse-Sensor-Reality-Sprint>
 - Danh sách nhóm: [TEAMMATES.md](TEAMMATES.md).
 - Thiết kế chi tiết: [BENCHMARK_DESIGN.md](docs/BENCHMARK_DESIGN.md); cấu hình đối chiếu: [benchmark.json](configs/benchmark.json).

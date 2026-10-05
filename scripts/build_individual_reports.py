@@ -36,7 +36,7 @@ for filename, name, student_id, role, focus in people:
     content = f"""# Báo cáo LAB cá nhân — {name}
 
 - **MSSV:** {student_id}
-- **Nhóm:** Seahorse, 4 người, được giảng viên chấp thuận theo thông tin đội trưởng.
+- **Nhóm:** Seahorse, 4 người.
 - **Chủ đề:** T1 — Camera degradation health score; xe ADAS.
 - **Vai trò được phân công:** {role}.
 - **Repository chung:** <https://github.com/luuquangkhai9/K4-Track4-Day04-Seahorse-Sensor-Reality-Sprint>.

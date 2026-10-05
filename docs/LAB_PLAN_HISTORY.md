@@ -18,7 +18,7 @@ Nhóm Seahorse gồm **4 người**, đội trưởng **Lưu Quang Khải — 2A
 
 Repository chung: <https://github.com/luuquangkhai9/K4-Track4-Day04-Seahorse-Sensor-Reality-Sprint>.
 
-**Cập nhật giai đoạn 1:** Đã chuẩn bị [thiết kế benchmark](BENCHMARK_DESIGN.md), [cấu hình đối chiếu](../configs/benchmark.json) và [TEAMMATES](../TEAMMATES.md); đã đồng bộ phân công. Lê Hưng phụ trách tài liệu, Đặng ĐỈnh Đoàn phụ trách code/benchmark, Nguyễn Hồ Nam — 2A202602788 phụ trách kết quả/pitch. Giảng viên đã chấp thuận nhóm 4 người theo thông tin đội trưởng cung cấp. Chỉ còn thiếu MSSV của Hưng và Đoàn. Chi tiết kiểm kê dữ liệu/môi trường nằm trong thiết kế; chưa chạy inference mới.
+**Cập nhật giai đoạn 1:** Đã chuẩn bị [thiết kế benchmark](BENCHMARK_DESIGN.md), [cấu hình đối chiếu](../configs/benchmark.json) và [TEAMMATES](../TEAMMATES.md); đã đồng bộ phân công. Lê Hưng phụ trách tài liệu, Đặng ĐỈnh Đoàn phụ trách code/benchmark, Nguyễn Hồ Nam — 2A202602788 phụ trách kết quả/pitch. Chi tiết kiểm kê dữ liệu/môi trường nằm trong thiết kế; chưa chạy inference mới.
 
 **Cập nhật giai đoạn 2:** Đã hoàn thiện [paper–code mapping](../reports/PAPER_CODE_MAPPING.md), xác minh source/checkpoint và chạy mới S01 clean trên CPU. Mean8 = 0,221979, sai lệch nguồn = 0,000074; forward 8 frame khoảng 3,62 giây. Đủ đường chạy tối thiểu, chưa cần Colab/Kaggle. Xem [STAGE2_REPORT.md](STAGE2_REPORT.md). Giai đoạn 3 còn tải 23 clip và chạy/kiểm tra benchmark đầy đủ.
 
@@ -30,7 +30,6 @@ Repository chung: <https://github.com/luuquangkhai9/K4-Track4-Day04-Seahorse-Sen
 
 Giữ **T1** làm chủ đề duy nhất. Hai loại lỗi được phân tích riêng, không trộn blur và underexposure trong cùng một điều kiện. Ưu tiên motion blur làm câu chuyện chính; underexposure là phép thử bổ sung đã có trong notebook. Dùng checkpoint phát hành cùng DRIVE-C; không huấn luyện lại trong 120 phút. Detector, early-warning benchmark, uncertainty overlay và ngưỡng ngày/đêm là phần mở rộng sau khi đủ sản phẩm tối thiểu.
 
-Giảng viên đã chấp thuận nhóm **4 người**, theo thông tin đội trưởng cung cấp. Kế hoạch thực hiện bốn báo cáo và bốn lượt nộp riêng, cùng dẫn tới repository chung.
 
 ## 2. Trạng thái hiện có và phần còn thiếu
 
@@ -191,7 +190,7 @@ Giữ tên thư mục gốc hiện tại `K4-Track4-Day04-Seahorse-Sensor-Realit
 | File/thư mục dự kiến | Nội dung bắt buộc |
 | --- | --- |
 | `README.md` | Problem, nguồn, môi trường, cách chạy, đường dẫn kết quả và giới hạn |
-| `TEAMMATES.md` ở gốc | Họ tên/MSSV của bốn người; ghi nhận giảng viên đã chấp thuận nhóm 4 người |
+| `TEAMMATES.md` ở gốc | Họ tên/MSSV của bốn người;
 | `test-drivec.ipynb` | Code cùng output, cấu hình và kiểm tra tái hiện |
 | `phn_24_results.csv`, `phn_per_frame.csv` | Số đo và ID/frame truy vết |
 | `fetch_sha256.txt`, log chạy | Truy vết dữ liệu, commit/checkpoint/môi trường |
@@ -217,7 +216,6 @@ Pitch gợi ý **4 phút 15 giây**: Khải 30 giây problem; thành viên 2 nó
 - [x] **15% — Trade-off:** đã viết đề xuất liên hệ số đo và phép kiểm chứng tiếp theo.
 - [x] Đã tách **[NGUỒN]**, **[NHÓM ĐO]**, **[GIẢ THUYẾT]** trong hồ sơ. Các mục này là kiểm tra nội dung chuẩn bị, không phải điểm đã chấm.
 - [ ] README, TEAMMATES, tên/MSSV 4 người và 4 báo cáo cá nhân đầy đủ.
-- [x] Đội trưởng đã xác nhận giảng viên chấp thuận nhóm 4 người.
 - [ ] Paper–code mapping mô tả đúng triển khai; không gán mAP, lead severity hoặc FPS của paper cho kết quả nhóm.
 - [ ] Link artifact hoạt động, không thiếu ảnh hoặc dẫn tới đường dẫn máy cá nhân trong bản nộp.
 - [ ] Repository chia sẻ có đủ kết quả, không cần đưa cache dữ liệu lớn vào Git.

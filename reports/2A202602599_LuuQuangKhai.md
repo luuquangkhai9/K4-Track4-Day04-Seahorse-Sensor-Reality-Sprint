@@ -1,7 +1,7 @@
 # Báo cáo LAB cá nhân — Lưu Quang Khải
 
 - **MSSV:** 2A202602599
-- **Nhóm:** Seahorse, 4 người, được giảng viên chấp thuận theo thông tin đội trưởng.
+- **Nhóm:** Seahorse, 4 người
 - **Chủ đề:** T1 — Camera degradation health score; xe ADAS.
 - **Vai trò được phân công:** Đội trưởng; thiết kế, điều phối và quyết định kỹ thuật.
 - **Repository chung:** <https://github.com/luuquangkhai9/K4-Track4-Day04-Seahorse-Sensor-Reality-Sprint>.
