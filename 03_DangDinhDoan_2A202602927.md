@@ -2,7 +2,7 @@
 
 ## Thông tin
 
-- Họ tên: **Đặng ĐỈnh Đoàn**
+- Họ tên: **Đặng Đỉnh Đoàn**
 - Mã sinh viên: **2A202602927**
 - Đội trưởng: Lưu Quang Khải — 2A202602599
 - Chủ đề: T1 — Camera degradation health score
@@ -87,13 +87,13 @@ Nếu có health score hoặc metric bổ sung, thêm cột và ghi rõ công th
 
 [Bản báo cáo riêng của Đoàn](reports/2A202602927_DangDinhDoan.md) đã có MSSV, phần rà khả năng chạy lại/provenance và đóng góp thực tế. Phần nói của Đoàn nằm trong [PITCH.md](reports/PITCH.md).
 
-**Giai đoạn 2 đã có bằng chứng chạy CPU:** [báo cáo](docs/STAGE2_REPORT.md), [script](scripts/stage2_smoke_test.py), [manifest](outputs/stage2/run_manifest.json). Baseline thật S01 clean đạt ngưỡng tái hiện. Đặng ĐỈnh Đoàn dùng đường chạy này cho bước tiếp theo; chưa chạy mới đủ 24 clip ở giai đoạn 2. Đoàn đã tự chạy lại smoke test này trên máy riêng: [outputs/stage2_repeat/](outputs/stage2_repeat/run.log), PASS, mean8 0.221979, sai lệch với tác giả 0.00007408; ảnh frame54 trùng từng byte, health 8 frame lệch tối đa 2,4 × 10⁻⁷ so với lần chạy gốc.
+**Giai đoạn 2 đã có bằng chứng chạy CPU:** [báo cáo](docs/STAGE2_REPORT.md), [script](scripts/stage2_smoke_test.py), [manifest](outputs/stage2/run_manifest.json). Baseline thật S01 clean đạt ngưỡng tái hiện. Đặng Đỉnh Đoàn dùng đường chạy này cho bước tiếp theo; chưa chạy mới đủ 24 clip ở giai đoạn 2. Đoàn đã tự chạy lại smoke test này trên máy riêng: [outputs/stage2_repeat/](outputs/stage2_repeat/run.log), PASS, mean8 0.221979, sai lệch với tác giả 0.00007408; ảnh frame54 trùng từng byte, health 8 frame lệch tối đa 2,4 × 10⁻⁷ so với lần chạy gốc.
 
 - **Trước phút 45:** Môi trường/dữ liệu sẵn sàng, baseline smoke test chạy được.
 - **Trước phút 75:** Hoàn thành benchmark, lưu code/cấu hình/log/CSV/ảnh.
 - **Trước phút 95:** Giải quyết sai lệch do Nam phát hiện; bàn giao gói bằng chứng.
 - **Trước phút 115:** Hoàn thiện hướng dẫn chạy và bản riêng.
-- File/commit bàn giao: [outputs/stage3_repeat/](outputs/stage3_repeat/run_manifest.json), [compare_runs.py](scripts/compare_runs.py), sửa [verify_submission.py](scripts/verify_submission.py); commit của Đặng ĐỈnh Đoàn trên `main` (`git log --author=Doan0904`).
+- File/commit bàn giao: [outputs/stage3_repeat/](outputs/stage3_repeat/run_manifest.json), [compare_runs.py](scripts/compare_runs.py), sửa [verify_submission.py](scripts/verify_submission.py); commit của Đặng Đỉnh Đoàn trên `main` (`git log --author=Doan0904`).
 - Lỗi còn tồn tại và ảnh hưởng tới kết quả: Không có lỗi kỹ thuật. `verify_submission.py` trước đây báo lỗi link trên clone mới vì submodule `drive-c-dataset/` rỗng — đã sửa để đối chiếu link trong clone đúng commit ở `.lab_cache`; không ảnh hưởng số liệu. Python <3.12 không cài được numpy 2.5.3. Giới hạn phạm vi (1 cảnh, 3 mức) giữ như báo cáo nhóm.
 - Chuẩn bị bản nộp riêng trên VLearn: Đã ghi MSSV và đóng góp vào [bản riêng](reports/2A202602927_DangDinhDoan.md); còn lượt nộp VLearn.
 

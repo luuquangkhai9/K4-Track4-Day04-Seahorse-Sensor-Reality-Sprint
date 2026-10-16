@@ -19,7 +19,7 @@ Kiểm tra này không thay cho cài dependency trên máy mới, diễn tập t
 
 ## Thông tin nhóm còn cần cung cấp
 
-1. MSSV của Lê Hưng và Đặng ĐỈnh Đoàn để đồng bộ TEAMMATES/README/báo cáo/file công việc.
+1. MSSV của Lê Hưng và Đặng Đỉnh Đoàn để đồng bộ TEAMMATES/README/báo cáo/file công việc.
 2. Đóng góp thực tế từng người; không tự nhận thay thành viên công việc chưa được xác nhận.
 
 Sau khi điền, chạy `python scripts/verify_submission.py --require-personal-details`. Nhóm dùng [SUBMISSION_CHECKLIST.md](../reports/SUBMISSION_CHECKLIST.md) để chia sẻ và tự nộp. Chưa thực hiện commit/push thay người dùng hoặc đăng nhập/nộp VLearn.

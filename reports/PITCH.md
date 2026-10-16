@@ -8,7 +8,7 @@
 | --- | ---: | --- | --- |
 | Lưu Quang Khải | 30 giây | Problem, claim | README / thiết kế demo |
 | Lê Tuấn Hưng | 45 giây | Method, hai nguồn | PAPER_CODE_MAPPING |
-| Đặng ĐỈnh Đoàn | 60 giây | Benchmark và tái hiện | CSV, manifest và run.log |
+| Đặng Đỉnh Đoàn | 60 giây | Benchmark và tái hiện | CSV, manifest và run.log |
 | Nguyễn Hồ Nam | 75 giây | Kết quả và failure | image_grid, metric_curves |
 | Lưu Quang Khải | 45 giây | Decision và trade-off | ENGINEERING_DECISION |
 

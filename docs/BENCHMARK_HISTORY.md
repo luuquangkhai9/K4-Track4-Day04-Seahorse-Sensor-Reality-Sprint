@@ -183,8 +183,8 @@ Trade-off: metric thủ công dễ tính nhưng phụ thuộc cảnh và ánh s�
 | Thành viên | Vai trò | Tài liệu công việc |
 | --- | --- | --- |
 | Lưu Quang Khải — 2A202602599 | Đội trưởng, tổng hợp và quyết định kỹ thuật | [File cá nhân](../01_LuuQuangKhai_2A202602599.md) |
-| Lê Tuấn Hưng — 2A202602665 | Đọc nguồn và kiểm tra cơ sở phương pháp | [File công việc](../02_Thanh_vien_Tai_lieu.md) |
-| Đặng ĐỈnh Đoàn — 2A202602927 | Code và chạy benchmark | [File công việc](../03_Thanh_vien_Code_Benchmark.md) |
+| Lê Tuấn Hưng — 2A202602665 | Đọc nguồn và kiểm tra cơ sở phương pháp | [File công việc](../02_LeTuanHung_2A202602665.md) |
+| Đặng Đỉnh Đoàn — 2A202602927 | Code và chạy benchmark | [File công việc](../03_DangDinhDoan_2A202602927.md) |
 | Nguyễn Hồ Nam — 2A202602788 | Kiểm tra kết quả, plot và trình bày | [File cá nhân](../04_NguyenHoNam_2A202602788.md) |
 
 Giai đoạn 1 đã chốt **motion blur/underexposure của DRIVE-C** trong [thiết kế benchmark](BENCHMARK_DESIGN.md) và [cấu hình đối chiếu](../configs/benchmark.json). Xem [TEAMMATES.md](../TEAMMATES.md) để biết phân công và thông tin còn thiếu. Notebook hiện chưa tự đọc file cấu hình này.
@@ -194,7 +194,7 @@ Giai đoạn 1 đã chốt **motion blur/underexposure của DRIVE-C** trong [th
 Benchmark đã có notebook output, CSV và plot. Để hoàn thành bài LAB, nhóm còn cần:
 
 
-- [ ] Bổ sung MSSV của Lê Hưng và Đặng ĐỈnh Đoàn vào `TEAMMATES.md`.
+- [ ] Bổ sung MSSV của Lê Hưng và Đặng Đỉnh Đoàn vào `TEAMMATES.md`.
 - [x] Lưu ảnh trước/sau cùng frame trong `outputs/stage3_small/image_grid.png` và kiểm tra link.
 - [x] Đã ghi môi trường/lệnh smoke test thực tế và bảng đối chiếu paper/repository.
 - [x] Lưu môi trường/log/CSV/ảnh/plot của lần chạy mới **bốn clip**, theo phạm vi demo nhỏ.

@@ -18,7 +18,7 @@ Nhóm Seahorse gồm **4 người**, đội trưởng **Lưu Quang Khải — 2A
 
 Repository chung: <https://github.com/luuquangkhai9/K4-Track4-Day04-Seahorse-Sensor-Reality-Sprint>.
 
-**Cập nhật giai đoạn 1:** Đã chuẩn bị [thiết kế benchmark](BENCHMARK_DESIGN.md), [cấu hình đối chiếu](../configs/benchmark.json) và [TEAMMATES](../TEAMMATES.md); đã đồng bộ phân công. Lê Hưng phụ trách tài liệu, Đặng ĐỈnh Đoàn phụ trách code/benchmark, Nguyễn Hồ Nam — 2A202602788 phụ trách kết quả/pitch. Chi tiết kiểm kê dữ liệu/môi trường nằm trong thiết kế; chưa chạy inference mới.
+**Cập nhật giai đoạn 1:** Đã chuẩn bị [thiết kế benchmark](BENCHMARK_DESIGN.md), [cấu hình đối chiếu](../configs/benchmark.json) và [TEAMMATES](../TEAMMATES.md); đã đồng bộ phân công. Lê Hưng phụ trách tài liệu, Đặng Đỉnh Đoàn phụ trách code/benchmark, Nguyễn Hồ Nam — 2A202602788 phụ trách kết quả/pitch. Chi tiết kiểm kê dữ liệu/môi trường nằm trong thiết kế; chưa chạy inference mới.
 
 **Cập nhật giai đoạn 2:** Đã hoàn thiện [paper–code mapping](../reports/PAPER_CODE_MAPPING.md), xác minh source/checkpoint và chạy mới S01 clean trên CPU. Mean8 = 0,221979, sai lệch nguồn = 0,000074; forward 8 frame khoảng 3,62 giây. Đủ đường chạy tối thiểu, chưa cần Colab/Kaggle. Xem [STAGE2_REPORT.md](STAGE2_REPORT.md). Giai đoạn 3 còn tải 23 clip và chạy/kiểm tra benchmark đầy đủ.
 
@@ -42,7 +42,7 @@ Giữ **T1** làm chủ đề duy nhất. Hai loại lỗi được phân tích 
 | Plot | `phn_curve.png` | Kiểm tra nhãn, bổ sung plot metric thủ công nếu cần |
 | Truy vết dữ liệu | `fetch_sha256.txt` | Ghi nguồn tải, cách chọn clip/frame; hash không thay thế dữ liệu hay ảnh minh chứng |
 | Ảnh trước/sau | Notebook có cell xuất `phn_grid.png`; chưa thấy file này ở gốc | Xuất và lưu grid hoặc cặp ảnh cùng frame |
-| Phân công | Đã có tên và vai trò của cả bốn người | Bổ sung MSSV của Lê Hưng và Đặng ĐỈnh Đoàn |
+| Phân công | Đã có tên và vai trò của cả bốn người | Bổ sung MSSV của Lê Hưng và Đặng Đỉnh Đoàn |
 | README | Đã có | Cập nhật vai trò hai bài báo và khác biệt paper–code |
 | Hồ sơ nộp | TEAMMATES đã có đủ bốn tên, thiếu hai MSSV; chưa có đủ bộ bốn báo cáo cuối cùng | Hoàn thiện MSSV/bản riêng, kiểm tra repo URL và quyền truy cập |
 
@@ -161,7 +161,7 @@ Trade-off cần nêu: metric thủ công dễ tính nhưng phụ thuộc cảnh/
 | --- | --- | --- | --- |
 | A — Điều phối | **Khải** | Thiết kế thống nhất, TEAMMATES, engineering decision | Có tên/MSSV thật; scope rõ; quyết định gắn số đo |
 | B — Paper/code | **Lê Hưng** | `PAPER_CODE_MAPPING.md`, trích dẫn | Mỗi claim chính có trang/bảng/file; phân biệt phương pháp và bản triển khai |
-| C — Tái hiện | **Đặng ĐỈnh Đoàn** | Notebook output, CSV, manifest/log, ảnh | Truy vết được model/data/frame; kiểm tra số mẫu và tái hiện |
+| C — Tái hiện | **Đặng Đỉnh Đoàn** | Notebook output, CSV, manifest/log, ảnh | Truy vết được model/data/frame; kiểm tra số mẫu và tái hiện |
 | D — Phân tích/pitch | **Thành viên 4** | Bảng delta, monotonicity, plot, `PITCH.md` | Số khớp CSV; hình có baseline/tham số/đơn vị; failure có ảnh |
 | E — Bản cá nhân | **Cả bốn người** | `reports/<MSSV>_<HoTen>.md` | Mỗi bản đủ năm mục, có đóng góp cá nhân và link bằng chứng chung |
 
@@ -169,7 +169,7 @@ Thành viên 2 và 4 làm song song trong khi thành viên 3 chạy code. Mỗi 
 
 ### Mốc 120 phút
 
-| Giai đoạn | Khải — đội trưởng | Lê Hưng — nguồn | Đặng ĐỈnh Đoàn — code | Nguyễn Hồ Nam — kết quả/pitch |
+| Giai đoạn | Khải — đội trưởng | Lê Hưng — nguồn | Đặng Đỉnh Đoàn — code | Nguyễn Hồ Nam — kết quả/pitch |
 | --- | --- | --- | --- | --- |
 | 0–15: Chuẩn bị | Chốt claim, baseline, vai trò; bổ sung thông tin nhân sự | Kiểm tra nguồn đã có | Kiểm tra môi trường/notebook | Chuẩn bị bảng metric |
 | 15–45: Nguồn và đường chạy | Chốt khả năng thực hiện, tránh mở rộng quá mức | Hoàn thành phiếu nguồn và trích dẫn | Setup, kiểm tra checkpoint/dữ liệu | Chuẩn bị khung 5 mục báo cáo |

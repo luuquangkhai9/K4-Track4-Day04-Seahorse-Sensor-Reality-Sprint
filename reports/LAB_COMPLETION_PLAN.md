@@ -27,7 +27,7 @@ Giai đoạn 5 của nhóm hoàn thiện Bước 6–7 trong hướng dẫn. Kh�
 - [x] Pitch phân vai dự kiến 4 phút 15 giây, Q&A và file minh chứng để mở.
 - [x] README ưu tiên demo nhỏ; setup riêng; cấu hình submodule và quy tắc LF giữ hash.
 - [x] Tái tính metric từ ảnh và kiểm tra toàn bộ liên kết Markdown ở gốc/reports.
-- [ ] Bổ sung MSSV của Lê Hưng (đã có MSSV của Đặng ĐỈnh Đoàn).
+- [ ] Bổ sung MSSV của Lê Hưng (đã có MSSV của Đặng Đỉnh Đoàn).
 - [ ] Mỗi thành viên xác nhận đóng góp thực tế/rà báo cáo.
 - [ ] Nhóm tập pitch, bấm giờ 3–5 phút.
 - [ ] Người dùng chia sẻ các file mới lên repo, kiểm tra truy cập.
